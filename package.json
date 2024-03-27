@@ -7,7 +7,7 @@
     "dev:h5": "pnpm -C trim-mall-app dev:h5",
     "dev:server": "pnpm -C trim-mall-server start:debug",
     "prepare": "husky",
-    "lint": "pnpm lint:code && pnpm lint:style && pnpm prettier",
+    "lint": "pnpm lint:code && pnpm prettier && pnpm lint:style",
     "lint:code": "eslint **/*.{js,ts,jsx,tsx,vue} --fix --cache --max-warnings 4096",
     "prettier": "prettier **/* --write --ignore-unknown",
     "lint:style": "stylelint **/*.{html,vue,css,sass,scss} --fix --mw 4096",
@@ -69,6 +69,9 @@
     "**/*.{css,scss,sass,vue,html}": [
       "pnpm lint:style",
       "pnpm prettier"
+    ],
+    "**/*.{json,md},*rc": [
+      "pnpm prettier --parser json"
     ]
   }
 }

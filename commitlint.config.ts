@@ -1,6 +1,7 @@
 import { RuleConfigSeverity, UserConfig } from '@commitlint/types'
 
 const config: UserConfig = {
+  ignores: [(commit) => commit.includes('init')],
   extends: ['@commitlint/config-conventional'],
   formatter: '@commitlint/format',
   rules: {
