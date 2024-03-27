@@ -6,15 +6,17 @@
   "scripts": {
     "dev:h5": "pnpm -C trim-mall-app dev:h5",
     "dev:server": "pnpm -C trim-mall-server start:debug",
+    "dev:admin": "pnpm -C trim-mall-admin dev",
     "prepare": "husky",
     "lint": "pnpm lint:code && pnpm prettier && pnpm lint:style",
-    "lint:code": "eslint **/*.{js,ts,jsx,tsx,vue} --fix --cache --max-warnings 4096",
-    "prettier": "prettier **/* --write --ignore-unknown",
-    "lint:style": "stylelint **/*.{html,vue,css,sass,scss} --fix --mw 4096",
-    "commitlint": "commitlint --edit"
+    "lint:code": "eslint --fix --cache --max-warnings 4096",
+    "prettier": "prettier --write --ignore-unknown",
+    "lint:style": "stylelint --fix --mw 4096"
   },
   "workspaces": [
-    "server"
+    "trim-mall-server",
+    "trim-mall-app",
+    "trim-mall-admin"
   ],
   "keywords": [
     "mall",
@@ -47,6 +49,7 @@
     "lint-staged": "^15.2.2",
     "postcss-html": "^1.6.0",
     "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
     "stylelint": "^16.3.1",
     "stylelint-config-clean-order": "^5.4.1",
     "stylelint-config-standard": "^36.0.0",
