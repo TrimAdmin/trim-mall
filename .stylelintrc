@@ -1,0 +1,36 @@
+{
+  "extends": ["stylelint-config-standard", "stylelint-config-standard-scss", "stylelint-config-clean-order/error"],
+  "plugins": ["stylelint-order", "stylelint-prettier"],
+  "rules": {
+    "prettier/prettier": true,
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["apply"]
+      }
+    ],
+    "selector-pseudo-element-no-unknown": [
+      true,
+      {
+        "ignorePseudoElements": ["/^view-transition/"]
+      }
+    ],
+    "no-empty-source": null,
+    "block-no-empty": true,
+    "color-no-invalid-hex": true,
+    "named-grid-areas-no-invalid": true,
+    "rule-empty-line-before": [
+      "always",
+      {
+        "ignore": ["after-comment", "first-nested"]
+      }
+    ]
+  },
+  "ignoreFiles": ["**/*.js", "**/*.jsx", "**/*.tsx", "**/*.ts", "**/*.json"],
+  "overrides": [
+    {
+      "files": ["**/*.{vue,html}"],
+      "customSyntax": "postcss-html"
+    }
+  ]
+}
