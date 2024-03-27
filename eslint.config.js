@@ -6,7 +6,7 @@ import vuePlugin from 'eslint-plugin-vue'
 
 export default [
   {
-    ignores: ['node_modules', 'dist', '.husky', '.vscode', '.idea', '.gitignore']
+    ignores: ['**/node_modules', '**/dist']
   },
   eslint.configs.recommended,
   ...tsEslint.configs.recommended,

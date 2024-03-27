@@ -1,2 +1,3 @@
 packages:
-  - server
+  - trim-mall-server
+  - trim-mall-app
