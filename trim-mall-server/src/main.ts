@@ -21,8 +21,10 @@ async function bootstrap() {
     credentials: true,
     maxAge: 1728000
   })
+  const port = process.env.APP_PORT || 3000
+  console.log(`Server running on port ${port}`)
   // 启动服务
-  await app.listen(process.env.APP_PORT || 3000)
+  await app.listen(port)
 }
 
 bootstrap()

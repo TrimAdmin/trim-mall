@@ -12,7 +12,7 @@
     "selector-pseudo-element-no-unknown": [
       true,
       {
-        "ignorePseudoElements": ["/^view-transition/"],
+        "ignorePseudoElements": ["/^view-transition/"]
       }
     ],
     "selector-pseudo-class-no-unknown": [

@@ -6,7 +6,7 @@ import { UploadCallback } from './types'
 import { v4 as uuidV4 } from 'uuid'
 
 @Injectable()
-export class QiniuService {
+export class FilesService {
   constructor(private readonly configService: ConfigService) {}
 
   ak = this.configService.get<string>('qiniu.ak')

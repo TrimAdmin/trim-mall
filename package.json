@@ -35,6 +35,10 @@
     "url": "https://github.com/TrimAdmin/trim-mall"
   },
   "license": "MIT",
+  "dependencies": {
+    "dayjs": "^1.11.10",
+    "lodash": "^4.17.21"
+  },
   "devDependencies": {
     "@commitlint/cli": "^19.2.1",
     "@commitlint/config-conventional": "^19.1.0",
@@ -42,6 +46,7 @@
     "@commitlint/types": "^19.0.3",
     "@eslint/js": "^8.57.0",
     "@types/express": "^4.17.21",
+    "@types/lodash": "^4.17.0",
     "@types/node": "^20.11.30",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
@@ -78,9 +83,5 @@
     "**/*.{json,md},*rc": [
       "pnpm prettier --parser json"
     ]
-  },
-  "dependencies": {
-    "dayjs": "^1.11.10",
-    "lodash": "^4.17.21"
   }
 }

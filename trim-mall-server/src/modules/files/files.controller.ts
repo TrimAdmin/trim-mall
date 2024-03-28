@@ -1,13 +1,13 @@
 import { Controller, Get, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common'
 import { Express } from 'express'
-import { QiniuService } from './qiniu.service'
+import { FilesService } from './files.service'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { response } from '../../utils/response'
 import { UploadCallback } from './types'
 
 @Controller('/file')
-export class QiniuController {
-  constructor(private readonly qiniuService: QiniuService) {}
+export class FilesController {
+  constructor(private readonly qiniuService: FilesService) {}
 
   @Post('/upload')
   @UseInterceptors(FileInterceptor('file'))

@@ -4,7 +4,7 @@ import { TenantMiddleware } from './middleware/tenant.middleware'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import config from './config'
 import { RedisModule } from './modules/redis/redis.module'
-import { QiniuModule } from './modules/qiniu/qiniu.module'
+import { FilesModule } from './modules/files/files.module'
 
 @Module({
   imports: [
@@ -30,8 +30,8 @@ import { QiniuModule } from './modules/qiniu/qiniu.module'
     }),
     // redis
     RedisModule,
-    // qiniu
-    QiniuModule
+    // uploader
+    FilesModule
   ]
 })
 export class AppModule implements NestModule {

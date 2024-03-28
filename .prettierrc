@@ -6,7 +6,7 @@
   "singleQuote": true,
   "arrowParens": "always",
   "vueIndentScriptAndStyle": false,
-  "endOfLine": "lf",
+  "endOfLine": "auto",
   "quoteProps": "consistent",
   "bracketSpacing": true,
   "bracketSameLine": false,
