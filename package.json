@@ -76,5 +76,9 @@
     "**/*.{json,md},*rc": [
       "pnpm prettier --parser json"
     ]
+  },
+  "dependencies": {
+    "dayjs": "^1.11.10",
+    "lodash": "^4.17.21"
   }
 }
