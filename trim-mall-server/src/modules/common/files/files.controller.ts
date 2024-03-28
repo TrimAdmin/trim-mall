@@ -2,7 +2,7 @@ import { Controller, Get, Post, Query, UploadedFile, UseInterceptors } from '@ne
 import { Express } from 'express'
 import { FilesService } from './files.service'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { response } from '../../utils/response'
+import { response } from '../../../utils/response'
 import { UploadCallback } from './types'
 
 @Controller('/file')

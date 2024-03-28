@@ -9,9 +9,9 @@ import { v4 as uuidV4 } from 'uuid'
 export class FilesService {
   constructor(private readonly configService: ConfigService) {}
 
-  ak = this.configService.get<string>('qiniu.ak')
-  sk = this.configService.get<string>('qiniu.sk')
-  bucket = this.configService.get<string>('qiniu.bucket')
+  ak = this.configService.get<string>('files.ak')
+  sk = this.configService.get<string>('files.sk')
+  bucket = this.configService.get<string>('files.bucket')
 
   // 生成凭证
   generateMac() {
@@ -71,7 +71,7 @@ export class FilesService {
         useHttpsDomain: true
       })
     )
-    const domain = this.configService.get<string>('qiniu.domain')
+    const domain = this.configService.get<string>('files.domain')
     // 1小时后过期
     const deadline = Math.floor(Date.now() / 1000) + 3600
     return bucketManager.privateDownloadUrl(domain, key, deadline)

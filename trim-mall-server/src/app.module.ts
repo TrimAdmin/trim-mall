@@ -1,33 +1,20 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
-import { TypeOrmModule } from '@nestjs/typeorm'
 import { TenantMiddleware } from './middleware/tenant.middleware'
-import { ConfigModule, ConfigService } from '@nestjs/config'
+import { ConfigModule } from '@nestjs/config'
 import config from './config'
-import { RedisModule } from './modules/redis/redis.module'
-import { FilesModule } from './modules/files/files.module'
+import { RedisModule } from './modules/common/redis/redis.module'
+import { FilesModule } from './modules/common/files/files.module'
+import { DatabaseModule } from './modules/common/database/database.module'
 
 @Module({
   imports: [
     // env
     ConfigModule.forRoot({
       load: [config],
-      envFilePath: ['.env', '.env.dev', '.env.prod', '.env.local']
+      envFilePath: ['.env', '.env.dev', '.env.prod']
     }),
     // database
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'mysql',
-        host: configService.get<string>('database.host'),
-        port: configService.get<number>('database.port'),
-        username: configService.get<string>('database.username'),
-        password: configService.get<string>('database.password'),
-        database: configService.get<string>('database.name'),
-        autoLoadEntities: true,
-        synchronize: true
-      })
-    }),
+    DatabaseModule,
     // redis
     RedisModule,
     // uploader
