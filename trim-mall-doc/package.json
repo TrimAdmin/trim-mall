@@ -1,0 +1,12 @@
+{
+  "name": "trim-mall-doc",
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "dependencies": {
+    "vitepress": "^1.0.1"
+  }
+}

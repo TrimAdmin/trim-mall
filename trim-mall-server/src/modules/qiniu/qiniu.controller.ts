@@ -14,7 +14,6 @@ export class QiniuController {
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
     try {
       const res: UploadCallback = await this.qiniuService.upload(file)
-      console.log(res.key)
       const url = await this.qiniuService.preview(res.key)
       return response.ok({
         ...res,
