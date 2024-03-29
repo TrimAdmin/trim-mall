@@ -3,9 +3,9 @@ import type { Response } from 'express'
 import { getReasonPhrase, StatusCodes } from 'http-status-codes'
 import { response } from '../utils/response'
 
-@Catch()
+@Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
-  catch(exception: HttpException | Error, host: ArgumentsHost): any {
+  catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp()
     const res = ctx.getResponse<Response>()
     // 后端返回错误码
@@ -13,13 +13,17 @@ export class HttpExceptionFilter implements ExceptionFilter {
     // 后端返回信息
     let message: string = getReasonPhrase(code)
 
+    console.log(code)
+
     if (exception instanceof HttpException) {
       const result = exception.getResponse() as any
       code = result.statusCode
       message = result.message ?? getReasonPhrase(code)
     } else {
-      message = exception.message ?? getReasonPhrase(code)
+      message = getReasonPhrase(code)
     }
+
+    console.log(res)
 
     return response.response(code, message, false)
   }

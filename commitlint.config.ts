@@ -14,7 +14,7 @@ const config: UserConfig = {
     'body-case': [RuleConfigSeverity.Error, 'always', ['lower-case', 'sentence-case']],
     'subject-empty': [RuleConfigSeverity.Error, 'never'],
     'subject-case': [RuleConfigSeverity.Error, 'always', ['lower-case', 'sentence-case']],
-    'header-case': [RuleConfigSeverity.Error, 'always', ['lower-case']],
+    'header-case': [RuleConfigSeverity.Error, 'always', ['lower-case', 'sentence-case']],
     'scope-empty': [RuleConfigSeverity.Disabled],
     'scope-case': [RuleConfigSeverity.Error, 'always', ['lower-case']]
   }

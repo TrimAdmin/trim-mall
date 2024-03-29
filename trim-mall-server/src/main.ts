@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import * as process from 'process'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
-import { INestApplication } from '@nestjs/common'
+import { HttpException, INestApplication, ValidationPipe } from '@nestjs/common'
 
 function generateDoc(app: INestApplication) {
   const swaggerConfig = new DocumentBuilder()
@@ -28,6 +28,11 @@ async function bootstrap() {
     credentials: true,
     maxAge: 1728000
   })
+  app.useGlobalPipes(
+    new ValidationPipe({
+      stopAtFirstError: true
+    })
+  )
   const port = process.env.APP_PORT || 3000
   console.log(`Server running on port ${port}`)
   // 启动服务

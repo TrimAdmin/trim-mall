@@ -1,11 +1,11 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
+import { MiddlewareConsumer, Module, NestModule, UseFilters } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import config from './config'
 import { RedisModule } from './modules/common/redis/redis.module'
 import { FilesModule } from './modules/common/files/files.module'
 import { DatabaseModule } from './modules/common/database/database.module'
 import { AdminModule } from './modules/admin/admin.module'
-import { RouterModule } from '@nestjs/core'
+import { ZoningModule } from './modules/common/zoning/zoning.module'
 
 @Module({
   imports: [
@@ -20,6 +20,8 @@ import { RouterModule } from '@nestjs/core'
     RedisModule,
     // uploader
     FilesModule,
+    // zoning
+    ZoningModule,
     AdminModule
   ]
 })

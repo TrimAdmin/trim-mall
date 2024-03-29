@@ -13,15 +13,60 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// 管理员
 model SysUser {
-  @@map("sys_user")
+  id          Int      @id @unique @default(autoincrement())
+  username    String   @unique
+  password    String
+  email       String?
+  mobilePhone String?  @map("mobile_phone")
+  nickname    String?
+  createTime  DateTime @default(now()) @map("create_time")
+  updateTime  DateTime @default(now()) @updatedAt @map("update_time")
 
-  id       Int    @id @unique @default(autoincrement())
-  username String
-  password String
-  email String?
-  mobilePhone String? @map("mobile_phone")
-  nickname String?
-  createTime DateTime @default(now()) @map("create_time")
-  updateTime DateTime @updatedAt @map("update_time")
+  @@map("sys_user")
+}
+
+// 行政区划-省
+model AddProvince {
+  code    String    @unique
+  name    String
+  AddCity AddCity[]
+
+  @@map("add_province")
+}
+
+// 行政区划-市
+model AddCity {
+  code         String      @unique
+  name         String
+  province     AddProvince @relation(fields: [provinceCode], references: [code])
+  provinceCode String
+  AddArea      AddArea[]
+
+  @@map("add_city")
+}
+
+// 行政区划-区/县
+model AddArea {
+  code         String      @unique
+  name         String
+  city         AddCity     @relation(fields: [cityCode], references: [code])
+  cityCode     String
+  provinceCode String
+  AddStreet    AddStreet[]
+
+  @@map("add_area")
+}
+
+// 行政区划-乡镇/街道
+model AddStreet {
+  code         String  @unique
+  name         String
+  area         AddArea @relation(fields: [areaCode], references: [code])
+  areaCode     String
+  provinceCode String
+  cityCode     String
+
+  @@map("add_street")
 }
