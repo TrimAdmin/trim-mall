@@ -28,8 +28,8 @@ model SysUser {
   nickname    String?  @db.VarChar(50)
   status      Status   @default(ENABLE)
   avatarKey   String?  @default("2703e23c-ff34-4573-99fb-f86ab8296e25.avatar.jpg") @map("avatar_key") @db.VarChar(500)
-  createTime  DateTime @default(now()) @map("create_time") @db.Timestamp()
-  updateTime  DateTime @default(now()) @updatedAt @map("update_time") @db.Timestamp()
+  createTime  DateTime @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
+  updateTime  DateTime @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
 
   @@map("sys_user")
 }
@@ -43,8 +43,8 @@ model SysDept {
   parentId   Int?      @default(0) @map("parent_id")
   parnetDept SysDept?  @relation("ChildDepts", fields: [parentId], references: [id])
   children   SysDept[] @relation("ChildDepts")
-  createTime DateTime  @default(now()) @map("create_time") @db.Timestamp()
-  updateTime DateTime  @default(now()) @updatedAt @map("update_time") @db.Timestamp()
+  createTime DateTime  @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
+  updateTime DateTime  @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
 
   @@map("sys_dept")
 }
@@ -56,8 +56,8 @@ model SysRole {
   sort       Int?     @default(1)
   status     Status   @default(ENABLE)
   remark     String?  @db.VarChar(200)
-  createTime DateTime @default(now()) @map("create_time") @db.Timestamp()
-  updateTime DateTime @default(now()) @updatedAt @map("update_time") @db.Timestamp()
+  createTime DateTime @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
+  updateTime DateTime @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
 
   @@map("sys_role")
 }
@@ -87,8 +87,8 @@ model SysMenu {
   parentMenu SysMenu?     @relation("ParentMenu", fields: [parentId], references: [id])
   children   SysMenu[]    @relation("ParentMenu")
   remark     String?      @db.VarChar(200)
-  createTime DateTime     @default(now()) @map("create_time") @db.Timestamp()
-  updateTime DateTime     @default(now()) @updatedAt @map("update_time") @db.Timestamp()
+  createTime DateTime     @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
+  updateTime DateTime     @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
 
   @@map("sys_menu")
 }
@@ -103,8 +103,8 @@ model SysDictType {
   status     Status        @default(ENABLE)
   remark     String?       @db.VarChar(200)
   children   SysDictData[]
-  createTime DateTime      @default(now()) @map("create_time") @db.Timestamp()
-  updateTime DateTime      @default(now()) @updatedAt @map("update_time") @db.Timestamp()
+  createTime DateTime      @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
+  updateTime DateTime      @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
 
   @@map("sys_dict_type")
 }
@@ -120,8 +120,8 @@ model SysDictData {
   value      String      @db.VarChar(200)
   status     Status      @default(ENABLE)
   remark     String?     @db.VarChar(200)
-  createTime DateTime    @default(now()) @map("create_time") @db.Timestamp()
-  updateTime DateTime    @default(now()) @updatedAt @map("update_time") @db.Timestamp()
+  createTime DateTime    @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
+  updateTime DateTime    @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
 
   @@map("sys_dict_data")
 }
