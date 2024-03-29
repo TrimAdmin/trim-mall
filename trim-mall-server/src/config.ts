@@ -10,6 +10,9 @@ type ConfigType = {
     bucket: string
     domain: string
   }
+  jwt: {
+    secret: string
+  }
 }
 
 const config: ConfigFactory<ConfigType> = () => {
@@ -26,6 +29,9 @@ const config: ConfigFactory<ConfigType> = () => {
       sk: process.env.FILES_SECRET_KEY,
       bucket: process.env.FILES_BUCKET,
       domain: process.env.FILES_DOMAIN
+    },
+    jwt: {
+      secret: process.env.JWT_SECRET
     }
   }
 }

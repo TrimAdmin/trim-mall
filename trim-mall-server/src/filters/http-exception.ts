@@ -1,30 +1,35 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException } from '@nestjs/common'
 import type { Response } from 'express'
-import { getReasonPhrase, StatusCodes } from 'http-status-codes'
 import { response } from '../utils/response'
+import { StatusCodes } from 'http-status-codes'
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: HttpException, host: ArgumentsHost) {
-    const ctx = host.switchToHttp()
-    const res = ctx.getResponse<Response>()
-    // 后端返回错误码
-    let code: StatusCodes = StatusCodes.INTERNAL_SERVER_ERROR
-    // 后端返回信息
-    let message: string = getReasonPhrase(code)
+    const res = host.switchToHttp().getResponse<Response>()
+    const status = exception.getStatus()
+    const exceptionRes = exception.getResponse() as any
+    // 获取异常信息
+    const msg =
+      typeof exceptionRes === 'string'
+        ? exceptionRes
+        : // 对校验单独处理
+          exceptionRes && exceptionRes.message.join('')
 
-    console.log(code)
-
-    if (exception instanceof HttpException) {
-      const result = exception.getResponse() as any
-      code = result.statusCode
-      message = result.message ?? getReasonPhrase(code)
+    if (msg) {
+      res.status(status).json(response.response(status, msg, false))
     } else {
-      message = getReasonPhrase(code)
+      switch (status) {
+        case StatusCodes.BAD_REQUEST:
+          res.status(status).json(response.fail())
+          break
+        case StatusCodes.INTERNAL_SERVER_ERROR:
+          res.status(status).json(response.error())
+          break
+        default:
+          res.status(status).json(response.fail())
+          break
+      }
     }
-
-    console.log(res)
-
-    return response.response(code, message, false)
   }
 }

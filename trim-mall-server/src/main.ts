@@ -3,6 +3,8 @@ import { AppModule } from './app.module'
 import * as process from 'process'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { HttpException, INestApplication, ValidationPipe } from '@nestjs/common'
+import { HttpExceptionFilter } from './filters/http-exception'
+import { UnauthorizedExceptionFilter } from './filters/unauthorized-exception'
 
 function generateDoc(app: INestApplication) {
   const swaggerConfig = new DocumentBuilder()
@@ -28,11 +30,14 @@ async function bootstrap() {
     credentials: true,
     maxAge: 1728000
   })
+  // 全局校验拦截器
   app.useGlobalPipes(
     new ValidationPipe({
       stopAtFirstError: true
     })
   )
+  // 全局拦截器
+  app.useGlobalFilters(new HttpExceptionFilter(), new UnauthorizedExceptionFilter())
   const port = process.env.APP_PORT || 3000
   console.log(`Server running on port ${port}`)
   // 启动服务

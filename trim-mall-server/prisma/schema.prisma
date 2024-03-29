@@ -21,6 +21,7 @@ model SysUser {
   email       String?
   mobilePhone String?  @map("mobile_phone")
   nickname    String?
+  avatarKey   String?  @default("2703e23c-ff34-4573-99fb-f86ab8296e25.avatar.jpg") @map("avatar_key")
   createTime  DateTime @default(now()) @map("create_time")
   updateTime  DateTime @default(now()) @updatedAt @map("update_time")
 
