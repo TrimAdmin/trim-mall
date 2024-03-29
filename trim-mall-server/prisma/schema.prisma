@@ -40,7 +40,7 @@ model SysDept {
   name       String    @db.VarChar(50)
   status     Status    @default(ENABLE)
   sort       Int?      @default(1)
-  parentId   Int?      @default(0)
+  parentId   Int?      @default(0) @map("parent_id")
   parnetDept SysDept?  @relation("ChildDepts", fields: [parentId], references: [id])
   children   SysDept[] @relation("ChildDepts")
   createTime DateTime  @default(now()) @map("create_time") @db.Timestamp()
@@ -83,7 +83,7 @@ model SysMenu {
   /// 权限标识
   permission String?      @db.VarChar(100)
   sort       Int?         @default(1)
-  parentId   Int?         @default(0)
+  parentId   Int?         @default(0) @map("parent_id")
   parentMenu SysMenu?     @relation("ParentMenu", fields: [parentId], references: [id])
   children   SysMenu[]    @relation("ParentMenu")
   remark     String?      @db.VarChar(200)
@@ -102,7 +102,7 @@ model SysDictType {
   code       String        @unique @db.VarChar(200)
   status     Status        @default(ENABLE)
   remark     String?       @db.VarChar(200)
-  dataList   SysDictData[]
+  children   SysDictData[]
   createTime DateTime      @default(now()) @map("create_time") @db.Timestamp()
   updateTime DateTime      @default(now()) @updatedAt @map("update_time") @db.Timestamp()
 
@@ -112,7 +112,7 @@ model SysDictType {
 // 管理后台-数据字典数据
 model SysDictData {
   id         Int         @id @unique @default(autoincrement())
-  typeId     Int
+  typeId     Int         @map("type_id")
   type       SysDictType @relation(fields: [typeId], references: [id])
   /// 字典名称
   name       String      @unique @db.VarChar(200)
@@ -122,6 +122,8 @@ model SysDictData {
   remark     String?     @db.VarChar(200)
   createTime DateTime    @default(now()) @map("create_time") @db.Timestamp()
   updateTime DateTime    @default(now()) @updatedAt @map("update_time") @db.Timestamp()
+
+  @@map("sys_dict_data")
 }
 
 // 行政区划-省
