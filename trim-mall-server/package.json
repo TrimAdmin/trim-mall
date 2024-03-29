@@ -12,7 +12,7 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "migration": "pnpm dlx prisma db push"
+    "migration": "pnpm dlx prisma db push && prisma generate"
   },
   "dependencies": {
     "@nestjs/cache-manager": "^2.2.2",
