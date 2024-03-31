@@ -18,18 +18,24 @@ enum Status {
   DISABLE
 }
 
+enum SysMenuType {
+  MENU
+  BUTTON
+}
+
 // 管理后台-用户
 model SysUser {
-  id          Int      @id @unique @default(autoincrement())
-  username    String   @unique @db.VarChar(50)
-  password    String   @db.VarChar(255)
-  email       String?  @db.VarChar(255)
-  mobilePhone String?  @map("mobile_phone") @db.VarChar(50)
-  nickname    String?  @db.VarChar(50)
-  status      Status   @default(ENABLE)
-  avatarKey   String?  @default("2703e23c-ff34-4573-99fb-f86ab8296e25.avatar.jpg") @map("avatar_key") @db.VarChar(500)
-  createTime  DateTime @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
-  updateTime  DateTime @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
+  id          Int           @id @unique @default(autoincrement())
+  username    String        @unique @db.VarChar(50)
+  password    String        @db.VarChar(255)
+  email       String?       @db.VarChar(255)
+  mobilePhone String?       @map("mobile_phone") @db.VarChar(50)
+  nickname    String?       @db.VarChar(50)
+  status      Status        @default(ENABLE)
+  avatarKey   String?       @default("2703e23c-ff34-4573-99fb-f86ab8296e25.avatar.jpg") @map("avatar_key") @db.VarChar(500)
+  createTime  DateTime      @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
+  updateTime  DateTime      @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
+  userRole    SysUserRole[]
 
   @@map("sys_user")
 }
@@ -51,46 +57,70 @@ model SysDept {
 
 // 管理后台-角色
 model SysRole {
-  id         Int      @id @unique @default(autoincrement())
-  name       String   @db.VarChar(50)
-  sort       Int?     @default(1)
-  status     Status   @default(ENABLE)
-  remark     String?  @db.VarChar(200)
-  createTime DateTime @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
-  updateTime DateTime @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
+  id         Int           @id @unique @default(autoincrement())
+  name       String        @db.VarChar(50)
+  sort       Int?          @default(1)
+  status     Status        @default(ENABLE)
+  remark     String?       @db.VarChar(200)
+  createTime DateTime      @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
+  updateTime DateTime      @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
+  userRole   SysUserRole[]
+  roleMenu   SysRoleMenu[]
 
   @@map("sys_role")
 }
 
-enum SysMenuType {
-  MENU
-  BUTTON
+// 管理后台-用户角色
+model SysUserRole {
+  id         Int      @id @unique @default(autoincrement())
+  user       SysUser  @relation(fields: [userId], references: [id])
+  userId     Int
+  role       SysRole  @relation(fields: [roleId], references: [id])
+  roleId     Int
+  createTime DateTime @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
+  updateTime DateTime @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
+
+  @@map("sys_user_role")
 }
 
 // 管理后台-菜单
 model SysMenu {
-  id         Int          @id @unique @default(autoincrement())
+  id         Int           @id @unique @default(autoincrement())
   /// 路由名称
-  name       String       @db.VarChar(200)
+  name       String        @db.VarChar(200)
   /// 路由路径
-  path       String?      @db.VarChar(500)
+  path       String?       @db.VarChar(500)
   /// 组件路径
-  component  String?      @db.VarChar(500)
+  component  String?       @db.VarChar(500)
   /// 包含title、icon、show、keepAlive等属性
   meta       Json?
   type       SysMenuType?
-  status     Status       @default(ENABLE)
+  status     Status        @default(ENABLE)
   /// 权限标识
-  permission String?      @db.VarChar(100)
-  sort       Int?         @default(1)
-  parentId   Int?         @default(0) @map("parent_id")
-  parentMenu SysMenu?     @relation("ParentMenu", fields: [parentId], references: [id])
-  children   SysMenu[]    @relation("ParentMenu")
-  remark     String?      @db.VarChar(200)
-  createTime DateTime     @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
-  updateTime DateTime     @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
+  permission String?       @db.VarChar(100)
+  sort       Int?          @default(1)
+  parentId   Int?          @default(0) @map("parent_id")
+  parentMenu SysMenu?      @relation("ParentMenu", fields: [parentId], references: [id])
+  children   SysMenu[]     @relation("ParentMenu")
+  remark     String?       @db.VarChar(200)
+  createTime DateTime      @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
+  updateTime DateTime      @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
+  roleMenu   SysRoleMenu[]
 
   @@map("sys_menu")
+}
+
+// 管理后台-角色菜单
+model SysRoleMenu {
+  id         Int      @id @unique @default(autoincrement())
+  role       SysRole  @relation(fields: [roleId], references: [id])
+  menu       SysMenu  @relation(fields: [menuId], references: [id])
+  roleId     Int
+  menuId     Int
+  createTime DateTime @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
+  updateTime DateTime @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
+
+  @@map("sys_role_menu")
 }
 
 // 管理后台-数据字典
@@ -128,9 +158,9 @@ model SysDictData {
 
 // 行政区划-省
 model AddProvince {
-  code    String    @unique
-  name    String
-  chilren AddCity[]
+  code     String    @unique
+  name     String
+  children AddCity[]
 
   @@map("add_province")
 }
@@ -141,7 +171,7 @@ model AddCity {
   name         String
   province     AddProvince @relation(fields: [provinceCode], references: [code])
   provinceCode String
-  chilren      AddArea[]
+  children     AddArea[]
 
   @@map("add_city")
 }
@@ -153,7 +183,7 @@ model AddArea {
   city         AddCity     @relation(fields: [cityCode], references: [code])
   cityCode     String
   provinceCode String
-  chilren      AddStreet[]
+  children     AddStreet[]
 
   @@map("add_area")
 }
@@ -162,7 +192,7 @@ model AddArea {
 model AddStreet {
   code         String  @unique
   name         String
-  area         AddArea @relation(fields: [areaCode], references: [code])
+  children     AddArea @relation(fields: [areaCode], references: [code])
   areaCode     String
   provinceCode String
   cityCode     String

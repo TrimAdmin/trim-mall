@@ -10,9 +10,9 @@ export class ZoningService {
   async getTree() {
     return await this.prisma.addProvince.findMany({
       include: {
-        AddCity: {
+        children: {
           include: {
-            AddArea: true
+            children: true
           }
         }
       }

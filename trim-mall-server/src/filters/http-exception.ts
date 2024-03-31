@@ -14,7 +14,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
       typeof exceptionRes === 'string'
         ? exceptionRes
         : // 对校验单独处理
-          exceptionRes && exceptionRes.message.join('')
+          exceptionRes && Array.isArray(exceptionRes.message)
+          ? exceptionRes.message.join('')
+          : exceptionRes.message
 
     if (msg) {
       res.status(status).json(response.response(status, msg, false))

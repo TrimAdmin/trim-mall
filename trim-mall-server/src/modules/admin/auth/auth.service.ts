@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common'
+import { Header, HttpException, Injectable } from '@nestjs/common'
 import { LoginDto } from './dto/login.dto'
 import { UserService } from '../user/user.service'
 import { compare, hash } from 'bcrypt'
@@ -35,6 +35,18 @@ export class AuthService {
       const secret = this.configService.get<string>('jwt.secret')
       const token = await this.jwtService.signAsync(payload, { secret })
       return Promise.resolve(token)
+    } catch (e) {
+      throw new HttpException(e, StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+  }
+
+  // 获取当前用户信息
+  async getUserInfo(token: string) {
+    try {
+      const secret = this.configService.get<string>('jwt.secret')
+      const payload = await this.jwtService.verifyAsync(token, { secret })
+      const user = await this.userService.findOneById(payload.sub)
+      return Promise.resolve(user)
     } catch (e) {
       throw new HttpException(e, StatusCodes.INTERNAL_SERVER_ERROR)
     }
