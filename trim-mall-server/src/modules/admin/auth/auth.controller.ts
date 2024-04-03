@@ -18,7 +18,7 @@ export class AuthController {
     return response.ok(token)
   }
 
-  @Get()
+  @Get('user-info')
   @ApiOperation({ summary: '获取用户信息' })
   async getUserInfo(@Headers() headers: { token: string }) {
     const { token } = headers

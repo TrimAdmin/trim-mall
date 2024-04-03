@@ -54,6 +54,7 @@ export class UserService {
         id
       },
       select: {
+        id: true,
         username: true,
         email: true,
         mobilePhone: true,

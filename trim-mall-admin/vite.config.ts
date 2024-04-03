@@ -1,5 +1,4 @@
-import { ConfigEnv, UserConfig, loadEnv } from 'vite'
-import { viteMockServe } from 'vite-plugin-mock'
+import { ConfigEnv, loadEnv, UserConfig } from 'vite'
 import createVuePlugin from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import svgLoader from 'vite-svg-loader'
@@ -18,7 +17,17 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         '@': path.resolve(__dirname, './src')
       }
     },
-
+    server: {
+      port: 7299,
+      // 代理api
+      proxy: {
+        '/proxyApi': {
+          target: loadEnv(mode, process.cwd()).VITE_API_BASE_URL,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/proxyApi/, '')
+        }
+      }
+    },
     css: {
       preprocessorOptions: {
         less: {
@@ -31,22 +40,6 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       }
     },
 
-    plugins: [
-      createVuePlugin(),
-      vueJsx(),
-      viteMockServe({
-        mockPath: 'mock',
-        localEnabled: true
-      }),
-      svgLoader()
-    ],
-
-    server: {
-      port: 3002,
-      host: '0.0.0.0',
-      proxy: {
-        '/api': 'http://127.0.0.1:3000/'
-      }
-    }
+    plugins: [createVuePlugin(), vueJsx(), svgLoader()]
   }
 }

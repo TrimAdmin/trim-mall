@@ -15,7 +15,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
         ? exceptionRes
         : // 对校验单独处理
           exceptionRes && Array.isArray(exceptionRes.message)
-          ? exceptionRes.message.join('')
+          ? exceptionRes.message[0]
           : exceptionRes.message
 
     if (msg) {
