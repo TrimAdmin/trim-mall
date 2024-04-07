@@ -1,94 +1,84 @@
-import { defineStore } from 'pinia'
-import { TOKEN_NAME } from '@/config/global'
-import { store, usePermissionStore } from '@/store'
+import useSettingsStore from './settings'
+import useRouteStore from './route'
+import useMenuStore from './menu'
+import router from '@/router'
+import apiUser from '@/api/modules/user'
 
-const InitUserInfo = {
-  roles: []
-}
+const useUserStore = defineStore(
+  // 唯一ID
+  'user',
+  () => {
+    const settingsStore = useSettingsStore()
+    const routeStore = useRouteStore()
+    const menuStore = useMenuStore()
 
-export const useUserStore = defineStore('user', {
-  state: () => ({
-    token: localStorage.getItem(TOKEN_NAME) || 'main_token', // 默认token不走权限
-    userInfo: { ...InitUserInfo }
-  }),
-  getters: {
-    roles: (state) => {
-      return state.userInfo?.roles
+    const account = ref(localStorage.account ?? '')
+    const token = ref(localStorage.token ?? '')
+    const avatar = ref(localStorage.avatar ?? '')
+    const permissions = ref<string[]>([])
+    const isLogin = computed(() => {
+      if (token.value) {
+        return true
+      }
+      return false
+    })
+
+    // 登录
+    async function login(data: {
+      account: string
+      password: string
+    }) {
+      const res = await apiUser.login(data)
+      localStorage.setItem('account', res.data.account)
+      localStorage.setItem('token', res.data.token)
+      localStorage.setItem('avatar', res.data.avatar)
+      account.value = res.data.account
+      token.value = res.data.token
+      avatar.value = res.data.avatar
+    }
+    // 登出
+    async function logout(redirect = router.currentRoute.value.fullPath) {
+      localStorage.removeItem('account')
+      localStorage.removeItem('token')
+      localStorage.removeItem('avatar')
+      account.value = ''
+      token.value = ''
+      avatar.value = ''
+      permissions.value = []
+      routeStore.removeRoutes()
+      menuStore.setActived(0)
+      router.push({
+        name: 'login',
+        query: {
+          ...(router.currentRoute.value.path !== settingsStore.settings.home.fullPath && router.currentRoute.value.name !== 'login' && { redirect }),
+        },
+      })
+    }
+    // 获取权限
+    async function getPermissions() {
+      const res = await apiUser.permission()
+      permissions.value = res.data.permissions
+    }
+    // 修改密码
+    async function editPassword(data: {
+      password: string
+      newpassword: string
+    }) {
+      await apiUser.passwordEdit(data)
+    }
+
+    return {
+      account,
+      token,
+      avatar,
+      permissions,
+      isLogin,
+      login,
+      logout,
+      getPermissions,
+      editPassword,
     }
   },
-  actions: {
-    async login(userInfo: Record<string, unknown>) {
-      const mockLogin = async (userInfo: Record<string, unknown>) => {
-        // 登录请求流程
-        console.log(userInfo)
-        // const { account, password } = userInfo;
-        // if (account !== 'td') {
-        //   return {
-        //     code: 401,
-        //     message: '账号不存在',
-        //   };
-        // }
-        // if (['main_', 'dev_'].indexOf(password) === -1) {
-        //   return {
-        //     code: 401,
-        //     message: '密码错误',
-        //   };
-        // }
-        // const token = {
-        //   main_: 'main_token',
-        //   dev_: 'dev_token',
-        // }[password];
-        return {
-          code: 200,
-          message: '登陆成功',
-          data: 'main_token'
-        }
-      }
+)
 
-      const res = await mockLogin(userInfo)
-      if (res.code === 200) {
-        this.token = res.data
-      } else {
-        throw res
-      }
-    },
-    async getUserInfo() {
-      const mockRemoteUserInfo = async (token: string) => {
-        if (token === 'main_token') {
-          return {
-            name: 'td_main',
-            roles: ['all']
-          }
-        }
-        return {
-          name: 'td_dev',
-          roles: ['UserIndex', 'DashboardBase', 'login']
-        }
-      }
-
-      const res = await mockRemoteUserInfo(this.token)
-
-      this.userInfo = res
-    },
-    async logout() {
-      localStorage.removeItem(TOKEN_NAME)
-      this.token = ''
-      this.userInfo = { ...InitUserInfo }
-    },
-    async removeToken() {
-      this.token = ''
-    }
-  },
-  persist: {
-    afterRestore: (ctx) => {
-      if (ctx.store.roles && ctx.store.roles.length > 0) {
-        const permissionStore = usePermissionStore()
-        permissionStore.initRoutes(ctx.store.roles)
-      }
-    }
-  }
-})
-
-export function getUserStore() {
-  return useUserStore(store)
-}
+export default useUserStore

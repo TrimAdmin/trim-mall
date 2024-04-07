@@ -1,94 +1,117 @@
-<p style="display:flex; justify-content: center">
-
-</p>
 <p align="center">
-  <a href="https://tdesign.tencent.com/starter/vue-next/#/dashboard/base" target="_blank">
-    <img alt="TDesign Logo" width="200" src="https://tdesign.gtimg.com/starter/brand-logo.svg">
-  </a>
+  <img src="https://fantastic-admin.github.io/logo.png" width="200" height="200" />
 </p>
+
+<h1 align="center">Fantastic-admin</h1>
+
+<p align="center">一款<b>开箱即用</b>的 Vue3 中后台管理系统框架</p>
 
 <p align="center">
-  <a href="https://nodejs.org/en/about/releases/"><img src="https://img.shields.io/node/v/vite.svg" alt="node compatility"></a>
-  <a href="https://github.com/Tencent/tdesign-vue-next/blob/develop/LICENSE">
-    <img src="https://img.shields.io/npm/l/tdesign-vue-next.svg?sanitize=true" alt="License">
-  </a>
-</p>
-
-English | [简体中文](./README-zh_CN.md) 
-### Introduction
-
-TDesign Vue Next Starter is a TDesign-based developed with `Vue3`, `Vite2`, `Pinia`, `TypeScript`. It can be customized theme configuration, and aims to provide project out-of-the-box, configuration-style middle and background projects.
-
+  <a href="https://fantastic-admin.github.io" target="_blank">官网</a>
+  <sup><a href="https://fantastic-admin.gitee.io" target="_blank">备用地址</a></sup>
+  <span>&nbsp;|&nbsp;</span>
+  <a href="https://fantastic-admin.github.io/support.html" target="_blank">技术支持</a>
+  <span>&nbsp;|&nbsp;</span>
+  演示
+  <sup><a href="https://fantastic-admin.github.io/basic-example" target="_blank">基础版</a> <a href="https://fantastic-admin.github.io/pro-example" target="_blank">专业版</a></sup>
+  <span>&nbsp;|&nbsp;</span>
+  购买
+  <sup><a href="https://fantastic-admin.github.io/buy.html" target="_blank">专业版</a></sup>
 <p>
-  <a href="http://tdesign.tencent.com/starter/vue-next/">Live Preview</a>
-  ·
-  <a href="https://tdesign.tencent.com/starter/">Documentation</a>
+
+<p align="center">
+  <a href="###"><img src="https://img.shields.io/github/license/fantastic-admin/basic?label=%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE&style=flat-square" /></a>
+  <a href="https://github.com/fantastic-admin/basic/releases" target="_blank"><img src="https://img.shields.io/github/v/release/fantastic-admin/basic?label=%E5%BD%93%E5%89%8D%E7%89%88%E6%9C%AC&style=flat-square" /></a>
 </p>
 
-<img src="docs/starter.png">
+## 特点
 
-### Features
+- 可自由替换 UI 组件库，默认使用 Element Plus
+- 丰富的布局与主题，覆盖市面上各种中后台应用场景，兼容PC、平板和移动端
+- 提供系统配置文件，轻松实现个性化定制
+- 根据路由配置自动生成导航栏
+- 基于文件系统的路由
+- 支持全方位权限验证
+- 内置多级路由最佳缓存方案
+- 轻松实现国际化多语言适配
+- 提供接近于浏览器原生标签栏操作体验的标签页功能
 
-- Various provided pages for develop
-- Complete directory structure for develop
-- Code specification configuration
-- Support dark mode
-- Custom theme colors
-- Various space layouts
-- Mock data scheme
+## 下载
 
-### Usage
+> 本仓库为基础版
 
-> Initialize project with our CLI tool `tdesign-starter-cli` 
+**直接拉取源码可能会包含未发布的内容，推荐去 [Github Releases](https://github.com/fantastic-admin/basic/releases) 页面下载稳定版本的压缩包**。如果确定需要拉取源码，请参考下列分支说明：
 
-```bash
-## install tdesign-starter-cli
-npm i tdesign-starter-cli@latest -g
+- `main` Vue3 版本框架源码分支，不含示例代码，可直接用于实际开发
+- `example` Vue3 版本演示源码分支，同线上演示站，包含大量示例，可用于参考学习
+- `vue2` Vue2 版本框架源码分支，不含示例代码，可直接用于实际开发（停止维护）
+- `vue2-example` Vue2 版本演示源码分支，包含大量示例，可用于参考学习（停止维护）
 
-## create project
-td-starter init
-```
+## 预览
 
-### Develop
+> 预览截图为 Vue3 专业版
 
-```bash
-## install dependencies
-npm install
+<table>
+  <tr>
+    <td><img src="https://fantastic-admin.github.io/preview1.png" /></td>
+    <td><img src="https://fantastic-admin.github.io/preview2.png" /></td>
+    <td><img src="https://fantastic-admin.github.io/preview3.png" /></td>
+  </tr>
+  <tr>
+    <td><img src="https://fantastic-admin.github.io/preview4.png" /></td>
+    <td><img src="https://fantastic-admin.github.io/preview5.png" /></td>
+    <td><img src="https://fantastic-admin.github.io/preview6.png" /></td>
+  </tr>
+</table>
 
-## set up
-npm run dev
-```
+## 支持
 
-### Build
+如果觉得 Fantastic-admin 这个框架不错，或者已经在使用了，希望你可以在 **Github** 或者 **Gitee(码云)** 帮我点个 ⭐ ，这将对我是极大的鼓励。
 
-```bash
-## build
-npm run build
+[![star](https://img.shields.io/github/stars/fantastic-admin/basic?style=social)](https://github.com/fantastic-admin/basic)
 
-## build for test
-npm run build:test
-```
+[![star](https://gitee.com/fantastic-admin/basic/badge/star.svg?theme=dark)](https://gitee.com/fantastic-admin/basic)
 
+<details>
+<summary>Github Stars 曲线</summary>
 
-### Contributing Guide
+[![Stargazers over time](https://starchart.cc/fantastic-admin/basic.svg)](https://starchart.cc/fantastic-admin/basic)
+</details>
 
-We welcome contributions to our project. Create your [Issue](https://github.com/tencent/tdesign-vue-next-starter/issues/new/choose) or Submit your [Pull Request](https://github.com/Tencent/tdesign-vue-next-starter/pulls).
+## 生态
 
-#### Commit Specification
+<table>
+  <tr>
+    <th colspan="3" align="center">
+      <a href="https://hooray.github.io/fantastic-startkit/" target="_blank">Fantastic-startkit</a>
+    </th>
+  </tr>
+  <tr>
+    <th colspan="3" align="center">
+      一款简单好用的 Vue3 项目启动套件
+    </th>
+  </tr>
+</table>
 
-- [Angular Convention](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular)
-- [Vue Style Guide](https://v3.vuejs.org/style-guide/#rule-categories)
-
-### Browser Support
-
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br> IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Edge >=84                                                                                                                                                                                                        | Firefox >=83                                                                                                                                                                                                      | Chrome >=84                                                                                                                                                                                                   | Safari >=14.1                                                                                                                                                                                                 |
-
-### Community Versions
-
-There are kinds of community versions of starter-kit based on TDesign Vue Next, visit [community-link](https://tdesign.tencent.com/starter/docs/vue-next/community-link) for more detail. If you developed a community versions of tdesign starter, please create a issue or submit a pull request to let us know 😊.
-
-### License
-
-The MIT License. Please see [the license file](LICENSE) for more information.
+<table>
+  <tr>
+    <th colspan="3" align="center">
+      <a href="https://one-step-admin.github.io" target="_blank">One-step-admin</a>
+    </th>
+  </tr>
+  <tr>
+    <th colspan="3" align="center">
+      一款干啥都快人一步的 Vue 中后台管理系统框架
+    </th>
+  </tr>
+  <tr>
+    <td><img src="https://one-step-admin.github.io/preview1.png" /></td>
+    <td><img src="https://one-step-admin.github.io/preview2.png" /></td>
+    <td><img src="https://one-step-admin.github.io/preview3.png" /></td>
+  </tr>
+  <tr>
+    <td><img src="https://one-step-admin.github.io/preview4.png" /></td>
+    <td><img src="https://one-step-admin.github.io/preview5.png" /></td>
+    <td><img src="https://one-step-admin.github.io/preview6.png" /></td>
+  </tr>
+</table>
