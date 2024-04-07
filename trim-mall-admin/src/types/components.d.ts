@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    Auth: (typeof import('./../components/Auth/index.vue'))['default']
     AuthAll: (typeof import('./../components/AuthAll/index.vue'))['default']
     Color: (typeof import('./../components/color/index.vue'))['default']
     FileUpload: (typeof import('./../components/FileUpload/index.vue'))['default']
