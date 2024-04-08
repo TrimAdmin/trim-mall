@@ -39,6 +39,7 @@
     "number-max-precision": null,
     "no-duplicate-selectors": null,
     "no-empty-source": null,
+    "at-rule-empty-line-before": null,
     "block-no-empty": true,
     "color-no-invalid-hex": true,
     "named-grid-areas-no-invalid": true,

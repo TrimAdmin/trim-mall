@@ -7,7 +7,7 @@
     "dev:h5": "pnpm -C trim-mall-app dev:h5",
     "dev:server": "pnpm -C trim-mall-server start:debug",
     "dev:admin": "pnpm -C trim-mall-admin dev",
-    "dev:docs": "pnpm -C trim-mall-doc docs:dev",
+    "dev:docs": "pnpm -C trim-mall-doc dev",
     "prepare": "husky",
     "lint": "pnpm lint:code && pnpm prettier && pnpm lint:style",
     "lint:code": "eslint --fix --cache --max-warnings 4096",
