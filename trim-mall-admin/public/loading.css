@@ -3,18 +3,23 @@
 }
 
 .fantastic-admin-home {
+  user-select: none;
+
   position: absolute;
+  z-index: 10000;
   top: 0;
   left: 0;
-  z-index: 10000;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   width: 100%;
   height: 100%;
+
   color: #736477;
-  user-select: none;
+
   background-color: snow;
 }
 
@@ -23,6 +28,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+
   width: 40px;
   height: 40px;
 }
@@ -31,16 +37,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
   width: 20px;
   height: 20px;
 }
 
 .fantastic-admin-home .loading .square::before {
+  content: '';
+
   width: 10px;
   height: 10px;
-  content: "";
+
   border: 3px solid #8c858f;
   border-radius: 15%;
+
   animation: square-to-dot-animation 2s linear infinite;
 }
 
@@ -66,6 +76,7 @@
     width: 0;
     height: 0;
     margin: 5px;
+
     border-width: 5px;
     border-radius: 100%;
   }
@@ -74,6 +85,7 @@
     width: 10px;
     height: 10px;
     margin: initial;
+
     border-width: 3px;
     border-radius: 15%;
   }
@@ -86,7 +98,7 @@
 }
 
 .fantastic-admin-home .text::after {
+  content: '…';
   position: absolute;
   padding-left: 5px;
-  content: "…";
 }

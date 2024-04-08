@@ -9,6 +9,7 @@
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+
     -webkit-line-clamp: $line;
   }
 }
@@ -46,8 +47,8 @@
 
   &::before,
   &::after {
-    display: block;
+    content: '';
     clear: both;
-    content: "";
+    display: block;
   }
 }

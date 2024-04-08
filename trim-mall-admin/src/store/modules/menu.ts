@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep } from 'lodash'
 import type { RouteRecordRaw } from 'vue-router'
 import useSettingsStore from './settings'
 import useUserStore from './user'

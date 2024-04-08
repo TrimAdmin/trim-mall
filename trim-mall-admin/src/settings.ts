@@ -1,4 +1,4 @@
-import { defaultsDeep } from 'lodash-es'
+import { defaultsDeep } from 'lodash'
 import type { RecursiveRequired, Settings } from '#/global'
 import settingsDefault from '@/settings.default'
 

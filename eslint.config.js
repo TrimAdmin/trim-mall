@@ -39,7 +39,8 @@ export default [
       'vue/first-attribute-linebreak': 'off',
       'vue/component-definition-name-casing': 'off',
       'vue/multi-word-component-names': 'off',
-      'vue/no-unused-vars': 'error'
+      'vue/no-unused-vars': 'error',
+      'no-undef': 'off'
     }
   },
   {

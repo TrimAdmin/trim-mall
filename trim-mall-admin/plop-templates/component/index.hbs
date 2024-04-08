@@ -1,9 +1,7 @@
-<script setup lang="ts">
-    {{#if isGlobal}}
-    defineOptions({
-      name: '{{ properCase name }}'
-    })
-    {{/if}}
+<script setup lang='ts'>
+  {{#if isGlobal}}
+    defineOptions({ name: '{{properCase name}}' })
+  {{/if}}
 </script>
 
 <template>
@@ -12,6 +10,6 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
   // 样式
 </style>

@@ -1,14 +1,4 @@
 {
-  "collections": [
-    "ant-design",
-    "ep",
-    "flagpack",
-    "icon-park",
-    "mdi",
-    "ri",
-    "logos",
-    "twemoji",
-    "vscode-icons"
-  ],
+  "collections": ["ant-design", "ep", "flagpack", "icon-park", "mdi", "ri", "logos", "twemoji", "vscode-icons"],
   "isOfflineUse": false
 }

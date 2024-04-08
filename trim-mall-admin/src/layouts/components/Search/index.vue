@@ -2,7 +2,7 @@
 import { Dialog, DialogDescription, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import type { OverlayScrollbarsComponentRef } from 'overlayscrollbars-vue'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-vue'
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep } from 'lodash'
 import hotkeys from 'hotkeys-js'
 import Breadcrumb from '../Breadcrumb/index.vue'
 import BreadcrumbItem from '../Breadcrumb/item.vue'

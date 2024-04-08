@@ -1,4 +1,4 @@
-import { defaultsDeep } from 'lodash-es'
+import { defaultsDeep } from 'lodash'
 import type { RouteMeta } from 'vue-router'
 import type { Settings } from '#/global'
 import settingsDefault from '@/settings'
