@@ -1,7 +1,7 @@
 import { setupLayouts } from 'virtual:meta-layouts'
 import generatedRoutes from 'virtual:generated-pages'
 import type { RouteRecordRaw } from 'vue-router'
-import MultilevelMenuExample from './modules/multilevel.menu.example'
+import MultilevelMenuExample from './modules/system/multilevel.menu.example'
 import type { Route } from '#/global'
 import useSettingsStore from '@/store/modules/settings'
 
@@ -12,17 +12,17 @@ const constantRoutes: RouteRecordRaw[] = [
     name: 'login',
     component: () => import('@/views/login.vue'),
     meta: {
-      title: '登录',
-    },
+      title: '登录'
+    }
   },
   {
     path: '/:all(.*)*',
     name: 'notFound',
     component: () => import('@/views/[...all].vue'),
     meta: {
-      title: '找不到页面',
-    },
-  },
+      title: '找不到页面'
+    }
+  }
 ]
 
 // 系统路由
@@ -32,7 +32,7 @@ const systemRoutes: RouteRecordRaw[] = [
     component: () => import('@/layouts/index.vue'),
     meta: {
       title: () => useSettingsStore().settings.home.title,
-      breadcrumb: false,
+      breadcrumb: false
     },
     children: [
       {
@@ -41,8 +41,8 @@ const systemRoutes: RouteRecordRaw[] = [
         meta: {
           title: () => useSettingsStore().settings.home.title,
           icon: 'i-ant-design:home-twotone',
-          breadcrumb: false,
-        },
+          breadcrumb: false
+        }
       },
       {
         path: 'reload',
@@ -50,38 +50,36 @@ const systemRoutes: RouteRecordRaw[] = [
         component: () => import('@/views/reload.vue'),
         meta: {
           title: '重新加载',
-          breadcrumb: false,
-        },
-      },
-    ],
-  },
+          breadcrumb: false
+        }
+      }
+    ]
+  }
 ]
 
 // 动态路由（异步路由、导航栏路由）
 const asyncRoutes: Route.recordMainRaw[] = [
   {
     meta: {
-      title: '演示',
-      icon: 'i-uim:box',
+      title: '系统',
+      icon: 'i-uim:box'
     },
-    children: [
-      MultilevelMenuExample,
-    ],
-  },
+    children: Object.values(
+      import.meta.glob('./modules/system/*.ts', {
+        eager: true
+      })
+    ).map((value: any) => value.default)
+  }
 ]
 
 const constantRoutesByFilesystem = generatedRoutes.filter((item) => {
   return item.meta?.enabled !== false && item.meta?.constant === true
 })
 
-const asyncRoutesByFilesystem = setupLayouts(generatedRoutes.filter((item) => {
-  return item.meta?.enabled !== false && item.meta?.constant !== true && item.meta?.layout !== false
-}))
+const asyncRoutesByFilesystem = setupLayouts(
+  generatedRoutes.filter((item) => {
+    return item.meta?.enabled !== false && item.meta?.constant !== true && item.meta?.layout !== false
+  })
+)
 
-export {
-  constantRoutes,
-  systemRoutes,
-  asyncRoutes,
-  constantRoutesByFilesystem,
-  asyncRoutesByFilesystem,
-}
+export { constantRoutes, systemRoutes, asyncRoutes, constantRoutesByFilesystem, asyncRoutesByFilesystem }

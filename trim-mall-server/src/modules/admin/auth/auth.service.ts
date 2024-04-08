@@ -1,5 +1,5 @@
 import { Header, HttpException, Injectable } from '@nestjs/common'
-import { LoginDto } from './dto/login.dto'
+import { LoginDto } from './auth.dto'
 import { UserService } from '../user/user.service'
 import { compare, hash } from 'bcrypt'
 import { JwtService } from '@nestjs/jwt'

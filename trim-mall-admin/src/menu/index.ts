@@ -6,12 +6,10 @@ const menu: Menu.recordMainRaw[] = [
   {
     meta: {
       title: '演示',
-      icon: 'uim:box',
+      icon: 'uim:box'
     },
-    children: [
-      MultilevelMenuExample,
-    ],
-  },
+    children: [MultilevelMenuExample]
+  }
 ]
 
 export default menu

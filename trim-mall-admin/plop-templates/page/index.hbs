@@ -1,14 +1,14 @@
 {{#if isFilesystem}}
-<route lang="yaml">
-meta:
-  title: 页面标题
-</route>
+  <route lang="yaml">
+    meta:
+    title: 页面标题
+  </route>
 
 {{/if}}
 <script setup lang="ts">
-defineOptions({
-  name: '{{ properCase componentName }}',
-})
+  defineOptions({
+    name: '{{ properCase componentName }}'
+  })
 </script>
 
 <template>
@@ -18,5 +18,5 @@ defineOptions({
 </template>
 
 <style lang="scss" scoped>
-// 样式
+  // 样式
 </style>

@@ -4,10 +4,11 @@ import { PaginationDto } from '../../../dto/pagination.dto'
 import { pagination } from '../../../utils/pagination'
 import { SearchDto } from './dto/search.dto'
 import { UserInfoDto } from './dto/info.dto'
+import { FilesService } from '../../common/files/files.service'
 
 @Injectable()
 export class UserService {
-  constructor() {}
+  constructor(private readonly filesService: FilesService) {}
 
   prisma = new PrismaClient()
 
@@ -49,7 +50,7 @@ export class UserService {
   }
 
   async findOneById(id: number) {
-    return await this.prisma.sysUser.findUnique({
+    const user = await this.prisma.sysUser.findUnique({
       where: {
         id
       },
@@ -65,6 +66,9 @@ export class UserService {
         updateTime: true
       }
     })
+    if (!user.id) return Promise.reject()
+    const avatar = await this.filesService.preview(user.avatarKey)
+    return Promise.resolve({ ...user, avatar })
   }
 
   async findOneByUsername(username: string) {

@@ -15,6 +15,6 @@ export default function useMenu() {
   }
 
   return {
-    switchTo,
+    switchTo
   }
 }

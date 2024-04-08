@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineOptions({
-  name: 'Auth',
+  name: 'Auth'
 })
 
 const props = defineProps<{

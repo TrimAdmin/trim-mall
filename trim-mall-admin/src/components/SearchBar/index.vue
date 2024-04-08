@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineOptions({
-  name: 'SearchBar',
+  name: 'SearchBar'
 })
 
 withDefaults(
@@ -10,18 +10,16 @@ withDefaults(
   }>(),
   {
     showToggle: true,
-    background: false,
-  },
+    background: false
+  }
 )
 
 const emits = defineEmits<{
-  toggle: [
-    value: boolean,
-  ]
+  toggle: [value: boolean]
 }>()
 
 const fold = defineModel<boolean>('fold', {
-  default: true,
+  default: true
 })
 
 function toggle() {
@@ -32,15 +30,19 @@ function toggle() {
 
 <template>
   <div
-    class="relative" :class="{
+    class="relative"
+    :class="{
       'py-4': showToggle,
-      'px-4 bg-[var(--g-bg)] transition': background,
+      'px-4 bg-[var(--g-bg)] transition': background
     }"
   >
     <slot :fold="fold" :toggle="toggle" />
     <div v-if="showToggle" class="absolute bottom-0 left-0 w-full translate-y-1/2 text-center">
-      <button class="h-5 inline-flex cursor-pointer select-none items-center border-size-0 rounded bg-[var(--g-bg)] px-2 text-xs font-medium outline-none" @click="toggle">
-        <SvgIcon :name="fold ? 'i-ep:caret-bottom' : 'i-ep:caret-top' " />
+      <button
+        class="h-5 inline-flex cursor-pointer select-none items-center border-size-0 rounded bg-[var(--g-bg)] px-2 text-xs font-medium outline-none"
+        @click="toggle"
+      >
+        <SvgIcon :name="fold ? 'i-ep:caret-bottom' : 'i-ep:caret-top'" />
       </button>
     </div>
   </div>

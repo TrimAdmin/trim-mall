@@ -24,18 +24,12 @@ const useUserStore = defineStore(
     })
 
     // 登录
-    async function login(data: {
-      account: string
-      password: string
-    }) {
+    async function login(data: { username: string; password: string }) {
       const res = await apiUser.login(data)
-      localStorage.setItem('account', res.data.account)
-      localStorage.setItem('token', res.data.token)
-      localStorage.setItem('avatar', res.data.avatar)
-      account.value = res.data.account
+      localStorage.setItem('token', res.data)
       token.value = res.data.token
-      avatar.value = res.data.avatar
     }
+
     // 登出
     async function logout(redirect = router.currentRoute.value.fullPath) {
       localStorage.removeItem('account')
@@ -50,20 +44,20 @@ const useUserStore = defineStore(
       router.push({
         name: 'login',
         query: {
-          ...(router.currentRoute.value.path !== settingsStore.settings.home.fullPath && router.currentRoute.value.name !== 'login' && { redirect }),
-        },
+          ...(router.currentRoute.value.path !== settingsStore.settings.home.fullPath &&
+            router.currentRoute.value.name !== 'login' && { redirect })
+        }
       })
     }
+
     // 获取权限
     async function getPermissions() {
-      const res = await apiUser.permission()
-      permissions.value = res.data.permissions
+      // const res = await apiUser.permission()
+      // permissions.value = res.data.permissions
     }
+
     // 修改密码
-    async function editPassword(data: {
-      password: string
-      newpassword: string
-    }) {
+    async function editPassword(data: { password: string; newpassword: string }) {
       await apiUser.passwordEdit(data)
     }
 
@@ -76,9 +70,9 @@ const useUserStore = defineStore(
       login,
       logout,
       getPermissions,
-      editPassword,
+      editPassword
     }
-  },
+  }
 )
 
 export default useUserStore

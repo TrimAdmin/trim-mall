@@ -26,38 +26,38 @@ export default async ({ mode, command }) => {
         '/proxy': {
           target: env.VITE_APP_API_BASEURL,
           changeOrigin: command === 'serve' && env.VITE_OPEN_PROXY === 'true',
-          rewrite: path => path.replace(/\/proxy/, ''),
-        },
-      },
+          rewrite: (path) => path.replace(/\/proxy/, '')
+        }
+      }
     },
     // 构建选项 https://cn.vitejs.dev/config/#server-fsserve-root
     build: {
       outDir: mode === 'production' ? 'dist' : `dist-${mode}`,
-      sourcemap: env.VITE_BUILD_SOURCEMAP === 'true',
+      sourcemap: env.VITE_BUILD_SOURCEMAP === 'true'
     },
     define: {
       __SYSTEM_INFO__: JSON.stringify({
         pkg: {
           version: pkg.version,
           dependencies: pkg.dependencies,
-          devDependencies: pkg.devDependencies,
+          devDependencies: pkg.devDependencies
         },
-        lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-      }),
+        lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss')
+      })
     },
     plugins: createVitePlugins(env, command === 'build'),
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src'),
-        '#': path.resolve(__dirname, 'src/types'),
-      },
+        '#': path.resolve(__dirname, 'src/types')
+      }
     },
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: scssResources.join(''),
-        },
-      },
-    },
+          additionalData: scssResources.join('')
+        }
+      }
+    }
   })
 }

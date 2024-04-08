@@ -16,7 +16,10 @@ const { isLoading } = useNProgress()
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes: useSettingsStore(pinia).settings.app.routeBaseOn === 'filesystem' ? constantRoutesByFilesystem : constantRoutes as RouteRecordRaw[],
+  routes:
+    useSettingsStore(pinia).settings.app.routeBaseOn === 'filesystem'
+      ? constantRoutesByFilesystem
+      : (constantRoutes as RouteRecordRaw[])
 })
 
 router.beforeEach(async (to, from, next) => {
@@ -35,7 +38,7 @@ router.beforeEach(async (to, from, next) => {
       if (to.name === 'login') {
         next({
           path: settingsStore.settings.home.fullPath,
-          replace: true,
+          replace: true
         })
       }
       // 如果未开启主页，但进入的是主页，则会进入侧边栏导航第一个模块
@@ -43,7 +46,7 @@ router.beforeEach(async (to, from, next) => {
         if (menuStore.sidebarMenus.length > 0) {
           next({
             path: menuStore.sidebarMenusFirstDeepestPath,
-            replace: true,
+            replace: true
           })
         }
         // 如果侧边栏导航第一个模块均无法命中，则还是进入主页
@@ -55,10 +58,9 @@ router.beforeEach(async (to, from, next) => {
       else {
         next()
       }
-    }
-    else {
+    } else {
       // 获取用户权限
-      settingsStore.settings.app.enablePermission && await userStore.getPermissions()
+      settingsStore.settings.app.enablePermission && (await userStore.getPermissions())
       // 生成动态路由
       switch (settingsStore.settings.app.routeBaseOn) {
         case 'frontend':
@@ -98,20 +100,18 @@ router.beforeEach(async (to, from, next) => {
       next({
         path: to.path,
         query: to.query,
-        replace: true,
+        replace: true
       })
     }
-  }
-  else {
+  } else {
     if (to.name !== 'login') {
       next({
         name: 'login',
         query: {
-          redirect: to.fullPath !== settingsStore.settings.home.fullPath ? to.fullPath : undefined,
-        },
+          redirect: to.fullPath !== settingsStore.settings.home.fullPath ? to.fullPath : undefined
+        }
       })
-    }
-    else {
+    } else {
       next()
     }
   }
@@ -124,8 +124,7 @@ router.afterEach((to, from) => {
   // 设置页面 title
   if (settingsStore.settings.app.routeBaseOn !== 'filesystem') {
     settingsStore.setTitle(to.meta.breadcrumbNeste?.at(-1)?.title ?? to.meta.title)
-  }
-  else {
+  } else {
     settingsStore.setTitle(to.meta.title)
   }
   /**
@@ -136,8 +135,7 @@ router.afterEach((to, from) => {
     const componentName = to.matched.at(-1)?.components?.default.name
     if (componentName) {
       keepAliveStore.add(componentName)
-    }
-    else {
+    } else {
       // turbo-console-disable-next-line
       console.warn('[Fantastic-admin] 该页面组件未设置组件名，会导致缓存失效，请检查')
     }

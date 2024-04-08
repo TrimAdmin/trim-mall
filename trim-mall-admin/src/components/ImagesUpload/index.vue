@@ -3,7 +3,7 @@ import type { UploadProps } from 'element-plus'
 import { ElMessage } from 'element-plus'
 
 defineOptions({
-  name: 'ImagesUpload',
+  name: 'ImagesUpload'
 })
 
 const props = withDefaults(
@@ -28,18 +28,16 @@ const props = withDefaults(
     height: 150,
     placeholder: '',
     notip: false,
-    ext: () => ['jpg', 'png', 'gif', 'bmp'],
-  },
+    ext: () => ['jpg', 'png', 'gif', 'bmp']
+  }
 )
 
 const emits = defineEmits<{
-  onSuccess: [
-    res: any,
-  ]
+  onSuccess: [res: any]
 }>()
 
 const url = defineModel<string[]>({
-  default: [],
+  default: []
 })
 
 const uploadData = ref({
@@ -47,8 +45,8 @@ const uploadData = ref({
   imageViewerVisible: false,
   progress: {
     preview: '',
-    percent: 0,
-  },
+    percent: 0
+  }
 })
 
 // 预览
@@ -56,14 +54,17 @@ function preview(index: number) {
   uploadData.value.dialogImageIndex = index
   uploadData.value.imageViewerVisible = true
 }
+
 // 关闭预览
 function previewClose() {
   uploadData.value.imageViewerVisible = false
 }
+
 // 移除
 function remove(index: number) {
   url.value.splice(index, 1)
 }
+
 // 移动
 function move(index: number, type: 'left' | 'right') {
   if (type === 'left' && index !== 0) {
@@ -102,7 +103,7 @@ const onSuccess: UploadProps['onSuccess'] = (res) => {
 
 <template>
   <div class="upload-container">
-    <div v-for="(item, index) in (url as string[])" :key="index" class="images">
+    <div v-for="(item, index) in url as string[]" :key="index" class="images">
       <ElImage v-if="index < max" :src="item" :style="`width:${width}px;height:${height}px;`" fit="cover" />
       <div class="mask">
         <div class="actions">
@@ -115,7 +116,12 @@ const onSuccess: UploadProps['onSuccess'] = (res) => {
           <span v-show="url.length > 1" title="左移" :class="{ disabled: index === 0 }" @click="move(index, 'left')">
             <SvgIcon name="i-ep:back" class="icon" />
           </span>
-          <span v-show="url.length > 1" title="右移" :class="{ disabled: index === url.length - 1 }" @click="move(index, 'right')">
+          <span
+            v-show="url.length > 1"
+            title="右移"
+            :class="{ disabled: index === url.length - 1 }"
+            @click="move(index, 'right')"
+          >
             <SvgIcon name="i-ep:right" class="icon" />
           </span>
         </div>
@@ -143,11 +149,22 @@ const onSuccess: UploadProps['onSuccess'] = (res) => {
       </div>
     </ElUpload>
     <div v-if="!notip" class="el-upload__tip">
-      <div style="display: inline-block;">
-        <ElAlert :title="`上传图片支持 ${ext.join(' / ')} 格式，单张图片大小不超过 ${size}MB，建议图片尺寸为 ${width}*${height}，且图片数量不超过 ${max} 张`" type="info" show-icon :closable="false" />
+      <div style="display: inline-block">
+        <ElAlert
+          :title="`上传图片支持 ${ext.join(' / ')} 格式，单张图片大小不超过 ${size}MB，建议图片尺寸为 ${width}*${height}，且图片数量不超过 ${max} 张`"
+          type="info"
+          show-icon
+          :closable="false"
+        />
       </div>
     </div>
-    <ElImageViewer v-if="uploadData.imageViewerVisible" :url-list="url as string[]" :initial-index="uploadData.dialogImageIndex" teleported @close="previewClose" />
+    <ElImageViewer
+      v-if="uploadData.imageViewerVisible"
+      :url-list="url as string[]"
+      :initial-index="uploadData.dialogImageIndex"
+      teleported
+      @close="previewClose"
+    />
   </div>
 </template>
 
@@ -192,7 +209,9 @@ const onSuccess: UploadProps['onSuccess'] = (res) => {
         color: var(--el-color-white);
         text-align: center;
         cursor: pointer;
-        transition: color 0.1s, transform 0.1s;
+        transition:
+          color 0.1s,
+          transform 0.1s;
 
         &.disabled {
           color: var(--el-text-color-disabled);
@@ -253,7 +272,7 @@ const onSuccess: UploadProps['onSuccess'] = (res) => {
         left: 0;
         width: 100%;
         height: 100%;
-        content: "";
+        content: '';
         background-color: var(--el-overlay-color-lighter);
       }
 

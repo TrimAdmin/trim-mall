@@ -11,19 +11,23 @@ const useSettingsStore = defineStore(
 
     const prefersColorScheme = window.matchMedia('(prefers-color-scheme: dark)')
     const currentColorScheme = ref<Exclude<Settings.app['colorScheme'], ''>>()
-    watch(() => settings.value.app.colorScheme, (val) => {
-      if (val === '') {
-        prefersColorScheme.addEventListener('change', updateTheme)
+    watch(
+      () => settings.value.app.colorScheme,
+      (val) => {
+        if (val === '') {
+          prefersColorScheme.addEventListener('change', updateTheme)
+        } else {
+          prefersColorScheme.removeEventListener('change', updateTheme)
+        }
+      },
+      {
+        immediate: true
       }
-      else {
-        prefersColorScheme.removeEventListener('change', updateTheme)
-      }
-    }, {
-      immediate: true,
-    })
+    )
     watch(() => settings.value.app.colorScheme, updateTheme, {
-      immediate: true,
+      immediate: true
     })
+
     function updateTheme() {
       let colorScheme = settings.value.app.colorScheme
       if (colorScheme === '') {
@@ -40,11 +44,15 @@ const useSettingsStore = defineStore(
       }
     }
 
-    watch(() => settings.value.menu.menuMode, (val) => {
-      document.body.setAttribute('data-menu-mode', val)
-    }, {
-      immediate: true,
-    })
+    watch(
+      () => settings.value.menu.menuMode,
+      (val) => {
+        document.body.setAttribute('data-menu-mode', val)
+      },
+      {
+        immediate: true
+      }
+    )
 
     // 操作系统
     const os = ref<'mac' | 'windows' | 'linux' | 'other'>('other')
@@ -63,6 +71,7 @@ const useSettingsStore = defineStore(
 
     // 页面标题
     const title = ref<RouteMeta['title']>()
+
     // 记录页面标题
     function setTitle(_title: RouteMeta['title']) {
       title.value = _title
@@ -70,19 +79,18 @@ const useSettingsStore = defineStore(
 
     // 显示模式
     const mode = ref<'pc' | 'mobile'>('pc')
+
     // 设置显示模式
     function setMode(width: number) {
       if (settings.value.layout.enableMobileAdaptation) {
         // 先判断 UA 是否为移动端设备（手机&平板）
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
           mode.value = 'mobile'
-        }
-        else {
+        } else {
           // 如果是桌面设备，则根据页面宽度判断是否需要切换为移动端展示
           mode.value = width < 1024 ? 'mobile' : 'pc'
         }
-      }
-      else {
+      } else {
         mode.value = 'pc'
       }
     }
@@ -91,26 +99,34 @@ const useSettingsStore = defineStore(
     function toggleSidebarCollapse() {
       settings.value.menu.subMenuCollapse = !settings.value.menu.subMenuCollapse
     }
+
     // 次导航是否收起（用于记录 pc 模式下最后的状态）
     const subMenuCollapseLastStatus = ref(settingsDefault.menu.subMenuCollapse)
-    watch(() => settings.value.menu.subMenuCollapse, (val) => {
-      if (mode.value === 'pc') {
-        subMenuCollapseLastStatus.value = val
+    watch(
+      () => settings.value.menu.subMenuCollapse,
+      (val) => {
+        if (mode.value === 'pc') {
+          subMenuCollapseLastStatus.value = val
+        }
       }
-    })
-    watch(mode, (val) => {
-      switch (val) {
-        case 'pc':
-          settings.value.menu.subMenuCollapse = subMenuCollapseLastStatus.value
-          break
-        case 'mobile':
-          settings.value.menu.subMenuCollapse = true
-          break
+    )
+    watch(
+      mode,
+      (val) => {
+        switch (val) {
+          case 'pc':
+            settings.value.menu.subMenuCollapse = subMenuCollapseLastStatus.value
+            break
+          case 'mobile':
+            settings.value.menu.subMenuCollapse = true
+            break
+        }
+        document.body.setAttribute('data-mode', val)
+      },
+      {
+        immediate: true
       }
-      document.body.setAttribute('data-mode', val)
-    }, {
-      immediate: true,
-    })
+    )
 
     // 设置主题颜色模式
     function setColorScheme(color: Required<Settings.app>['colorScheme']) {
@@ -133,9 +149,9 @@ const useSettingsStore = defineStore(
       subMenuCollapseLastStatus,
       toggleSidebarCollapse,
       setColorScheme,
-      updateSettings,
+      updateSettings
     }
-  },
+  }
 )
 
 export default useSettingsStore

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineOptions({
-  name: 'AuthAll',
+  name: 'AuthAll'
 })
 
 const props = defineProps<{

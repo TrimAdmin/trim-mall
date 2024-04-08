@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineOptions({
-  name: 'ImagePreview',
+  name: 'ImagePreview'
 })
 
 const props = withDefaults(
@@ -11,8 +11,8 @@ const props = withDefaults(
   }>(),
   {
     width: 200,
-    height: 200,
-  },
+    height: 200
+  }
 )
 
 const realWidth = computed(() => {
@@ -25,7 +25,13 @@ const realHeight = computed(() => {
 </script>
 
 <template>
-  <ElImage :src="src" fit="cover" :style="`width:${realWidth};height:${realHeight};`" :preview-src-list="[src]" preview-teleported>
+  <ElImage
+    :src="src"
+    fit="cover"
+    :style="`width:${realWidth};height:${realHeight};`"
+    :preview-src-list="[src]"
+    preview-teleported
+  >
     <template #error>
       <div class="image-slot">
         <SvgIcon name="image-load-fail" />
@@ -39,7 +45,9 @@ const realHeight = computed(() => {
   background-color: var(--el-fill-color);
   border-radius: 5px;
   box-shadow: var(--el-box-shadow-light);
-  transition: background-color 0.3s, var(--el-transition-box-shadow);
+  transition:
+    background-color 0.3s,
+    var(--el-transition-box-shadow);
 
   :deep(.el-image__inner) {
     cursor: pointer;

@@ -21,8 +21,8 @@ export default {
       type: 'list',
       name: 'path',
       message: '请选择模块目录',
-      choices: getFolder('src/views'),
-    },
+      choices: getFolder('src/views')
+    }
   ],
   actions: (data) => {
     const pathArr = path.relative('src/views', data.path).split('\\')
@@ -35,9 +35,9 @@ export default {
       templateFile: 'plop-templates/mock/mock.hbs',
       data: {
         relativePath,
-        moduleName,
-      },
+        moduleName
+      }
     })
     return actions
-  },
+  }
 }

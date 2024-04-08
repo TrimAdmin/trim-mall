@@ -3,7 +3,7 @@
 import pcasRaw from './pcas-code.json'
 
 defineOptions({
-  name: 'PcasCascader',
+  name: 'PcasCascader'
 })
 
 const props = withDefaults(
@@ -15,15 +15,18 @@ const props = withDefaults(
   {
     disabled: false,
     type: 'pca',
-    format: 'code',
-  },
+    format: 'code'
+  }
 )
 
-const value = defineModel<string[] | {
-  code: string
-  name: string
-}[]>({
-  default: [],
+const value = defineModel<
+  | string[]
+  | {
+      code: string
+      name: string
+    }[]
+>({
+  default: []
 })
 
 interface pcasItem {
@@ -38,14 +41,14 @@ const pcasData = computed(() => {
   pcasRaw.forEach((p) => {
     const tempP: pcasItem = {
       code: p.code,
-      name: p.name,
+      name: p.name
     }
     const tempChildrenC: pcasItem[] = []
     // 城市
     p.children.forEach((c) => {
       const tempC: pcasItem = {
         code: c.code,
-        name: c.name,
+        name: c.name
       }
       if (['pca', 'pcas'].includes(props.type)) {
         const tempChildrenA: pcasItem[] = []
@@ -53,7 +56,7 @@ const pcasData = computed(() => {
         c.children.forEach((a) => {
           const tempA: pcasItem = {
             code: a.code,
-            name: a.name,
+            name: a.name
           }
           if (props.type === 'pcas') {
             const tempChildrenS: pcasItem[] = []
@@ -61,7 +64,7 @@ const pcasData = computed(() => {
             a.children.forEach((s) => {
               const tempS: pcasItem = {
                 code: s.code,
-                name: s.name,
+                name: s.name
               }
               tempChildrenS.push(tempS)
             })
@@ -87,7 +90,7 @@ const myValue = computed({
   // 将 code 码转成出参数据
   set: (val) => {
     value.value = val ? codeToAny(val) : []
-  },
+  }
 })
 
 function anyToCode(value: any[], dictionarie: any[] = pcasData.value) {
@@ -96,11 +99,9 @@ function anyToCode(value: any[], dictionarie: any[] = pcasData.value) {
     const findItem = dictionarie.find((item) => {
       if (props.format === 'code') {
         return item.code === value[0]
-      }
-      else if (props.format === 'name') {
+      } else if (props.format === 'name') {
         return item.name === value[0]
-      }
-      else {
+      } else {
         return item.name === value[0].name && item.code === value[0].code
       }
     })
@@ -114,7 +115,7 @@ function anyToCode(value: any[], dictionarie: any[] = pcasData.value) {
 
 function codeToAny(codes: string[], dictionarie: any[] = pcasData.value): any {
   const output = []
-  const findItem = dictionarie.find(item => item.code === codes[0])
+  const findItem = dictionarie.find((item) => item.code === codes[0])
   if (findItem) {
     switch (props.format) {
       case 'code':
@@ -126,7 +127,7 @@ function codeToAny(codes: string[], dictionarie: any[] = pcasData.value): any {
       case 'both':
         output.push({
           code: findItem.code,
-          name: findItem.name,
+          name: findItem.name
         })
     }
     const newCodes = codes.slice(1 - codes.length)
@@ -139,5 +140,12 @@ function codeToAny(codes: string[], dictionarie: any[] = pcasData.value): any {
 </script>
 
 <template>
-  <ElCascader v-model="myValue" :options="pcasData as any[]" :props="{ value: 'code', label: 'name' }" :disabled="disabled" clearable filterable />
+  <ElCascader
+    v-model="myValue"
+    :options="pcasData as any[]"
+    :props="{ value: 'code', label: 'name' }"
+    :disabled="disabled"
+    clearable
+    filterable
+  />
 </template>

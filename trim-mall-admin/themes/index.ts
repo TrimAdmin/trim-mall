@@ -38,7 +38,7 @@ export const lightTheme = {
   '--g-tabbar-tab-color': '#a3a3a3',
   '--g-tabbar-tab-hover-bg': '#e5e5e5',
   '--g-tabbar-tab-hover-color': '#0f0f0f',
-  '--g-tabbar-tab-active-color': '#0f0f0f',
+  '--g-tabbar-tab-active-color': '#0f0f0f'
 }
 
 export const darkTheme = {
@@ -79,5 +79,5 @@ export const darkTheme = {
   '--g-tabbar-tab-color': '#a8a29e',
   '--g-tabbar-tab-hover-bg': '#1b1b1b',
   '--g-tabbar-tab-hover-color': '#e5e5e5',
-  '--g-tabbar-tab-active-color': '#e5e5e5',
+  '--g-tabbar-tab-active-color': '#e5e5e5'
 }

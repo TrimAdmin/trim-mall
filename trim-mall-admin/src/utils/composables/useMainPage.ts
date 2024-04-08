@@ -3,11 +3,11 @@ export default function useMainPage() {
 
   function reload() {
     router.push({
-      name: 'reload',
+      name: 'reload'
     })
   }
 
   return {
-    reload,
+    reload
   }
 }

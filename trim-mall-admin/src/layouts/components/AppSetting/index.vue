@@ -47,6 +47,7 @@ watch(copied, (val) => {
 function isObject(value: any) {
   return typeof value === 'object' && !Array.isArray(value)
 }
+
 // 比较两个对象，并提取出不同的部分
 function getObjectDiff(originalObj: Record<string, any>, diffObj: Record<string, any>) {
   if (!isObject(originalObj) || !isObject(diffObj)) {
@@ -318,95 +319,94 @@ function handleCopy() {
 
 <style lang="scss" scoped>
 .divider {
-  --at-apply: flex items-center justify-between gap-4 my-4 whitespace-nowrap text-sm font-500;
+  @apply flex items-center justify-between gap-4 my-4 whitespace-nowrap text-sm font-500;
 
   &::before,
   &::after {
-    --at-apply: content-empty w-full h-1px bg-stone-2 dark: bg-stone-6;
+    @apply content-empty w-full h-1px bg-stone-2 dark:bg-stone-6;
   }
 }
 
 .menu-mode {
-  --at-apply: flex items-center justify-center gap-4 pb-4;
+  @apply flex items-center justify-center gap-4 pb-4;
 
   .mode {
-    --at-apply: relative w-16 h-12 rounded-2 ring-1 ring-stone-2 dark: ring-stone-7 cursor-pointer transition;
+    @apply relative w-16 h-12 rounded-2 ring-1 ring-stone-2 dark:ring-stone-7 cursor-pointer transition;
 
     &.active {
-      --at-apply: ring-ui-primary ring-2;
+      @apply ring-ui-primary ring-2;
     }
 
     &::before,
     &::after,
     .mode-container {
-      --at-apply: absolute pointer-events-none;
+      @apply absolute pointer-events-none;
     }
 
     &::before {
-      --at-apply: content-empty bg-ui-primary;
+      @apply content-empty bg-ui-primary;
     }
 
     &::after {
-      --at-apply: content-empty bg-ui-primary/60;
+      @apply content-empty bg-ui-primary/60;
     }
 
     .mode-container {
-      --at-apply: bg-ui-primary/20 border-dashed border-ui-primary;
+      @apply bg-ui-primary/20 border-dashed border-ui-primary;
 
       &::before {
-        --at-apply: content-empty absolute w-full h-full;
+        @apply content-empty absolute w-full h-full;
       }
     }
 
     &-side {
       &::before {
-        --at-apply: top-2 bottom-2 left-2 w-2 rounded-tl-1 rounded-bl-1;
+        @apply top-2 bottom-2 left-2 w-2 rounded-tl-1 rounded-bl-1;
       }
 
       &::after {
-        --at-apply: top-2 bottom-2 left-4.5 w-3;
+        @apply top-2 bottom-2 left-4 0.5 w-3;
       }
 
       .mode-container {
-        --at-apply: inset-t-2 inset-r-2 inset-b-2 inset-l-8 rounded-tr-1 rounded-br-1;
+        @apply inset-t-2 inset-r-2 inset-b-2 inset-l-8 rounded-tr-1 rounded-br-1;
       }
     }
 
     &-head {
       &::before {
-        --at-apply: top-2 left-2 right-2 h-2 rounded-tl-1 rounded-tr-1;
+        @apply top-2 left-2 right-2 h-2 rounded-tl-1 rounded-tr-1;
       }
 
       &::after {
-        --at-apply: top-4.5 left-2 bottom-2 w-3 rounded-bl-1;
+        @apply top-4 0.5 left-2 bottom-2 w-3 rounded-bl-1;
       }
 
       .mode-container {
-        --at-apply: inset-t-4.5 inset-r-2 inset-b-2 inset-l-5.5 rounded-br-1;
+        @apply inset-t-4 0.5 inset-r-2 inset-b-2 inset-l-5 0.5 rounded-br-1;
       }
     }
 
     &-single {
       &::after {
-        --at-apply: top-2 left-2 bottom-2 w-3 rounded-tl-1 rounded-bl-1;
+        @apply top-2 left-2 bottom-2 w-3 rounded-tl-1 rounded-bl-1;
       }
 
       .mode-container {
-        --at-apply: inset-t-2 inset-r-2 inset-b-2 inset-l-5.5 rounded-tr-1 rounded-br-1;
+        @apply inset-t-2 inset-r-2 inset-b-2 inset-l-5 0.5 rounded-tr-1 rounded-br-1;
       }
     }
   }
 }
 
 .setting-item {
-  --at-apply: flex items-center justify-between gap-4 px-4 py-2 rounded-2 transition hover: bg-stone-1 dark: hover:
-    bg-stone-9;
+  @apply flex items-center justify-between gap-4 px-4 py-2 rounded-2 transition hover:bg-stone-1 dark:hover:bg-stone-9;
 
   .label {
-    --at-apply: flex items-center flex-shrink-0 gap-2 text-sm;
+    @apply flex items-center flex-shrink-0 gap-2 text-sm;
 
     i {
-      --at-apply: text-xl text-orange cursor-help;
+      @apply text-xl text-orange cursor-help;
     }
   }
 }

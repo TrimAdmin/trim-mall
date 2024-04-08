@@ -22,6 +22,7 @@ onBeforeUnmount(() => {
 })
 
 const scrollTop = ref<number | null>(null)
+
 function handleScroll() {
   scrollTop.value = document.documentElement.scrollTop
 }

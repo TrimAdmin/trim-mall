@@ -102,6 +102,7 @@ body {
     transform: translateX(-50%) !important;
   }
 }
+
 // textarea 字体跟随系统
 textarea {
   font-family: inherit;
@@ -110,12 +111,13 @@ textarea {
 /* Overrides Floating Vue */
 .v-popper--theme-dropdown,
 .v-popper--theme-tooltip {
-  --at-apply: inline-flex;
+  @apply inline-flex;
 }
 
 .v-popper--theme-dropdown .v-popper__inner,
 .v-popper--theme-tooltip .v-popper__inner {
-  --at-apply: bg-white dark:bg-stone-8 text-dark dark:text-white rounded shadow ring-1 ring-gray-200 dark:ring-gray-800 border border-solid border-stone/20 text-xs font-normal;
+  @apply bg-white text-dark rounded shadow ring-1 ring-gray-200
+  dark:(text-white bg-stone-8 ring-gray-800 border border-solid border-stone/20 text-xs font-normal);
 
   box-shadow: 0 6px 30px rgb(0 0 0 / 10%);
 }
@@ -124,12 +126,12 @@ textarea {
 .v-popper--theme-dropdown .v-popper__arrow-inner {
   visibility: visible;
 
-  --at-apply: border-white dark:border-stone-8;
+  @apply border-white dark:border-stone-8;
 }
 
 .v-popper--theme-tooltip .v-popper__arrow-outer,
 .v-popper--theme-dropdown .v-popper__arrow-outer {
-  --at-apply: border-stone/20;
+  @apply border-stone/20;
 }
 
 .v-popper--theme-tooltip.v-popper--shown,

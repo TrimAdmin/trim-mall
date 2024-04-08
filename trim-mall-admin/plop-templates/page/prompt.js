@@ -21,7 +21,7 @@ export default {
       type: 'list',
       name: 'path',
       message: '请选择页面创建目录',
-      choices: getFolder('src/views'),
+      choices: getFolder('src/views')
     },
     {
       type: 'input',
@@ -30,18 +30,17 @@ export default {
       validate: (v) => {
         if (!v || v.trim === '') {
           return '文件名不能为空'
-        }
-        else {
+        } else {
           return true
         }
-      },
+      }
     },
     {
       type: 'confirm',
       name: 'isFilesystem',
       message: '是否为基于文件系统的路由页面',
-      default: false,
-    },
+      default: false
+    }
   ],
   actions: (data) => {
     const relativePath = path.relative('src/views', data.path)
@@ -51,10 +50,10 @@ export default {
         path: `${data.path}/{{dotCase name}}.vue`,
         templateFile: 'plop-templates/page/index.hbs',
         data: {
-          componentName: `${relativePath} ${data.name}`,
-        },
-      },
+          componentName: `${relativePath} ${data.name}`
+        }
+      }
     ]
     return actions
-  },
+  }
 }

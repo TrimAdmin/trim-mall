@@ -7,8 +7,7 @@ export default function useAuth() {
     const userStore = useUserStore()
     if (settingsStore.settings.app.enablePermission) {
       return userStore.permissions.includes(permission)
-    }
-    else {
+    } else {
       return true
     }
   }
@@ -17,19 +16,18 @@ export default function useAuth() {
     let auth
     if (typeof value === 'string') {
       auth = value !== '' ? hasPermission(value) : true
-    }
-    else {
-      auth = value.length > 0 ? value.some(item => hasPermission(item)) : true
+    } else {
+      auth = value.length > 0 ? value.some((item) => hasPermission(item)) : true
     }
     return auth
   }
 
   function authAll(value: string[]) {
-    return value.length > 0 ? value.every(item => hasPermission(item)) : true
+    return value.length > 0 ? value.every((item) => hasPermission(item)) : true
   }
 
   return {
     auth,
-    authAll,
+    authAll
   }
 }

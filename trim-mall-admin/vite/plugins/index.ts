@@ -9,7 +9,6 @@ import createAutoImport from './auto-import'
 import createComponents from './components'
 import createUnocss from './unocss'
 import createSvgIcon from './svg-icon'
-import createMock from './mock'
 import createLayouts from './layouts'
 import createPages from './pages'
 import createCompression from './compression'
@@ -24,18 +23,14 @@ export default function createVitePlugins(viteEnv, isBuild = false) {
     vueJsx(),
     vueLegacy({
       renderLegacyChunks: false,
-      modernPolyfills: [
-        'es.array.at',
-        'es.array.find-last',
-      ],
-    }),
+      modernPolyfills: ['es.array.at', 'es.array.find-last']
+    })
   ]
   vitePlugins.push(createDevtools(viteEnv))
   vitePlugins.push(createAutoImport())
   vitePlugins.push(createComponents())
   vitePlugins.push(createUnocss())
   vitePlugins.push(createSvgIcon(isBuild))
-  vitePlugins.push(createMock(viteEnv, isBuild))
   vitePlugins.push(createLayouts())
   vitePlugins.push(createPages())
   vitePlugins.push(...createCompression(viteEnv, isBuild))

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineOptions({
-  name: 'Trend',
+  name: 'Trend'
 })
 
 const props = withDefaults(
@@ -15,8 +15,8 @@ const props = withDefaults(
     type: 'up',
     prefix: '',
     suffix: '',
-    reverse: false,
-  },
+    reverse: false
+  }
 )
 
 const isUp = computed(() => {

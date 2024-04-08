@@ -50,6 +50,7 @@ watch(
     deep: true
   }
 )
+
 function tabbarScrollTip() {
   if (
     tabContainerRef.value.$el.clientWidth > tabsRef.value.clientWidth &&
@@ -64,6 +65,7 @@ function tabbarScrollTip() {
     })
   }
 }
+
 function handlerMouserScroll(event: WheelEvent) {
   if (event.deltaY || event.detail !== 0) {
     tabsRef.value.scrollBy({
@@ -71,12 +73,14 @@ function handlerMouserScroll(event: WheelEvent) {
     })
   }
 }
+
 function scrollTo(offsetLeft: number) {
   tabsRef.value.scrollTo({
     left: offsetLeft - 50,
     behavior: 'smooth'
   })
 }
+
 function onTabbarContextmenu(event: MouseEvent, routeItem: Tabbar.recordRaw) {
   event.preventDefault()
   ContextMenu.showContextMenu({
@@ -222,15 +226,15 @@ onUnmounted(() => {
   z-index: 1000;
 
   .mx-context-menu {
-    --at-apply: fixed ring-1 ring-stone-2 dark: ring-stone-7 shadow-2xl;
+    @apply fixed ring-1 ring-stone-2 dark: ring-stone-7 shadow-2xl;
 
     background-color: var(--g-container-bg);
 
     .mx-context-menu-items .mx-context-menu-item {
-      --at-apply: transition-background-color;
+      @apply transition-background-color;
 
       &:not(.disabled):hover {
-        --at-apply: cursor-pointer bg-stone-1 dark: bg-stone-9;
+        @apply cursor-pointer bg-stone-1 dark: bg-stone-9;
       }
 
       span {
@@ -251,7 +255,7 @@ onUnmounted(() => {
       background-color: var(--g-container-bg);
 
       &::after {
-        --at-apply: bg-stone-2 dark: bg-stone-7;
+        @apply bg-stone-2 dark: bg-stone-7;
       }
     }
   }
@@ -405,7 +409,7 @@ onUnmounted(() => {
             overflow: hidden;
             color: var(--g-tabbar-tab-color);
             white-space: nowrap;
-            mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
+            mask-image: linear-gradient(to right, #000000 calc(100% - 20px), transparent);
             transition: margin-right 0.3s;
 
             &:has(+ .action-icon) {
@@ -433,14 +437,14 @@ onUnmounted(() => {
             transform: translateY(-50%);
 
             &:hover {
-              --at-apply: ring-1 ring-stone-3 dark: ring-stone-7;
+              @apply ring-1 ring-stone-3 dark: ring-stone-7;
 
               background-color: var(--g-bg);
             }
           }
 
           .hotkey-number {
-            --at-apply: ring-1 ring-stone-3 dark: ring-stone-7;
+            @apply ring-1 ring-stone-3 dark: ring-stone-7;
 
             position: absolute;
             top: 50%;

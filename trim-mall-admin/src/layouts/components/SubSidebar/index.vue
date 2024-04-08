@@ -17,6 +17,7 @@ const menuStore = useMenuStore()
 const subSidebarRef = ref()
 const showShadowTop = ref(false)
 const showShadowBottom = ref(false)
+
 function onSidebarScroll() {
   const scrollTop = subSidebarRef.value.scrollTop
   showShadowTop.value = scrollTop > 0

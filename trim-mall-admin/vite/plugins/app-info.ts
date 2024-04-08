@@ -16,10 +16,10 @@ export default function appInfo(): Plugin {
             padding: 1,
             margin: 1,
             borderStyle: 'double',
-            textAlignment: 'center',
-          },
-        ),
+            textAlignment: 'center'
+          }
+        )
       )
-    },
+    }
   }
 }

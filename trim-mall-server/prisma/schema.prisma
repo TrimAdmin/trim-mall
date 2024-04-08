@@ -57,15 +57,15 @@ model SysDept {
 
 // 管理后台-角色
 model SysRole {
-  id         Int           @id @unique @default(autoincrement())
-  name       String        @db.VarChar(50)
-  sort       Int?          @default(1)
-  status     Status        @default(ENABLE)
-  remark     String?       @db.VarChar(200)
-  createTime DateTime      @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
-  updateTime DateTime      @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
-  userRole   SysUserRole[]
-  roleMenu   SysRoleMenu[]
+  id                Int                 @id @unique @default(autoincrement())
+  name              String              @db.VarChar(50)
+  sort              Int?                @default(1)
+  status            Status              @default(ENABLE)
+  remark            String?             @db.VarChar(200)
+  createTime        DateTime            @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
+  updateTime        DateTime            @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
+  userRole          SysUserRole[]
+  SysRolePermission SysRolePermission[]
 
   @@map("sys_role")
 }
@@ -83,44 +83,16 @@ model SysUserRole {
   @@map("sys_user_role")
 }
 
-// 管理后台-菜单
-model SysMenu {
-  id         Int           @id @unique @default(autoincrement())
-  /// 路由名称
-  name       String        @db.VarChar(200)
-  /// 路由路径
-  path       String?       @db.VarChar(500)
-  /// 组件路径
-  component  String?       @db.VarChar(500)
-  /// 包含title、icon、show、keepAlive等属性
-  meta       Json?
-  type       SysMenuType?
-  status     Status        @default(ENABLE)
-  /// 权限标识
-  permission String?       @db.VarChar(100)
-  sort       Int?          @default(1)
-  parentId   Int?          @default(0) @map("parent_id")
-  parentMenu SysMenu?      @relation("ParentMenu", fields: [parentId], references: [id])
-  children   SysMenu[]     @relation("ParentMenu")
-  remark     String?       @db.VarChar(200)
-  createTime DateTime      @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
-  updateTime DateTime      @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
-  roleMenu   SysRoleMenu[]
-
-  @@map("sys_menu")
-}
-
-// 管理后台-角色菜单
-model SysRoleMenu {
+// 管理后台-角色权限
+model SysRolePermission {
   id         Int      @id @unique @default(autoincrement())
+  roleId     Int      @map("role_id")
   role       SysRole  @relation(fields: [roleId], references: [id])
-  menu       SysMenu  @relation(fields: [menuId], references: [id])
-  roleId     Int
-  menuId     Int
+  permission String
   createTime DateTime @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
   updateTime DateTime @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
 
-  @@map("sys_role_menu")
+  @@map("sys_role_permission")
 }
 
 // 管理后台-数据字典

@@ -8,15 +8,15 @@ const globalSettingsDefault: RecursiveRequired<Settings.all> = {
     enablePermission: false,
     enableProgress: true,
     enableDynamicTitle: false,
-    routeBaseOn: 'frontend',
+    routeBaseOn: 'frontend'
   },
   home: {
     enable: true,
     title: '主页',
-    fullPath: '/',
+    fullPath: '/'
   },
   layout: {
-    enableMobileAdaptation: false,
+    enableMobileAdaptation: false
   },
   menu: {
     baseOn: 'frontend',
@@ -25,36 +25,36 @@ const globalSettingsDefault: RecursiveRequired<Settings.all> = {
     subMenuUniqueOpened: true,
     subMenuCollapse: false,
     enableSubMenuCollapseButton: false,
-    enableHotkeys: false,
+    enableHotkeys: false
   },
   topbar: {
-    mode: 'static',
+    mode: 'static'
   },
   tabbar: {
     enable: false,
     enableIcon: false,
-    enableHotkeys: false,
+    enableHotkeys: false
   },
   toolbar: {
     breadcrumb: true,
     navSearch: true,
     fullscreen: false,
     pageReload: false,
-    colorScheme: false,
+    colorScheme: false
   },
   mainPage: {
-    enableHotkeys: true,
+    enableHotkeys: true
   },
   navSearch: {
-    enableHotkeys: true,
+    enableHotkeys: true
   },
   copyright: {
     enable: false,
     dates: '',
     company: '',
     website: '',
-    beian: '',
-  },
+    beian: ''
+  }
 }
 
 export default globalSettingsDefault

@@ -163,11 +163,14 @@ function hasChildren(item: Menu.recordRaw) {
   }
   return flag
 }
+
 function getSourceListByMenus(
   arr: Menu.recordRaw[],
   basePath?: string,
   icon?: string,
-  breadcrumb?: { title?: string | (() => string) }[]
+  breadcrumb?: {
+    title?: string | (() => string)
+  }[]
 ) {
   arr.forEach((item) => {
     if (item.meta?.menu !== false) {
@@ -207,6 +210,7 @@ function keyUp() {
     handleScroll()
   }
 }
+
 function keyDown() {
   if (resultList.value.length) {
     actived.value += 1
@@ -216,11 +220,13 @@ function keyDown() {
     handleScroll()
   }
 }
+
 function keyEnter() {
   if (actived.value !== -1) {
     searchResultItemRef.value.find((item) => Number.parseInt(item.dataset.index!) === actived.value)?.click()
   }
 }
+
 function handleScroll() {
   if (searchResultRef.value) {
     const contentDom = searchResultRef.value.osInstance()!.elements().content

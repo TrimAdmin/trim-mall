@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineOptions({
-  name: 'FixedActionBar',
+  name: 'FixedActionBar'
 })
 
 const isBottom = ref(false)
@@ -28,7 +28,9 @@ function onScroll() {
 
 <template>
   <div
-    class="fixed-action-bar bottom-0 z-4 bg-[var(--g-container-bg)] p-5 text-center transition" :class="{ shadow: !isBottom }" data-fixed-calc-width
+    class="fixed-action-bar bottom-0 z-4 bg-[var(--g-container-bg)] p-5 text-center transition"
+    :class="{ shadow: !isBottom }"
+    data-fixed-calc-width
   >
     <slot />
   </div>

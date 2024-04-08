@@ -35,9 +35,11 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('scroll', onScroll)
 })
+
 function onScroll() {
   scrollTop.value = (document.documentElement || document.body).scrollTop
 }
+
 watch(scrollTop, (val, oldVal) => {
   scrollOnHide.value = settingsStore.settings.topbar.mode === 'sticky' && val > oldVal && val > topbarHeight.value
 })

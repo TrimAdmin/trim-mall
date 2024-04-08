@@ -2,7 +2,7 @@
 import { Icon } from '@iconify/vue'
 
 defineOptions({
-  name: 'SvgIcon',
+  name: 'SvgIcon'
 })
 
 const props = defineProps<{
@@ -16,14 +16,11 @@ const props = defineProps<{
 const outputType = computed(() => {
   if (/^https?:\/\//.test(props.name)) {
     return 'img'
-  }
-  else if (/i-[^:]+:[^:]+/.test(props.name)) {
+  } else if (/i-[^:]+:[^:]+/.test(props.name)) {
     return 'unocss'
-  }
-  else if (props.name.includes(':')) {
+  } else if (props.name.includes(':')) {
     return 'iconify'
-  }
-  else {
+  } else {
     return 'svg'
   }
 })
@@ -50,17 +47,21 @@ const style = computed(() => {
   return {
     ...(props.color && { color: props.color }),
     ...(props.size && { fontSize: typeof props.size === 'number' ? `${props.size}px` : props.size }),
-    ...(transform.length && { transform: transform.join(' ') }),
+    ...(transform.length && { transform: transform.join(' ') })
   }
 })
 </script>
 
 <template>
-  <i class="relative h-[1em] w-[1em] flex-inline items-center justify-center fill-current leading-[1em]" :class="{ [name]: outputType === 'unocss' }" :style="style">
+  <i
+    class="relative h-[1em] w-[1em] flex-inline items-center justify-center fill-current leading-[1em]"
+    :class="{ [name]: outputType === 'unocss' }"
+    :style="style"
+  >
     <Icon v-if="outputType === 'iconify'" :icon="name" />
     <svg v-else-if="outputType === 'svg'" class="h-[1em] w-[1em]" aria-hidden="true">
       <use :xlink:href="`#icon-${name}`" />
     </svg>
-    <img v-else-if="outputType === 'img'" :src="name" class="h-[1em] w-[1em]">
+    <img v-else-if="outputType === 'img'" :src="name" class="h-[1em] w-[1em]" />
   </i>
 </template>

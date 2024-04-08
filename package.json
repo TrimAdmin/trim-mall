@@ -8,6 +8,7 @@
     "dev:server": "pnpm -C trim-mall-server start:debug",
     "dev:admin": "pnpm -C trim-mall-admin dev",
     "dev:docs": "pnpm -C trim-mall-doc dev",
+    "migration": "pnpm -C trim-mall-server migration",
     "prepare": "husky",
     "lint": "pnpm lint:code && pnpm prettier && pnpm lint:style",
     "lint:code": "eslint --fix --cache --max-warnings 4096",

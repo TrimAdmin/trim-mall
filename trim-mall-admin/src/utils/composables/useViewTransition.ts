@@ -12,6 +12,6 @@ export default function useViewTransition(callback: () => void) {
   }
 
   return {
-    startViewTransition,
+    startViewTransition
   }
 }

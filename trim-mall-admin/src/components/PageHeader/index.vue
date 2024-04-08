@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineOptions({
-  name: 'PageHeader',
+  name: 'PageHeader'
 })
 
 defineProps<{
@@ -12,7 +12,9 @@ const slots = useSlots()
 </script>
 
 <template>
-  <div class="page-header mb-5 flex flex-wrap items-center justify-between gap-5 bg-[var(--g-container-bg)] px-5 py-4 transition-background-color-300">
+  <div
+    class="page-header mb-5 flex flex-wrap items-center justify-between gap-5 bg-[var(--g-container-bg)] px-5 py-4 transition-background-color-300"
+  >
     <div class="main flex-[1_1_70%]">
       <div class="text-2xl">
         <slot name="title">

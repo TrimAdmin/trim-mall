@@ -20,7 +20,7 @@ export default {
       type: 'confirm',
       name: 'isGlobal',
       message: '是否为全局组件',
-      default: false,
+      default: false
     },
     {
       type: 'list',
@@ -29,7 +29,7 @@ export default {
       choices: getFolder('src/views'),
       when: (answers) => {
         return !answers.isGlobal
-      },
+      }
     },
     {
       type: 'input',
@@ -38,28 +38,26 @@ export default {
       validate: (v) => {
         if (!v || v.trim === '') {
           return '组件名称不能为空'
-        }
-        else {
+        } else {
           return true
         }
-      },
-    },
+      }
+    }
   ],
   actions: (data) => {
     let path = ''
     if (data.isGlobal) {
       path = 'src/components/{{properCase name}}/index.vue'
-    }
-    else {
+    } else {
       path = `${data.path}/components/{{properCase name}}/index.vue`
     }
     const actions = [
       {
         type: 'add',
         path,
-        templateFile: 'plop-templates/component/index.hbs',
-      },
+        templateFile: 'plop-templates/component/index.hbs'
+      }
     ]
     return actions
-  },
+  }
 }

@@ -7,13 +7,13 @@ export default function directive(app: App) {
       if (!useAuth().auth(binding.value)) {
         el.remove()
       }
-    },
+    }
   })
   app.directive('auth-all', {
     mounted: (el, binding) => {
       if (!useAuth().authAll(binding.value)) {
         el.remove()
       }
-    },
+    }
   })
 }

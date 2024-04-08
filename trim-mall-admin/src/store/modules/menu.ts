@@ -24,20 +24,20 @@ const useMenuStore = defineStore(
       const returnMenus: Menu.recordMainRaw[] = []
       routes.forEach((item) => {
         if (settingsStore.settings.menu.menuMode === 'single') {
-          returnMenus.length === 0 && returnMenus.push({
-            meta: {},
-            children: [],
-          })
+          returnMenus.length === 0 &&
+            returnMenus.push({
+              meta: {},
+              children: []
+            })
           returnMenus[0].children.push(...convertRouteToMenuRecursive(item.children))
-        }
-        else {
+        } else {
           const menuItem: Menu.recordMainRaw = {
             meta: {
               title: item?.meta?.title,
               icon: item?.meta?.icon,
-              auth: item?.meta?.auth,
+              auth: item?.meta?.auth
             },
-            children: [],
+            children: []
           }
           menuItem.children = convertRouteToMenuRecursive(item.children)
           returnMenus.push(menuItem)
@@ -45,6 +45,7 @@ const useMenuStore = defineStore(
       })
       return returnMenus
     }
+
     function convertRouteToMenuRecursive(routes: RouteRecordRaw[], basePath = ''): Menu.recordRaw[] {
       const returnMenus: Menu.recordRaw[] = []
       routes.forEach((item) => {
@@ -56,8 +57,8 @@ const useMenuStore = defineStore(
             defaultOpened: item?.meta?.defaultOpened,
             auth: item?.meta?.auth,
             menu: item?.meta?.menu,
-            link: item?.meta?.link,
-          },
+            link: item?.meta?.link
+          }
         }
         if (item.children) {
           menuItem.children = convertRouteToMenuRecursive(item.children, menuItem.path)
@@ -72,8 +73,7 @@ const useMenuStore = defineStore(
       let returnMenus: Menu.recordMainRaw[] = []
       if (settingsStore.settings.app.routeBaseOn !== 'filesystem') {
         returnMenus = convertRouteToMenu(routeStore.routesRaw)
-      }
-      else {
+      } else {
         returnMenus = filesystemMenusRaw.value
       }
       // 如果权限功能开启，则需要对导航数据进行筛选过滤
@@ -96,22 +96,22 @@ const useMenuStore = defineStore(
         ? getDeepestPath(sidebarMenus.value[0])
         : settingsStore.settings.home.fullPath
     })
+
     function getDeepestPath(menu: Menu.recordRaw, rootPath = '') {
       let retnPath = ''
       if (menu.children) {
-        const item = menu.children.find(item => item.meta?.menu !== false)
+        const item = menu.children.find((item) => item.meta?.menu !== false)
         if (item) {
           retnPath = getDeepestPath(item, resolveRoutePath(rootPath, menu.path))
-        }
-        else {
+        } else {
           retnPath = getDeepestPath(menu.children[0], resolveRoutePath(rootPath, menu.path))
         }
-      }
-      else {
+      } else {
         retnPath = resolveRoutePath(rootPath, menu.path)
       }
       return retnPath
     }
+
     // 默认展开的导航路径
     const defaultOpenedPaths = computed(() => {
       const defaultOpenedPaths: string[] = []
@@ -122,6 +122,7 @@ const useMenuStore = defineStore(
       }
       return defaultOpenedPaths
     })
+
     function getDefaultOpenedPaths(menus: Menu.recordRaw[], rootPath = '') {
       const defaultOpenedPaths: string[] = []
       menus.forEach((item) => {
@@ -143,20 +144,18 @@ const useMenuStore = defineStore(
         isAuth = permissions.some((auth) => {
           if (typeof menu.meta?.auth === 'string') {
             return menu.meta.auth !== '' ? menu.meta.auth === auth : true
-          }
-          else if (typeof menu.meta?.auth === 'object') {
+          } else if (typeof menu.meta?.auth === 'object') {
             return menu.meta.auth.length > 0 ? menu.meta.auth.includes(auth) : true
-          }
-          else {
+          } else {
             return false
           }
         })
-      }
-      else {
+      } else {
         isAuth = true
       }
       return isAuth
     }
+
     // 根据权限过滤导航
     function filterAsyncMenus<T extends Menu.recordMainRaw[] | Menu.recordRaw[]>(menus: T, permissions: string[]): T {
       const res: any = []
@@ -166,33 +165,39 @@ const useMenuStore = defineStore(
           if (tmpMenu.children) {
             tmpMenu.children = filterAsyncMenus(tmpMenu.children, permissions) as Menu.recordRaw[]
             tmpMenu.children.length && res.push(tmpMenu)
-          }
-          else {
+          } else {
             res.push(tmpMenu)
           }
         }
       })
       return res
     }
+
     // 生成导航（前端生成）
     async function generateMenusAtFront() {
-      filesystemMenusRaw.value = menu.filter(item => item.children.length !== 0)
+      filesystemMenusRaw.value = menu.filter((item) => item.children.length !== 0)
     }
+
     // 生成导航（后端生成）
     async function generateMenusAtBack() {
-      await apiApp.menuList().then(async (res) => {
-        filesystemMenusRaw.value = (res.data as Menu.recordMainRaw[]).filter(item => item.children.length !== 0)
-      }).catch(() => {})
+      await apiApp
+        .menuList()
+        .then(async (res) => {
+          filesystemMenusRaw.value = (res.data as Menu.recordMainRaw[]).filter((item) => item.children.length !== 0)
+        })
+        .catch(() => {})
     }
+
     // 设置主导航
     function setActived(data: number | string) {
       if (typeof data === 'number') {
         // 如果是 number 类型，则认为是主导航的索引
         actived.value = data
-      }
-      else {
+      } else {
         // 如果是 string 类型，则认为是路由，需要查找对应的主导航索引
-        const findIndex = allMenus.value.findIndex(item => item.children.some(r => data.indexOf(`${r.path}/`) === 0 || data === r.path))
+        const findIndex = allMenus.value.findIndex((item) =>
+          item.children.some((r) => data.indexOf(`${r.path}/`) === 0 || data === r.path)
+        )
         if (findIndex >= 0) {
           actived.value = findIndex
         }
@@ -207,9 +212,9 @@ const useMenuStore = defineStore(
       defaultOpenedPaths,
       generateMenusAtFront,
       generateMenusAtBack,
-      setActived,
+      setActived
     }
-  },
+  }
 )
 
 export default useMenuStore

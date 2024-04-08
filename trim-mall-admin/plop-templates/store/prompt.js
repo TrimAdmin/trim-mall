@@ -8,21 +8,20 @@ export default {
       validate: (v) => {
         if (!v || v.trim === '') {
           return '模块名称不能为空'
-        }
-        else {
+        } else {
           return true
         }
-      },
-    },
+      }
+    }
   ],
   actions: () => {
     const actions = [
       {
         type: 'add',
         path: 'src/store/modules/{{camelCase name}}.ts',
-        templateFile: 'plop-templates/store/index.hbs',
-      },
+        templateFile: 'plop-templates/store/index.hbs'
+      }
     ]
     return actions
-  },
+  }
 }

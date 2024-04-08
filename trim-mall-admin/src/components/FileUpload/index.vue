@@ -3,7 +3,7 @@ import type { UploadProps, UploadUserFile } from 'element-plus'
 import { ElMessage } from 'element-plus'
 
 defineOptions({
-  name: 'FileUpload',
+  name: 'FileUpload'
 })
 
 const props = withDefaults(
@@ -24,16 +24,12 @@ const props = withDefaults(
     max: 3,
     files: () => [],
     notip: false,
-    ext: () => ['zip', 'rar'],
-  },
+    ext: () => ['zip', 'rar']
+  }
 )
 
 const emits = defineEmits<{
-  onSuccess: [
-    res: any,
-    file: UploadUserFile,
-    fileList: UploadUserFile[],
-  ]
+  onSuccess: [res: any, file: UploadUserFile, fileList: UploadUserFile[]]
 }>()
 
 const beforeUpload: UploadProps['beforeUpload'] = (file) => {
@@ -74,14 +70,17 @@ const onSuccess: UploadProps['onSuccess'] = (res, file, fileList) => {
   >
     <div class="slot">
       <SvgIcon name="i-ep:upload-filled" class="el-icon--upload" />
-      <div class="el-upload__text">
-        将文件拖到此处，或<em>点击上传</em>
-      </div>
+      <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
     </div>
     <template #tip>
       <div v-if="!notip" class="el-upload__tip">
-        <div style="display: inline-block;">
-          <ElAlert :title="`上传文件支持 ${ext.join(' / ')} 格式，单个文件大小不超过 ${size}MB，且文件数量不超过 ${max} 个`" type="info" show-icon :closable="false" />
+        <div style="display: inline-block">
+          <ElAlert
+            :title="`上传文件支持 ${ext.join(' / ')} 格式，单个文件大小不超过 ${size}MB，且文件数量不超过 ${max} 个`"
+            type="info"
+            show-icon
+            :closable="false"
+          />
         </div>
       </div>
     </template>

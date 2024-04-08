@@ -31,15 +31,15 @@ const settingsStore = useSettingsStore()
 
 <style lang="scss" scoped>
 .copyright {
-  --at-apply: flex items-center justify-center flex-wrap my-4 px-4 text-sm text-stone-5;
+  @apply flex items-center justify-center flex-wrap my-4 px-4 text-sm text-stone-5;
 
   span,
   a {
-    --at-apply: px-1;
+    @apply px-1;
   }
 
   a {
-    --at-apply: text-center no-underline text-stone-5 hover: text-dark dark: hover: text-light transition;
+    @apply text-center no-underline text-stone-5 hover: text-dark dark: hover: text-light transition;
   }
 }
 </style>

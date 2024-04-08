@@ -30,7 +30,7 @@ import '@/assets/styles/globals.scss'
 
 const app = createApp(App)
 app.use(FloatingVue, {
-  distance: 12,
+  distance: 12
 })
 app.use(Message)
 app.use(pinia)

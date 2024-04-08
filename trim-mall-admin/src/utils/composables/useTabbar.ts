@@ -13,9 +13,9 @@ export default function useTabbar() {
   }
 
   function open(to: RouteLocationRaw) {
-    const index = tabbarStore.list.findIndex(item => item.tabId === getId())
+    const index = tabbarStore.list.findIndex((item) => item.tabId === getId())
     tabbarStore.$patch({
-      leaveIndex: index,
+      leaveIndex: index
     })
     router.push(to)
   }
@@ -35,31 +35,27 @@ export default function useTabbar() {
 
   function closeById(tabId = getId()) {
     const activedTabId = getId()
-    if (tabbarStore.list.some(item => item.tabId === tabId)) {
+    if (tabbarStore.list.some((item) => item.tabId === tabId)) {
       if (tabbarStore.list.length > 1) {
         // 如果关闭的标签正好是当前路由
         if (tabId === activedTabId) {
-          const index = tabbarStore.list.findIndex(item => item.tabId === tabId)
+          const index = tabbarStore.list.findIndex((item) => item.tabId === tabId)
           if (index < tabbarStore.list.length - 1) {
             close(tabbarStore.list[index + 1].fullPath)
-          }
-          else {
+          } else {
             close(tabbarStore.list[index - 1].fullPath)
           }
-        }
-        else {
+        } else {
           tabbarStore.remove(tabId)
         }
-      }
-      else {
+      } else {
         Message.error('当前只有一个标签页，已阻止关闭', {
-          zIndex: 2000,
+          zIndex: 2000
         })
       }
-    }
-    else {
+    } else {
       Message.error('关闭的页面不存在', {
-        zIndex: 2000,
+        zIndex: 2000
       })
     }
   }
@@ -71,7 +67,7 @@ export default function useTabbar() {
     const activedTabId = getId()
     // 如果操作的是非当前路由标签页，则先跳转到指定路由标签页
     if (tabId !== activedTabId) {
-      const index = tabbarStore.list.findIndex(item => item.tabId === tabId)
+      const index = tabbarStore.list.findIndex((item) => item.tabId === tabId)
       router.push(tabbarStore.list[index].fullPath)
     }
     tabbarStore.removeOtherSide(tabId)
@@ -84,8 +80,8 @@ export default function useTabbar() {
     const activedTabId = getId()
     // 如果操作的是非当前路由标签页，需要判断当前标签页是否在指定标签页左侧，如果是则先跳转到指定路由标签页
     if (tabId !== activedTabId) {
-      const index = tabbarStore.list.findIndex(item => item.tabId === tabId)
-      const activedIndex = tabbarStore.list.findIndex(item => item.tabId === activedTabId)
+      const index = tabbarStore.list.findIndex((item) => item.tabId === tabId)
+      const activedIndex = tabbarStore.list.findIndex((item) => item.tabId === activedTabId)
       if (activedIndex < index) {
         router.push(tabbarStore.list[index].fullPath)
       }
@@ -100,8 +96,8 @@ export default function useTabbar() {
     const activedTabId = getId()
     // 如果操作的是非当前路由标签页，需要判断当前标签页是否在指定标签页右侧，如果是则先跳转到指定路由标签页
     if (tabId !== activedTabId) {
-      const index = tabbarStore.list.findIndex(item => item.tabId === tabId)
-      const activedIndex = tabbarStore.list.findIndex(item => item.tabId === activedTabId)
+      const index = tabbarStore.list.findIndex((item) => item.tabId === tabId)
+      const activedIndex = tabbarStore.list.findIndex((item) => item.tabId === activedTabId)
       if (activedIndex > index) {
         router.push(tabbarStore.list[index].fullPath)
       }
@@ -125,9 +121,8 @@ export default function useTabbar() {
     let flag = true
     if (tabId === tabbarStore.list[0]?.tabId) {
       flag = false
-    }
-    else {
-      const index = tabbarStore.list.findIndex(item => item.tabId === tabId)
+    } else {
+      const index = tabbarStore.list.findIndex((item) => item.tabId === tabId)
       flag = tabbarStore.list.some((item, i) => {
         return i < index && item.tabId !== tabId
       })
@@ -142,9 +137,8 @@ export default function useTabbar() {
     let flag = true
     if (tabId === tabbarStore.list.at(-1)?.tabId) {
       flag = false
-    }
-    else {
-      const index = tabbarStore.list.findIndex(item => item.tabId === tabId)
+    } else {
+      const index = tabbarStore.list.findIndex((item) => item.tabId === tabId)
       flag = tabbarStore.list.some((item, i) => {
         return i >= index && item.tabId !== tabId
       })
@@ -163,6 +157,6 @@ export default function useTabbar() {
     closeRightSide,
     checkCloseOtherSide,
     checkCloseLeftSide,
-    checkCloseRightSide,
+    checkCloseRightSide
   }
 }
