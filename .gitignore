@@ -40,3 +40,5 @@ yarn.lock
 package-lock.json
 .eslintcache
 **/.env.local
+**/components.d.ts
+**/auto-imports.d.ts
