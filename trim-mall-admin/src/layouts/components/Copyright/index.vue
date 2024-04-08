@@ -2,7 +2,7 @@
 import useSettingsStore from '@/store/modules/settings'
 
 defineOptions({
-  name: 'Copyright',
+  name: 'Copyright'
 })
 
 const settingsStore = useSettingsStore()
@@ -14,10 +14,18 @@ const settingsStore = useSettingsStore()
     <SvgIcon name="i-ri:copyright-line" :size="18" />
     <span v-if="settingsStore.settings.copyright.dates">{{ settingsStore.settings.copyright.dates }}</span>
     <template v-if="settingsStore.settings.copyright.company">
-      <a v-if="settingsStore.settings.copyright.website" :href="settingsStore.settings.copyright.website" target="_blank" rel="noopener">{{ settingsStore.settings.copyright.company }}</a>
+      <a
+        v-if="settingsStore.settings.copyright.website"
+        :href="settingsStore.settings.copyright.website"
+        target="_blank"
+        rel="noopener"
+        >{{ settingsStore.settings.copyright.company }}</a
+      >
       <span v-else>{{ settingsStore.settings.copyright.company }}</span>
     </template>
-    <a v-if="settingsStore.settings.copyright.beian" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">{{ settingsStore.settings.copyright.beian }}</a>
+    <a v-if="settingsStore.settings.copyright.beian" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">{{
+      settingsStore.settings.copyright.beian
+    }}</a>
   </footer>
 </template>
 
@@ -31,7 +39,7 @@ const settingsStore = useSettingsStore()
   }
 
   a {
-    --at-apply: text-center no-underline text-stone-5 hover:text-dark dark:hover:text-light transition;
+    --at-apply: text-center no-underline text-stone-5 hover: text-dark dark: hover: text-light transition;
   }
 }
 </style>

@@ -16,7 +16,7 @@ import useMenuStore from '@/store/modules/menu'
 import eventBus from '@/utils/eventBus'
 
 defineOptions({
-  name: 'Layout',
+  name: 'Layout'
 })
 
 const routeInfo = useRoute()
@@ -30,24 +30,29 @@ const menu = useMenu()
 
 const isLink = computed(() => !!routeInfo.meta.link)
 
-watch(() => settingsStore.settings.menu.subMenuCollapse, (val) => {
-  if (settingsStore.mode === 'mobile') {
-    if (!val) {
-      document.body.classList.add('overflow-hidden')
-    }
-    else {
-      document.body.classList.remove('overflow-hidden')
+watch(
+  () => settingsStore.settings.menu.subMenuCollapse,
+  (val) => {
+    if (settingsStore.mode === 'mobile') {
+      if (!val) {
+        document.body.classList.add('overflow-hidden')
+      } else {
+        document.body.classList.remove('overflow-hidden')
+      }
     }
   }
-})
+)
 
-watch(() => routeInfo.path, () => {
-  if (settingsStore.mode === 'mobile') {
-    settingsStore.$patch((state) => {
-      state.settings.menu.subMenuCollapse = true
-    })
+watch(
+  () => routeInfo.path,
+  () => {
+    if (settingsStore.mode === 'mobile') {
+      settingsStore.$patch((state) => {
+        state.settings.menu.subMenuCollapse = true
+      })
+    }
   }
-})
+)
 
 onMounted(() => {
   hotkeys('f5', (e) => {
@@ -76,11 +81,18 @@ const enableAppSetting = import.meta.env.VITE_APP_SETTING === 'true'
     <div id="app-main">
       <Header />
       <div class="wrapper">
-        <div class="sidebar-container" :class="{ show: settingsStore.mode === 'mobile' && !settingsStore.settings.menu.subMenuCollapse }">
+        <div
+          class="sidebar-container"
+          :class="{ show: settingsStore.mode === 'mobile' && !settingsStore.settings.menu.subMenuCollapse }"
+        >
           <MainSidebar />
           <SubSidebar />
         </div>
-        <div class="sidebar-mask" :class="{ show: settingsStore.mode === 'mobile' && !settingsStore.settings.menu.subMenuCollapse }" @click="settingsStore.toggleSidebarCollapse()" />
+        <div
+          class="sidebar-mask"
+          :class="{ show: settingsStore.mode === 'mobile' && !settingsStore.settings.menu.subMenuCollapse }"
+          @click="settingsStore.toggleSidebarCollapse()"
+        />
         <div class="main-container">
           <Topbar />
           <div class="main">
@@ -110,7 +122,7 @@ const enableAppSetting = import.meta.env.VITE_APP_SETTING === 'true'
 </template>
 
 <style lang="scss" scoped>
-[data-mode="mobile"] {
+[data-mode='mobile'] {
   .sidebar-container {
     transform: translateX(calc((var(--g-main-sidebar-width) + var(--g-sub-sidebar-width)) * -1));
 
@@ -123,7 +135,7 @@ const enableAppSetting = import.meta.env.VITE_APP_SETTING === 'true'
     margin-left: 0 !important;
   }
 
-  &[data-menu-mode="single"] {
+  &[data-menu-mode='single'] {
     .sidebar-container {
       transform: translateX(calc(var(--g-sub-sidebar-width) * -1));
 
@@ -157,8 +169,14 @@ const enableAppSetting = import.meta.env.VITE_APP_SETTING === 'true'
     z-index: 1010;
     display: flex;
     width: calc(var(--g-main-sidebar-actual-width) + var(--g-sub-sidebar-actual-width));
-    box-shadow: -1px 0 0 0 var(--g-border-color), 1px 0 0 0 var(--g-border-color);
-    transition: width 0.3s, transform 0.3s, box-shadow 0.3s, top 0.3s;
+    box-shadow:
+      -1px 0 0 0 var(--g-border-color),
+      1px 0 0 0 var(--g-border-color);
+    transition:
+      width 0.3s,
+      transform 0.3s,
+      box-shadow 0.3s,
+      top 0.3s;
 
     &:has(> .main-sidebar-container.main-sidebar-enter-active),
     &:has(> .main-sidebar-container.main-sidebar-leave-active) {
@@ -196,8 +214,13 @@ const enableAppSetting = import.meta.env.VITE_APP_SETTING === 'true'
     min-height: 100%;
     margin-left: calc(var(--g-main-sidebar-actual-width) + var(--g-sub-sidebar-actual-width));
     background-color: var(--g-bg);
-    box-shadow: -1px 0 0 0 var(--g-border-color), 1px 0 0 0 var(--g-border-color);
-    transition: margin-left 0.3s, background-color 0.3s, box-shadow 0.3s;
+    box-shadow:
+      -1px 0 0 0 var(--g-border-color),
+      1px 0 0 0 var(--g-border-color);
+    transition:
+      margin-left 0.3s,
+      background-color 0.3s,
+      box-shadow 0.3s;
 
     .main {
       position: relative;
@@ -240,7 +263,7 @@ header:not(.header-leave-active) + .wrapper {
 }
 
 .app-setting {
-  --at-apply: text-white dark:text-dark bg-ui-primary;
+  --at-apply: text-white dark: text-dark bg-ui-primary;
 
   position: fixed;
   top: calc(50% + 250px);

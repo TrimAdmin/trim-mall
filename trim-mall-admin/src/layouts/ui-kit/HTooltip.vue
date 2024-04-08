@@ -6,8 +6,8 @@ withDefaults(
   }>(),
   {
     text: '',
-    enable: true,
-  },
+    enable: true
+  }
 )
 </script>
 

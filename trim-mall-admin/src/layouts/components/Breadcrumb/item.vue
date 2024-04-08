@@ -8,8 +8,8 @@ const props = withDefaults(
     separator?: string
   }>(),
   {
-    separator: '/',
-  },
+    separator: '/'
+  }
 )
 
 const router = useRouter()
@@ -29,8 +29,9 @@ function onClick() {
     <span
       class="text flex items-center opacity-60"
       :class="{
-        'is-link cursor-pointer transition-opacity hover:opacity-100': !!props.to,
-      }" @click="onClick"
+        'is-link cursor-pointer transition-opacity hover:opacity-100': !!props.to
+      }"
+      @click="onClick"
     >
       <slot />
     </span>

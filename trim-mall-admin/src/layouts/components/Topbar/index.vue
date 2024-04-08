@@ -4,24 +4,29 @@ import Toolbar from './Toolbar/index.vue'
 import useSettingsStore from '@/store/modules/settings'
 
 defineOptions({
-  name: 'Topbar',
+  name: 'Topbar'
 })
 
 const settingsStore = useSettingsStore()
 
 const enableToolbar = computed(() => {
   return !(
-    settingsStore.settings.menu.menuMode === 'head' && (
-      !settingsStore.settings.toolbar.breadcrumb || settingsStore.settings.app.routeBaseOn === 'filesystem'
-    )
+    settingsStore.settings.menu.menuMode === 'head' &&
+    (!settingsStore.settings.toolbar.breadcrumb || settingsStore.settings.app.routeBaseOn === 'filesystem')
   )
 })
 
 const scrollTop = ref(0)
 const scrollOnHide = ref(false)
 const topbarHeight = computed(() => {
-  const tabbarHeight = settingsStore.settings.tabbar.enable ? Number.parseInt(getComputedStyle(document.documentElement || document.body).getPropertyValue('--g-tabbar-height')) : 0
-  const toolbarHeight = enableToolbar.value ? Number.parseInt(getComputedStyle(document.documentElement || document.body).getPropertyValue('--g-toolbar-height')) : 0
+  const tabbarHeight = settingsStore.settings.tabbar.enable
+    ? Number.parseInt(getComputedStyle(document.documentElement || document.body).getPropertyValue('--g-tabbar-height'))
+    : 0
+  const toolbarHeight = enableToolbar.value
+    ? Number.parseInt(
+        getComputedStyle(document.documentElement || document.body).getPropertyValue('--g-toolbar-height')
+      )
+    : 0
   return tabbarHeight + toolbarHeight
 })
 onMounted(() => {
@@ -40,13 +45,15 @@ watch(scrollTop, (val, oldVal) => {
 
 <template>
   <div
-    class="topbar-container" :class="{
+    class="topbar-container"
+    :class="{
       'has-tabbar': settingsStore.settings.tabbar.enable,
       'has-toolbar': enableToolbar,
       [`topbar-${settingsStore.settings.topbar.mode}`]: true,
       'shadow': scrollTop,
-      'hide': scrollOnHide,
-    }" data-fixed-calc-width
+      'hide': scrollOnHide
+    }"
+    data-fixed-calc-width
   >
     <Tabbar v-if="settingsStore.settings.tabbar.enable" />
     <Toolbar v-if="enableToolbar" />
@@ -61,7 +68,11 @@ watch(scrollTop, (val, oldVal) => {
   display: flex;
   flex-direction: column;
   box-shadow: 0 1px 0 0 var(--g-border-color);
-  transition: width 0.3s, top 0.3s, transform 0.3s, box-shadow 0.3s;
+  transition:
+    width 0.3s,
+    top 0.3s,
+    transform 0.3s,
+    box-shadow 0.3s;
 
   &.topbar-fixed,
   &.topbar-sticky {

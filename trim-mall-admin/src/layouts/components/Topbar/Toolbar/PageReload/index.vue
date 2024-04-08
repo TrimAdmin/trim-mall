@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineOptions({
-  name: 'PageReload',
+  name: 'PageReload'
 })
 
 const mainPage = useMainPage()

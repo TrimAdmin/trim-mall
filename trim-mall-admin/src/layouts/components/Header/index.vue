@@ -96,7 +96,6 @@ header {
     -1px 0 0 0 var(--g-border-color),
     1px 0 0 0 var(--g-border-color),
     0 1px 0 0 var(--g-border-color);
-
   transition: background-color 0.3s;
 
   .header-container {

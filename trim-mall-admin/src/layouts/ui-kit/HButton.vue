@@ -8,8 +8,8 @@ const props = withDefaults(
   {
     block: false,
     outline: false,
-    disabled: false,
-  },
+    disabled: false
+  }
 )
 
 const buttonClass = computed(() => [
@@ -17,7 +17,7 @@ const buttonClass = computed(() => [
   props.block ? 'w-full flex justify-center items-center' : 'inline-flex items-center',
   props.outline
     ? 'shadow-sm ring-1 ring-inset ring-ui-primary text-ui-primary bg-white dark:bg-dark hover:not-disabled:bg-ui-primary/10 dark:hover:not-disabled:bg-ui-primary/10 focus-visible:ring-2'
-    : 'shadow-sm text-ui-text bg-ui-primary hover:bg-ui-primary/75 disabled:bg-ui-primary/90 focus-visible:ring-inset focus-visible:ring-2',
+    : 'shadow-sm text-ui-text bg-ui-primary hover:bg-ui-primary/75 disabled:bg-ui-primary/90 focus-visible:ring-inset focus-visible:ring-2'
 ])
 </script>
 

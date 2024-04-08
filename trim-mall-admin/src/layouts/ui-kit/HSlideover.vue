@@ -14,8 +14,8 @@ const props = withDefaults(
     appear: false,
     side: 'right',
     preventClose: false,
-    overlay: false,
-  },
+    overlay: false
+  }
 )
 
 const emits = defineEmits<{
@@ -23,7 +23,7 @@ const emits = defineEmits<{
 }>()
 
 const isOpen = defineModel<boolean>({
-  default: false,
+  default: false
 })
 
 const slots = useSlots()
@@ -34,7 +34,7 @@ const overlayTransitionClass = ref({
   enterTo: 'opacity-100',
   leave: 'ease-in-out duration-500',
   leaveFrom: 'opacity-100',
-  leaveTo: 'opacity-0',
+  leaveTo: 'opacity-0'
 })
 
 const transitionClass = computed(() => {
@@ -44,7 +44,7 @@ const transitionClass = computed(() => {
     enterFrom: props.side === 'left' ? '-translate-x-full' : 'translate-x-full',
     enterTo: 'translate-x-0',
     leaveFrom: 'translate-x-0',
-    leaveTo: props.side === 'left' ? '-translate-x-full' : 'translate-x-full',
+    leaveTo: props.side === 'left' ? '-translate-x-full' : 'translate-x-full'
   }
 })
 
@@ -56,9 +56,16 @@ function close() {
 
 <template>
   <TransitionRoot as="template" :appear="appear" :show="isOpen">
-    <Dialog class="fixed inset-0 z-2000 flex" :class="{ 'justify-end': side === 'right' }" @close="!preventClose && close()">
+    <Dialog
+      class="fixed inset-0 z-2000 flex"
+      :class="{ 'justify-end': side === 'right' }"
+      @close="!preventClose && close()"
+    >
       <TransitionChild as="template" :appear="appear" v-bind="overlayTransitionClass">
-        <div class="fixed inset-0 bg-stone-2/75 transition-opacity dark:bg-stone-8/75" :class="{ 'backdrop-blur-sm': overlay }" />
+        <div
+          class="fixed inset-0 bg-stone-2/75 transition-opacity dark:bg-stone-8/75"
+          :class="{ 'backdrop-blur-sm': overlay }"
+        />
       </TransitionChild>
       <TransitionChild as="template" :appear="appear" v-bind="transitionClass">
         <DialogPanel relative max-w-md w-full w-screen flex flex-1 flex-col bg-white dark:bg-stone-8 focus:outline-none>
@@ -69,7 +76,11 @@ function close() {
             <SvgIcon name="i-carbon:close" cursor-pointer @click="close" />
           </div>
           <DialogDescription m-0 flex-1 of-y-hidden>
-            <OverlayScrollbarsComponent :options="{ scrollbars: { autoHide: 'leave', autoHideDelay: 300 } }" defer class="h-full p-4">
+            <OverlayScrollbarsComponent
+              :options="{ scrollbars: { autoHide: 'leave', autoHideDelay: 300 } }"
+              defer
+              class="h-full p-4"
+            >
               <slot />
             </OverlayScrollbarsComponent>
           </DialogDescription>

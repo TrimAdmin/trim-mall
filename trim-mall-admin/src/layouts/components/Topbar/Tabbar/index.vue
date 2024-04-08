@@ -9,7 +9,7 @@ import useTabbarStore from '@/store/modules/tabbar'
 import type { Tabbar } from '#/global'
 
 defineOptions({
-  name: 'Tabbar',
+  name: 'Tabbar'
 })
 
 const route = useRoute()
@@ -32,42 +32,49 @@ onBeforeUpdate(() => {
   tabRef.value = []
 })
 
-watch(() => route, (val) => {
-  if (settingsStore.settings.tabbar.enable) {
-    tabbarStore.add(val).then(() => {
-      const index = tabbarStore.list.findIndex(item => item.tabId === activedTabId.value)
-      if (index !== -1) {
-        scrollTo(tabRef.value[index].offsetLeft)
-        tabbarScrollTip()
-      }
-    })
+watch(
+  () => route,
+  (val) => {
+    if (settingsStore.settings.tabbar.enable) {
+      tabbarStore.add(val).then(() => {
+        const index = tabbarStore.list.findIndex((item) => item.tabId === activedTabId.value)
+        if (index !== -1) {
+          scrollTo(tabRef.value[index].offsetLeft)
+          tabbarScrollTip()
+        }
+      })
+    }
+  },
+  {
+    immediate: true,
+    deep: true
   }
-}, {
-  immediate: true,
-  deep: true,
-})
+)
 function tabbarScrollTip() {
-  if (tabContainerRef.value.$el.clientWidth > tabsRef.value.clientWidth && localStorage.getItem('tabbarScrollTip') === undefined) {
+  if (
+    tabContainerRef.value.$el.clientWidth > tabsRef.value.clientWidth &&
+    localStorage.getItem('tabbarScrollTip') === undefined
+  ) {
     localStorage.setItem('tabbarScrollTip', '')
     Message.info('标签栏数量超过展示区域范围，可以将鼠标移到标签栏上，通过鼠标滚轮滑动浏览', {
       title: '温馨提示',
       duration: 5000,
       closable: true,
-      zIndex: 2000,
+      zIndex: 2000
     })
   }
 }
 function handlerMouserScroll(event: WheelEvent) {
   if (event.deltaY || event.detail !== 0) {
     tabsRef.value.scrollBy({
-      left: (event.deltaY || event.detail) > 0 ? 50 : -50,
+      left: (event.deltaY || event.detail) > 0 ? 50 : -50
     })
   }
 }
 function scrollTo(offsetLeft: number) {
   tabsRef.value.scrollTo({
     left: offsetLeft - 50,
-    behavior: 'smooth',
+    behavior: 'smooth'
   })
 }
 function onTabbarContextmenu(event: MouseEvent, routeItem: Tabbar.recordRaw) {
@@ -83,7 +90,7 @@ function onTabbarContextmenu(event: MouseEvent, routeItem: Tabbar.recordRaw) {
         label: '重新加载',
         icon: 'i-ri:refresh-line',
         disabled: routeItem.tabId !== activedTabId.value,
-        onClick: () => mainPage.reload(),
+        onClick: () => mainPage.reload()
       },
       {
         label: '关闭标签页',
@@ -92,30 +99,30 @@ function onTabbarContextmenu(event: MouseEvent, routeItem: Tabbar.recordRaw) {
         divided: true,
         onClick: () => {
           tabbar.closeById(routeItem.tabId)
-        },
+        }
       },
       {
         label: '关闭其他标签页',
         disabled: !tabbar.checkCloseOtherSide(routeItem.tabId),
         onClick: () => {
           tabbar.closeOtherSide(routeItem.tabId)
-        },
+        }
       },
       {
         label: '关闭左侧标签页',
         disabled: !tabbar.checkCloseLeftSide(routeItem.tabId),
         onClick: () => {
           tabbar.closeLeftSide(routeItem.tabId)
-        },
+        }
       },
       {
         label: '关闭右侧标签页',
         disabled: !tabbar.checkCloseRightSide(routeItem.tabId),
         onClick: () => {
           tabbar.closeRightSide(routeItem.tabId)
-        },
-      },
-    ],
+        }
+      }
+    ]
   })
 }
 
@@ -127,14 +134,14 @@ onMounted(() => {
         // 切换到当前标签页紧邻的上一个标签页
         case 'alt+left':
           if (tabbarStore.list[0].tabId !== activedTabId.value) {
-            const index = tabbarStore.list.findIndex(item => item.tabId === activedTabId.value)
+            const index = tabbarStore.list.findIndex((item) => item.tabId === activedTabId.value)
             router.push(tabbarStore.list[index - 1].fullPath)
           }
           break
         // 切换到当前标签页紧邻的下一个标签页
         case 'alt+right':
           if (tabbarStore.list.at(-1)?.tabId !== activedTabId.value) {
-            const index = tabbarStore.list.findIndex(item => item.tabId === activedTabId.value)
+            const index = tabbarStore.list.findIndex((item) => item.tabId === activedTabId.value)
             router.push(tabbarStore.list[index + 1].fullPath)
           }
           break
@@ -151,8 +158,7 @@ onMounted(() => {
         case 'alt+6':
         case 'alt+7':
         case 'alt+8':
-        case 'alt+9':
-        {
+        case 'alt+9': {
           const number = Number(handle.key.split('+')[1])
           tabbarStore.list[number - 1]?.fullPath && router.push(tabbarStore.list[number - 1].fullPath)
           break
@@ -175,16 +181,27 @@ onUnmounted(() => {
     <div ref="tabsRef" class="tabs" @wheel.prevent="handlerMouserScroll">
       <TransitionGroup ref="tabContainerRef" name="tabbar" tag="div" class="tab-container">
         <div
-          v-for="(element, index) in tabbarStore.list" :key="element.tabId"
-          ref="tabRef" :data-index="index" class="tab" :class="{
-            actived: element.tabId === activedTabId,
-          }" :title="typeof element?.title === 'function' ? element.title() : element.title" @click="router.push(element.fullPath)" @contextmenu="onTabbarContextmenu($event, element)"
+          v-for="(element, index) in tabbarStore.list"
+          :key="element.tabId"
+          ref="tabRef"
+          :data-index="index"
+          class="tab"
+          :class="{
+            actived: element.tabId === activedTabId
+          }"
+          :title="typeof element?.title === 'function' ? element.title() : element.title"
+          @click="router.push(element.fullPath)"
+          @contextmenu="onTabbarContextmenu($event, element)"
         >
           <div class="tab-dividers" />
           <div class="tab-background" />
           <div class="tab-content">
             <div :key="element.tabId" class="title">
-              <SvgIcon v-if="settingsStore.settings.tabbar.enableIcon && element.icon" :name="element.icon" class="icon" />
+              <SvgIcon
+                v-if="settingsStore.settings.tabbar.enableIcon && element.icon"
+                :name="element.icon"
+                class="icon"
+              />
               {{ typeof element?.title === 'function' ? element.title() : element.title }}
             </div>
             <div v-if="tabbarStore.list.length > 1" class="action-icon">
@@ -205,7 +222,7 @@ onUnmounted(() => {
   z-index: 1000;
 
   .mx-context-menu {
-    --at-apply: fixed ring-1 ring-stone-2 dark:ring-stone-7 shadow-2xl;
+    --at-apply: fixed ring-1 ring-stone-2 dark: ring-stone-7 shadow-2xl;
 
     background-color: var(--g-container-bg);
 
@@ -213,7 +230,7 @@ onUnmounted(() => {
       --at-apply: transition-background-color;
 
       &:not(.disabled):hover {
-        --at-apply: cursor-pointer bg-stone-1 dark:bg-stone-9;
+        --at-apply: cursor-pointer bg-stone-1 dark: bg-stone-9;
       }
 
       span {
@@ -234,7 +251,7 @@ onUnmounted(() => {
       background-color: var(--g-container-bg);
 
       &::after {
-        --at-apply: bg-stone-2 dark:bg-stone-7;
+        --at-apply: bg-stone-2 dark: bg-stone-7;
       }
     }
   }
@@ -345,10 +362,12 @@ onUnmounted(() => {
             left: 1px;
             display: block;
             width: 1px;
-            content: "";
+            content: '';
             background-color: var(--g-tabbar-dividers-bg);
             opacity: 1;
-            transition: opacity 0.2s ease, background-color 0.3s;
+            transition:
+              opacity 0.2s ease,
+              background-color 0.3s;
           }
         }
 
@@ -364,7 +383,9 @@ onUnmounted(() => {
           width: 100%;
           height: 100%;
           pointer-events: none;
-          transition: opacity 0.3s, background-color 0.3s;
+          transition:
+            opacity 0.3s,
+            background-color 0.3s;
         }
 
         .tab-content {
@@ -412,14 +433,14 @@ onUnmounted(() => {
             transform: translateY(-50%);
 
             &:hover {
-              --at-apply: ring-1 ring-stone-3 dark:ring-stone-7;
+              --at-apply: ring-1 ring-stone-3 dark: ring-stone-7;
 
               background-color: var(--g-bg);
             }
           }
 
           .hotkey-number {
-            --at-apply: ring-1 ring-stone-3 dark:ring-stone-7;
+            --at-apply: ring-1 ring-stone-3 dark: ring-stone-7;
 
             position: absolute;
             top: 50%;

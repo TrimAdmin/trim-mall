@@ -3,7 +3,7 @@ import { useFullscreen } from '@vueuse/core'
 import useSettingsStore from '@/store/modules/settings'
 
 defineOptions({
-  name: 'Fullscreen',
+  name: 'Fullscreen'
 })
 
 const settingsStore = useSettingsStore()
