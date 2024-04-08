@@ -5,19 +5,16 @@ import type { MenuInjection, MenuProps } from './types'
 import { rootMenuInjectionKey } from './types'
 
 defineOptions({
-  name: 'MainMenu',
+  name: 'MainMenu'
 })
 
-const props = withDefaults(
-  defineProps<MenuProps>(),
-  {
-    accordion: true,
-    defaultOpeneds: () => [],
-    mode: 'vertical',
-    collapse: false,
-    showCollapseName: false,
-  },
-)
+const props = withDefaults(defineProps<MenuProps>(), {
+  accordion: true,
+  defaultOpeneds: () => [],
+  mode: 'vertical',
+  collapse: false,
+  showCollapseName: false
+})
 
 const activeIndex = ref<MenuInjection['activeIndex']>(props.value)
 const items = ref<MenuInjection['items']>({})
@@ -37,14 +34,13 @@ function initItems(menu: MenuProps['menu'], parentPaths: string[] = []) {
       subMenus.value[index] = {
         index,
         indexPath,
-        active: false,
+        active: false
       }
       initItems(item.children, indexPath)
-    }
-    else {
+    } else {
       items.value[index] = {
         index,
-        indexPath: parentPaths,
+        indexPath: parentPaths
       }
     }
   })
@@ -55,7 +51,7 @@ const openMenu: MenuInjection['openMenu'] = (index, indexPath) => {
     return
   }
   if (props.accordion) {
-    openedMenus.value = openedMenus.value.filter(key => indexPath.includes(key))
+    openedMenus.value = openedMenus.value.filter((key) => indexPath.includes(key))
   }
   openedMenus.value.push(index)
 }
@@ -71,7 +67,7 @@ const closeMenu: MenuInjection['closeMenu'] = (index) => {
   }
   Object.keys(subMenus.value).forEach((item) => {
     if (subMenus.value[item].indexPath.includes(index)) {
-      openedMenus.value = openedMenus.value.filter(item => item !== index)
+      openedMenus.value = openedMenus.value.filter((item) => item !== index)
     }
   })
 }
@@ -97,8 +93,7 @@ const handleMenuItemClick: MenuInjection['handleMenuItemClick'] = (index) => {
 const handleSubMenuClick: MenuInjection['handleSubMenuClick'] = (index, indexPath) => {
   if (openedMenus.value.includes(index)) {
     closeMenu(index)
-  }
-  else {
+  } else {
     openMenu(index, indexPath)
   }
 }
@@ -116,62 +111,81 @@ function initMenu() {
   })
 }
 
-watch(() => props.menu, (val) => {
-  initItems(val)
-  initMenu()
-}, {
-  deep: true,
-  immediate: true,
-})
+watch(
+  () => props.menu,
+  (val) => {
+    initItems(val)
+    initMenu()
+  },
+  {
+    deep: true,
+    immediate: true
+  }
+)
 
-watch(() => props.value, (currentValue) => {
-  if (!items.value[currentValue]) {
-    activeIndex.value = ''
+watch(
+  () => props.value,
+  (currentValue) => {
+    if (!items.value[currentValue]) {
+      activeIndex.value = ''
+    }
+    const item =
+      items.value[currentValue] || (activeIndex.value && items.value[activeIndex.value]) || items.value[props.value]
+    if (item) {
+      activeIndex.value = item.index
+    } else {
+      activeIndex.value = currentValue
+    }
+    initMenu()
   }
-  const item = items.value[currentValue] || (activeIndex.value && items.value[activeIndex.value]) || items.value[props.value]
-  if (item) {
-    activeIndex.value = item.index
-  }
-  else {
-    activeIndex.value = currentValue
-  }
-  initMenu()
-})
+)
 
-watch(() => props.collapse, (value) => {
-  if (value) {
-    openedMenus.value = []
+watch(
+  () => props.collapse,
+  (value) => {
+    if (value) {
+      openedMenus.value = []
+    }
+    initMenu()
   }
-  initMenu()
-})
+)
 
-provide(rootMenuInjectionKey, reactive({
-  props,
-  items,
-  subMenus,
-  activeIndex,
-  openedMenus,
-  mouseInMenu,
-  isMenuPopup,
-  openMenu,
-  closeMenu,
-  handleMenuItemClick,
-  handleSubMenuClick,
-}))
+provide(
+  rootMenuInjectionKey,
+  reactive({
+    props,
+    items,
+    subMenus,
+    activeIndex,
+    openedMenus,
+    mouseInMenu,
+    isMenuPopup,
+    openMenu,
+    closeMenu,
+    handleMenuItemClick,
+    handleSubMenuClick
+  })
+)
 </script>
 
 <template>
   <div
-    class="flex flex-col of-hidden transition-all" :class="{
+    class="flex flex-col of-hidden transition-all"
+    :class="{
       'w-[200px]': !isMenuPopup && props.mode === 'vertical',
       'w-[64px]': isMenuPopup && props.mode === 'vertical',
       'h-[80px]': props.mode === 'horizontal',
-      'flex-row! w-auto': isMenuPopup && props.mode === 'horizontal',
+      'flex-row! w-auto': isMenuPopup && props.mode === 'horizontal'
     }"
   >
     <template v-for="item in menu" :key="item.path ?? JSON.stringify(item)">
       <SubMenu v-if="item.children?.length" :menu="item" :unique-key="[item.path ?? JSON.stringify(item)]" />
-      <Item v-else :item="item" :unique-key="[item.path ?? JSON.stringify(item)]" @click="handleMenuItemClick(item.path ?? JSON.stringify(item))" />
+      <Item
+        v-else
+        :item="item"
+        :unique-key="[item.path ?? JSON.stringify(item)]"
+        @click="handleMenuItemClick(item.path ?? JSON.stringify(item))"
+      />
     </template>
   </div>
 </template>

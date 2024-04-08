@@ -3,7 +3,7 @@ import eventBus from '@/utils/eventBus'
 import useSettingsStore from '@/store/modules/settings'
 
 defineOptions({
-  name: 'HotkeysIntro',
+  name: 'HotkeysIntro'
 })
 
 const isShow = ref(false)
@@ -22,26 +22,29 @@ onMounted(() => {
     <div class="px-4">
       <div class="grid gap-2 sm:grid-cols-2">
         <div>
-          <h2 class="m-0 text-lg font-bold">
-            全局
-          </h2>
+          <h2 class="m-0 text-lg font-bold">全局</h2>
           <ul class="list-none pl-4 text-sm">
             <li class="py-1">
               <HKbd>{{ settingsStore.os === 'mac' ? '⌥' : 'Alt' }}</HKbd>
               <HKbd>I</HKbd>
               查看系统信息
             </li>
-            <li v-if="settingsStore.settings.toolbar.navSearch && settingsStore.settings.navSearch.enableHotkeys" class="py-1">
+            <li
+              v-if="settingsStore.settings.toolbar.navSearch && settingsStore.settings.navSearch.enableHotkeys"
+              class="py-1"
+            >
               <HKbd>{{ settingsStore.os === 'mac' ? '⌥' : 'Alt' }}</HKbd>
               <HKbd>S</HKbd>
               唤起导航搜索
             </li>
           </ul>
         </div>
-        <div v-if="settingsStore.settings.menu.enableHotkeys && ['side', 'head'].includes(settingsStore.settings.menu.menuMode)">
-          <h2 class="m-0 text-lg font-bold">
-            主导航
-          </h2>
+        <div
+          v-if="
+            settingsStore.settings.menu.enableHotkeys && ['side', 'head'].includes(settingsStore.settings.menu.menuMode)
+          "
+        >
+          <h2 class="m-0 text-lg font-bold">主导航</h2>
           <ul class="list-none pl-4 text-sm">
             <li class="py-1">
               <HKbd>{{ settingsStore.os === 'mac' ? '⌥' : 'Alt' }}</HKbd>
@@ -51,9 +54,7 @@ onMounted(() => {
           </ul>
         </div>
         <div v-if="settingsStore.settings.tabbar.enable && settingsStore.settings.tabbar.enableHotkeys">
-          <h2 class="m-0 text-lg font-bold">
-            标签栏
-          </h2>
+          <h2 class="m-0 text-lg font-bold">标签栏</h2>
           <ul class="list-none pl-4 text-sm">
             <li class="py-1">
               <HKbd>{{ settingsStore.os === 'mac' ? '⌥' : 'Alt' }}</HKbd>
