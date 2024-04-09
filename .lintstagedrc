@@ -1,0 +1,13 @@
+{
+  "**/*.{js,ts,jsx,tsx,vue}": [
+    "pnpm lint:code",
+    "pnpm prettier"
+  ],
+  "**/*.{css,scss,sass,vue,html}": [
+    "pnpm lint:style",
+    "pnpm prettier"
+  ],
+  "**/*.{json,md},*rc": [
+    "pnpm prettier --parser json"
+  ]
+}

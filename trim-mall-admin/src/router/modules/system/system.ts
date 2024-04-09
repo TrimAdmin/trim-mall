@@ -26,7 +26,7 @@ const routes: RouteRecordRaw = {
           meta: {
             title: '新增用户',
             menu: false,
-            auth: 'system:manage:create'
+            auth: 'system:manage:user:create'
           }
         }
       ]

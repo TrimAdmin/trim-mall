@@ -78,6 +78,7 @@ const useMenuStore = defineStore(
       // 如果权限功能开启，则需要对导航数据进行筛选过滤
       if (settingsStore.settings.app.enablePermission) {
         returnMenus = filterAsyncMenus(returnMenus, userStore.permissions)
+        console.log(returnMenus)
       }
       return returnMenus
     })
@@ -138,9 +139,11 @@ const useMenuStore = defineStore(
 
     // 判断是否有权限
     function hasPermission(permissions: string[], menu: Menu.recordMainRaw | Menu.recordRaw) {
-      let isAuth = false
+      let isAuth: boolean
       if (menu.meta?.auth) {
         isAuth = permissions.some((auth) => {
+          // 全部权限拦截
+          if (auth === '*:*') return true
           if (typeof menu.meta?.auth === 'string') {
             return menu.meta.auth !== '' ? menu.meta.auth === auth : true
           } else if (typeof menu.meta?.auth === 'object') {
@@ -161,7 +164,7 @@ const useMenuStore = defineStore(
       menus.forEach((menu) => {
         if (hasPermission(permissions, menu)) {
           const tmpMenu = cloneDeep(menu)
-          if (tmpMenu.children) {
+          if (tmpMenu.children && tmpMenu.children.length) {
             tmpMenu.children = filterAsyncMenus(tmpMenu.children, permissions) as Menu.recordRaw[]
             tmpMenu.children.length && res.push(tmpMenu)
           } else {

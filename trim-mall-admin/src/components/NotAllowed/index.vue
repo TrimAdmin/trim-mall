@@ -42,7 +42,7 @@ function goBack() {
       <h1 class="m-0 text-6xl font-sans">403</h1>
       <div class="desc mx-0 text-xl text-stone-5">抱歉，你无权访问该页面</div>
       <div>
-        <HButton @click="goBack"> {{ data.countdown }} 秒后，返回首页 </HButton>
+        <el-button type="primary" @click="goBack"> {{ data.countdown }} 秒后，返回首页 </el-button>
       </div>
     </div>
   </div>

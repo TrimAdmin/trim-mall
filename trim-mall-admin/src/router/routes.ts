@@ -62,7 +62,8 @@ const asyncRoutes: Route.recordMainRaw[] = [
   {
     meta: {
       title: '系统',
-      icon: 'i-uim:box'
+      icon: 'i-uim:box',
+      auth: 'system'
     },
     children: Object.values(
       import.meta.glob('./modules/system/*.ts', {

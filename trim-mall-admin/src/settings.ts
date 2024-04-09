@@ -4,7 +4,7 @@ import settingsDefault from '@/settings.default'
 
 const globalSettings: Settings.all = {
   app: {
-    enablePermission: false,
+    enablePermission: true,
     enableDynamicTitle: true,
     colorScheme: 'light',
     routeBaseOn: 'frontend'
