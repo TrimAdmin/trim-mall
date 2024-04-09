@@ -4,34 +4,37 @@ pageType: home
 hero:
   name: Trim Mall
   text: 全新的多端商城
-  tagline: Trim Mall tagline
+  tagline: 使用最新技术栈，提供多端支持，上手更轻松。
   actions:
     - theme: brand
-      text: Quick Start
+      text: 快速上手
       link: /guide/
+    - theme: alt
+      text: 更新日志
+      link: https://github.com/web-infra-dev/rspress
     - theme: alt
       text: Github
       link: https://github.com/web-infra-dev/rspress
   image:
-    src: /rspress-icon.png
+    src: /logo.png
     alt: Trim Mall Logo
 features:
-  - title: Blazing fast build speed
-    details: The core compilation module is based on the Rust front-end toolchain, providing a more ultimate development experience.
+  - title: 紧跟技术潮流
+    details: Typescript、Vite、Nestjs、Prisma、Vue3、React、Uniapp，使用业内最新技术栈。
     icon: 🏃🏻‍♀️
-  - title: Support for MDX content writing
-    details: MDX is a powerful way to write content, allowing you to use React components in Markdown.
+  - title: 权限控制
+    details: 采用前端菜单主导+后端权限控制相结合的方式，使用更灵活。
     icon: 📦
-  - title: Built-in full-text search
-    details: Automatically generates a full-text search index for you during construction, providing out-of-the-box full-text search capabilities.
+  - title: 丰富的业务逻辑
+    details: 商品管理、订单管理、会员管理、营销管理、内容管理、系统管理、权限管理、数据统计等，满足不同业务场景。
     icon: 🎨
-  - title: Simpler I18n solution
-    details: With the built-in I18n solution, you can easily provide multi-language support for documents or components.
+  - title: 国际化
+    details: 内置国际化，轻松实现多国语言切换。
     icon: 🌍
-  - title: Static site generation
-    details: In production, it automatically builds into static HTML files, which can be easily deployed anywhere.
+  - title: Monorepo
+    details: 仓库采用Monorepo模式，依赖管理更轻松。
     icon: 🌈
-  - title: Providing multiple custom capabilities
-    details: Through its extension mechanism, you can easily extend theme UI and build process.
+  - title: 可拓展性
+    details: 开发模块化，稍加理解即可快速添加自定义模块。
     icon: 🔥
 ---

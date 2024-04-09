@@ -26,4 +26,12 @@ export class AuthController {
     const userInfo = await this.authService.getUserInfo(token)
     return response.ok(userInfo)
   }
+
+  @Get('permission')
+  @ApiOperation({ summary: '获取用户权限列表' })
+  async getUserPermission(@Headers() headers: { token: string }) {
+    const { token } = headers
+    const permission = await this.authService.getUserPermission(token)
+    return response.ok(permission)
+  }
 }

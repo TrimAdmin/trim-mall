@@ -5,7 +5,6 @@ import useUserStore from './user'
 import useRouteStore from './route'
 import { resolveRoutePath } from '@/utils'
 import apiApp from '@/api/modules/app'
-import menu from '@/menu'
 import type { Menu, Route } from '#/global'
 
 const useMenuStore = defineStore(
@@ -175,7 +174,7 @@ const useMenuStore = defineStore(
 
     // 生成导航（前端生成）
     async function generateMenusAtFront() {
-      filesystemMenusRaw.value = menu.filter((item) => item.children.length !== 0)
+      // filesystemMenusRaw.value = menu.filter((item) => item.children.length !== 0)
     }
 
     // 生成导航（后端生成）

@@ -21,10 +21,7 @@ import { AuthGuard } from './auth.guard'
   imports: [
     UserModule,
     JwtModule.register({
-      global: true,
-      signOptions: {
-        expiresIn: '3d'
-      }
+      global: true
     })
   ],
   exports: [AuthService]

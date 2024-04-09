@@ -42,3 +42,4 @@ package-lock.json
 **/.env.local
 **/components.d.ts
 **/auto-imports.d.ts
+/trim-mall-doc/doc_build/

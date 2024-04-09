@@ -49,20 +49,7 @@ function handleLogin() {
     loginFormRef.value.validate((valid) => {
       if (valid) {
         loading.value = true
-        userStore
-          .login(loginForm.value)
-          .then(() => {
-            loading.value = false
-            if (loginForm.value.remember) {
-              localStorage.setItem('login_account', loginForm.value.username)
-            } else {
-              localStorage.removeItem('login_account')
-            }
-            router.push(redirect.value)
-          })
-          .catch(() => {
-            loading.value = false
-          })
+        userStore.login(loginForm.value)
       }
     })
 }
@@ -95,7 +82,9 @@ function handleLogin() {
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button :loading="loading" class="w-full" type="primary" @click="handleLogin">登录</el-button>
+          <el-button :loading="loading" class="w-full" type="primary" native-type="submit" @click="handleLogin">
+            登录
+          </el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -109,13 +98,16 @@ function handleLogin() {
     position: relative;
     top: inherit;
     left: inherit;
+    transform: translateX(0) translateY(0);
+
     flex-direction: column;
     justify-content: start;
+
     width: 100%;
     height: 100%;
+
     border-radius: 0;
     box-shadow: none;
-    transform: translateX(0) translateY(0);
 
     .login-banner {
       width: 100%;
@@ -125,11 +117,13 @@ function handleLogin() {
         position: relative;
         top: inherit;
         right: inherit;
+        transform: translateY(0);
+
         display: inherit;
+
         width: 100%;
         max-width: 375px;
         margin: 0 auto;
-        transform: translateY(0);
       }
     }
 
@@ -152,8 +146,10 @@ function handleLogin() {
 .bg-banner {
   position: fixed;
   z-index: 0;
+
   width: 100%;
   height: 100%;
+
   background: radial-gradient(circle at center, var(--g-container-bg), var(--g-bg));
 }
 
@@ -161,44 +157,49 @@ function handleLogin() {
   position: absolute;
   top: 50%;
   left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+
+  overflow: hidden;
   display: flex;
   justify-content: space-between;
-  overflow: hidden;
+
   background-color: var(--g-container-bg);
   border-radius: 10px;
   box-shadow: var(--el-box-shadow);
-  transform: translateX(-50%) translateY(-50%);
 
   .login-banner {
     position: relative;
-    width: 450px;
     overflow: hidden;
+    width: 450px;
     background-color: var(--g-bg);
 
     .banner {
-      width: 100%;
-
       @include position-center(y);
+
+      width: 100%;
     }
 
     .logo {
       position: absolute;
       top: 20px;
       left: 20px;
+
       height: 30px;
+
       border-radius: 4px;
       box-shadow: var(--el-box-shadow-light);
     }
   }
 
   .login-form {
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
+
     width: 500px;
     min-height: 500px;
     padding: 50px;
-    overflow: hidden;
 
     .title-container {
       position: relative;
@@ -255,7 +256,9 @@ function handleLogin() {
     display: flex;
     align-items: center;
     justify-content: center;
+
     margin-top: 20px;
+
     font-size: 14px;
     color: var(--el-text-color-secondary);
 
@@ -268,8 +271,9 @@ function handleLogin() {
 .copyright {
   position: absolute;
   bottom: 0;
+
   width: 100%;
-  padding: 20px;
   margin: 0;
+  padding: 20px;
 }
 </style>

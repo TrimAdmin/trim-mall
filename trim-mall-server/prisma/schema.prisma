@@ -32,7 +32,7 @@ model SysUser {
   mobilePhone String?       @map("mobile_phone") @db.VarChar(50)
   nickname    String?       @db.VarChar(50)
   status      Status        @default(ENABLE)
-  avatarKey   String?       @default("2703e23c-ff34-4573-99fb-f86ab8296e25.avatar.jpg") @map("avatar_key") @db.VarChar(500)
+  avatar      String?       @default("https://mall-img.trim-admin.icu/2703e23c-ff34-4573-99fb-f86ab8296e25.avatar.jpg") @db.VarChar(500)
   createTime  DateTime      @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
   updateTime  DateTime      @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
   userRole    SysUserRole[]
@@ -40,32 +40,17 @@ model SysUser {
   @@map("sys_user")
 }
 
-// 管理后台-部门
-model SysDept {
-  id         Int       @id @unique @default(autoincrement())
-  name       String    @db.VarChar(50)
-  status     Status    @default(ENABLE)
-  sort       Int?      @default(1)
-  parentId   Int?      @default(0) @map("parent_id")
-  parnetDept SysDept?  @relation("ChildDepts", fields: [parentId], references: [id])
-  children   SysDept[] @relation("ChildDepts")
-  createTime DateTime  @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
-  updateTime DateTime  @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
-
-  @@map("sys_dept")
-}
-
 // 管理后台-角色
 model SysRole {
-  id                Int                 @id @unique @default(autoincrement())
-  name              String              @db.VarChar(50)
-  sort              Int?                @default(1)
-  status            Status              @default(ENABLE)
-  remark            String?             @db.VarChar(200)
-  createTime        DateTime            @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
-  updateTime        DateTime            @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
-  userRole          SysUserRole[]
-  SysRolePermission SysRolePermission[]
+  id             Int                 @id @unique @default(autoincrement())
+  name           String              @db.VarChar(50)
+  sort           Int?                @default(1)
+  status         Status              @default(ENABLE)
+  remark         String?             @db.VarChar(200)
+  createTime     DateTime            @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
+  updateTime     DateTime            @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
+  userRole       SysUserRole[]
+  rolePermission SysRolePermission[]
 
   @@map("sys_role")
 }
@@ -93,6 +78,21 @@ model SysRolePermission {
   updateTime DateTime @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
 
   @@map("sys_role_permission")
+}
+
+// 管理后台-部门
+model SysDept {
+  id         Int       @id @unique @default(autoincrement())
+  name       String    @db.VarChar(50)
+  status     Status    @default(ENABLE)
+  sort       Int?      @default(1)
+  parentId   Int?      @default(0) @map("parent_id")
+  parnetDept SysDept?  @relation("ChildDepts", fields: [parentId], references: [id])
+  children   SysDept[] @relation("ChildDepts")
+  createTime DateTime  @default(dbgenerated("current_timestamp")) @map("create_time") @db.Timestamp()
+  updateTime DateTime  @default(dbgenerated("current_timestamp")) @updatedAt @map("update_time") @db.Timestamp()
+
+  @@map("sys_dept")
 }
 
 // 管理后台-数据字典

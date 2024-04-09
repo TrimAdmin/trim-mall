@@ -2,6 +2,7 @@ import axios from 'axios'
 
 import useUserStore from '@/store/modules/user'
 import { ElMessage } from 'element-plus'
+import { GlobalResponse } from '#/global'
 
 const api = axios.create({
   baseURL:
@@ -22,9 +23,7 @@ api.interceptors.request.use((request) => {
   const userStore = useUserStore()
   // 设置请求头
   if (request.headers) {
-    if (userStore.isLogin) {
-      request.headers.Token = userStore.token
-    }
+    request.headers.Token = userStore.token
   }
   return request
 })
