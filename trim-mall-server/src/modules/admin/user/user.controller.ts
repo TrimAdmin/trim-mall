@@ -4,6 +4,7 @@ import { response } from '../../../utils/response'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 import { PaginationDto } from '../../../dto/pagination.dto'
 import { SearchDto } from './dto/search.dto'
+import { Permission } from '../../../decorator/permission'
 
 @Controller('user')
 @ApiTags('管理后台-用户管理')
@@ -18,6 +19,7 @@ export class UserController {
 
   @Get('page')
   @ApiOperation({ summary: '分页获取用户' })
+  @Permission(['user:page'])
   async page(@Query() params: PaginationDto & SearchDto) {
     return response.ok(await this.userService.getUserPage(params))
   }

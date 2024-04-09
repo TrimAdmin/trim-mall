@@ -5,6 +5,7 @@ import hotkeys from 'hotkeys-js'
 import eventBus from './utils/eventBus'
 import Provider from './ui-provider/index.vue'
 import useSettingsStore from '@/store/modules/settings'
+import useUserStore from '@/store/modules/user.ts'
 
 const settingsStore = useSettingsStore()
 const { auth } = useAuth()
@@ -61,6 +62,7 @@ onMounted(() => {
   hotkeys('alt+i', () => {
     eventBus.emit('global-system-info-toggle')
   })
+  useUserStore().getUserInfo()
 })
 
 import.meta.env.VITE_APP_DEBUG_TOOL === 'eruda' && eruda.init()

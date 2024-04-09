@@ -1,7 +1,7 @@
-import { Header, HttpException, Injectable } from '@nestjs/common'
+import { HttpException, Injectable } from '@nestjs/common'
 import { LoginDto } from './auth.dto'
 import { UserService } from '../user/user.service'
-import { compare, hash } from 'bcrypt'
+import { compare } from 'bcrypt'
 import { JwtService } from '@nestjs/jwt'
 import { ConfigService } from '@nestjs/config'
 import { PrismaClient } from '@prisma/client'
@@ -33,7 +33,8 @@ export class AuthService {
         username: user.username
       }
       const secret = this.configService.get<string>('jwt.secret')
-      const token = await this.jwtService.signAsync(payload, { secret })
+      // expiresIn时间规则详见 https://github.com/vercel/ms#readme
+      const token = await this.jwtService.signAsync(payload, { secret, expiresIn: '3d' })
       return Promise.resolve(token)
     } catch (e) {
       throw new HttpException(e, StatusCodes.INTERNAL_SERVER_ERROR)
@@ -46,6 +47,18 @@ export class AuthService {
       const secret = this.configService.get<string>('jwt.secret')
       const payload = await this.jwtService.verifyAsync(token, { secret })
       const user = await this.userService.findOneById(payload.sub)
+      return Promise.resolve(user)
+    } catch (e) {
+      throw new HttpException(e, StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+  }
+
+  // 获取用户权限
+  async getUserPermission(token: string) {
+    try {
+      const secret = this.configService.get<string>('jwt.secret')
+      const payload = await this.jwtService.verifyAsync(token, { secret })
+      const user = await this.userService.getUserPermission(payload.sub)
       return Promise.resolve(user)
     } catch (e) {
       throw new HttpException(e, StatusCodes.INTERNAL_SERVER_ERROR)

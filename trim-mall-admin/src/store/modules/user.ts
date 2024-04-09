@@ -12,35 +12,38 @@ const useUserStore = defineStore(
     const routeStore = useRouteStore()
     const menuStore = useMenuStore()
 
-    const account = ref(localStorage.account ?? '')
-    const token = ref(localStorage.token ?? '')
-    const avatar = ref(localStorage.avatar ?? '')
+    const token = ref<string>('')
     const permissions = ref<string[]>([])
-    const isLogin = computed(() => {
-      if (token.value) {
-        return true
-      }
-      return false
-    })
+    const isLogin = ref(false)
 
     // 登录
     async function login(data: { username: string; password: string }) {
       const res = await apiUser.login(data)
-      localStorage.setItem('token', res.data)
-      token.value = res.data.token
+      token.value = res.data
+      isLogin.value = true
+      router.push(((router.currentRoute.value.query && router.currentRoute.value.query.redirect) as string) ?? '/')
+      await getUserInfo()
+    }
+
+    const userInfo = ref<UserInfo>({} as UserInfo)
+
+    // 获取用户信息
+    async function getUserInfo() {
+      try {
+        const { data } = await apiUser.getUserInfo()
+        userInfo.value = data
+      } catch (e) {
+        // ignore empty block
+      }
     }
 
     // 登出
     async function logout(redirect = router.currentRoute.value.fullPath) {
-      localStorage.removeItem('account')
-      localStorage.removeItem('token')
-      localStorage.removeItem('avatar')
-      account.value = ''
       token.value = ''
-      avatar.value = ''
       permissions.value = []
       routeStore.removeRoutes()
       menuStore.setActived(0)
+      isLogin.value = false
       router.push({
         name: 'login',
         query: {
@@ -62,16 +65,19 @@ const useUserStore = defineStore(
     }
 
     return {
-      account,
       token,
-      avatar,
+      userInfo,
       permissions,
       isLogin,
       login,
       logout,
       getPermissions,
+      getUserInfo,
       editPassword
     }
+  },
+  {
+    persist: {}
   }
 )
 
