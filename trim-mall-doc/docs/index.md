@@ -16,8 +16,10 @@ hero:
       text: Github
       link: https://github.com/web-infra-dev/rspress
   image:
-    src: /logo.png
+    src: '/logo.png'
     alt: Trim Mall Logo
+    srcset: /logo.png 200px
+    sizes: 200px
 features:
   - title: 紧跟技术潮流
     details: Typescript、Vite、Nestjs、Prisma、Vue3、React、Uniapp，使用业内最新技术栈。

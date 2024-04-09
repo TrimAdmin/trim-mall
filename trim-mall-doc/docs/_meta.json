@@ -1,13 +1,28 @@
 [
   {
-    "text": "Guide",
+    "text": "指南",
     "link": "/guide/",
     "activeMatch": "/guide/"
   },
   {
-    "text": "Hello World",
-    "link": "/hello/",
-    "activeMatch": "/hello/"
+    "text": "在线演示",
+    "items": [
+      {
+        "text": "管理后台",
+        "link": "https://mall.trim-admin.icu/admin/",
+        "activeMatch": "https://mall.trim-admin.icu/admin/"
+      },
+      {
+        "text": "PC端",
+        "link": "https://mall.trim-admin.icu/",
+        "activeMatch": "https://mall.trim-admin.icu/"
+      },
+      {
+        "text": "移动端",
+        "link": "https://mall.trim-admin.icu/h5/",
+        "activeMatch": "https://mall.trim-admin.icu/h5/"
+      }
+    ]
   },
   {
     "text": "API",
