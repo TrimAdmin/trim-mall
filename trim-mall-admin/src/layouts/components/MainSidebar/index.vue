@@ -68,12 +68,17 @@ const { switchTo } = useMenu()
 .main-sidebar-container {
   position: relative;
   z-index: 1;
+
   display: flex;
   flex-direction: column;
+
   width: var(--g-main-sidebar-width);
+
   color: var(--g-main-sidebar-menu-color);
+
   background-color: var(--g-main-sidebar-bg);
   box-shadow: 1px 0 0 0 var(--g-border-color);
+
   transition:
     background-color 0.3s,
     color 0.3s,
@@ -85,13 +90,14 @@ const { switchTo } = useMenu()
   }
 
   .menu {
-    flex: 1;
-    width: initial;
-    overflow: hidden auto;
-    overscroll-behavior: contain;
-
     // firefox隐藏滚动条
     scrollbar-width: none;
+
+    overflow: hidden auto;
+    overscroll-behavior: contain;
+    flex: 1;
+
+    width: initial;
 
     // chrome隐藏滚动条
     &::-webkit-scrollbar {

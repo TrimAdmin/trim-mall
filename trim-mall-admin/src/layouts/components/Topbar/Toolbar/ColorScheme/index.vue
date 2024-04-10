@@ -1,17 +1,15 @@
 <script setup lang="ts">
-import useSettingsStore from '@/store/modules/settings'
-
 defineOptions({
   name: 'ColorScheme'
 })
 
-const settingsStore = useSettingsStore()
+const { system, store } = useColorMode()
 
 function toggleColorScheme(event: MouseEvent) {
   const { startViewTransition } = useViewTransition(() => {
-    settingsStore.currentColorScheme &&
-      settingsStore.setColorScheme(settingsStore.currentColorScheme === 'dark' ? 'light' : 'dark')
+    store.value = store.value === 'auto' ? system.value : store.value === 'dark' ? 'light' : 'dark'
   })
+
   startViewTransition()?.ready.then(() => {
     const x = event.clientX
     const y = event.clientY
@@ -19,15 +17,12 @@ function toggleColorScheme(event: MouseEvent) {
     const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`]
     document.documentElement.animate(
       {
-        clipPath: settingsStore.settings.app.colorScheme !== 'dark' ? clipPath : clipPath.reverse()
+        clipPath: store.value !== 'dark' ? clipPath : clipPath.reverse()
       },
       {
         duration: 300,
         easing: 'ease-out',
-        pseudoElement:
-          settingsStore.settings.app.colorScheme !== 'dark'
-            ? '::view-transition-new(root)'
-            : '::view-transition-old(root)'
+        pseudoElement: store.value !== 'dark' ? '::view-transition-new(root)' : '::view-transition-old(root)'
       }
     )
   })
@@ -39,20 +34,20 @@ function toggleColorScheme(event: MouseEvent) {
     <SvgIcon
       :name="
         {
-          '': 'i-ri:computer-line',
-          'light': 'i-ri:sun-line',
-          'dark': 'i-ri:moon-line'
-        }[settingsStore.settings.app.colorScheme]
+          auto: 'i-ri:computer-line',
+          light: 'i-ri:sun-line',
+          dark: 'i-ri:moon-line'
+        }[store]
       "
       @click="toggleColorScheme"
     />
     <template #dropdown>
       <HTabList
-        v-model="settingsStore.settings.app.colorScheme"
+        v-model="store"
         :options="[
           { icon: 'i-ri:sun-line', label: '', value: 'light' },
           { icon: 'i-ri:moon-line', label: '', value: 'dark' },
-          { icon: 'i-ri:computer-line', label: '', value: '' }
+          { icon: 'i-ri:computer-line', label: '', value: 'auto' }
         ]"
         class="m-3"
       />

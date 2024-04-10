@@ -96,6 +96,7 @@ header {
     -1px 0 0 0 var(--g-border-color),
     1px 0 0 0 var(--g-border-color),
     0 1px 0 0 var(--g-border-color);
+
   transition: background-color 0.3s;
 
   .header-container {
@@ -133,6 +134,8 @@ header {
 
     .menu-container {
       // firefox隐藏滚动条
+
+      // firefox隐藏滚动条
       scrollbar-width: none;
 
       overflow-x: auto;
@@ -140,11 +143,8 @@ header {
 
       height: 100%;
       padding: 0 20px;
-      overflow-x: auto;
-      mask-image: linear-gradient(to right, transparent, #000000 20px, #000000 calc(100% - 20px), transparent);
 
-      // firefox隐藏滚动条
-      scrollbar-width: none;
+      mask-image: linear-gradient(to right, transparent, #000 20px, #000 calc(100% - 20px), transparent);
 
       // chrome隐藏滚动条
       &::-webkit-scrollbar {

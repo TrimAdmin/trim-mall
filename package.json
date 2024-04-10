@@ -13,7 +13,7 @@
     "lint": "pnpm lint:code && pnpm prettier && pnpm lint:style",
     "lint:code": "eslint **/*.{ts,js,tsx,jsx,vue,md,mdx} --fix --cache --max-warnings 4096",
     "prettier": "prettier **/*.{ts,js,tsx,jsx,vue,md,mdx,css,scss,sass} --write --ignore-unknown --no-error-on-unmatched-pattern",
-    "lint:style": "stylelint **/*.{css,scss,sass} --fix --mw 4096"
+    "lint:style": "stylelint **/*.{css,scss,sass,vue} --fix --mw 4096"
   },
   "workspaces": [
     "trim-mall-server",

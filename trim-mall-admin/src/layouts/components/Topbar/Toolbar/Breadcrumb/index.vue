@@ -61,7 +61,7 @@ function pathCompile(path: string) {
 }
 
 .breadcrumb-enter-from {
-  opacity: 0;
   transform: translateX(30px) skewX(-50deg);
+  opacity: 0;
 }
 </style>

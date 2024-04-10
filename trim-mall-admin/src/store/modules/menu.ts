@@ -78,7 +78,6 @@ const useMenuStore = defineStore(
       // 如果权限功能开启，则需要对导航数据进行筛选过滤
       if (settingsStore.settings.app.enablePermission) {
         returnMenus = filterAsyncMenus(returnMenus, userStore.permissions)
-        console.log(returnMenus)
       }
       return returnMenus
     })

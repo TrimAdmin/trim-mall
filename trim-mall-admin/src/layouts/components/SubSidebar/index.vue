@@ -108,10 +108,14 @@ onMounted(() => {
   top: 0;
   bottom: 0;
   left: 0;
+
   display: flex;
   flex-direction: column;
+
   width: var(--g-sub-sidebar-width);
+
   background-color: var(--g-sub-sidebar-bg);
+
   transition:
     background-color 0.3s,
     left 0.3s,
@@ -145,11 +149,10 @@ onMounted(() => {
   }
 
   .sub-sidebar {
-    overflow: hidden auto;
-    overscroll-behavior: contain;
-
     // firefox隐藏滚动条
     scrollbar-width: none;
+    overflow: hidden auto;
+    overscroll-behavior: contain;
 
     // chrome隐藏滚动条
     &::-webkit-scrollbar {
@@ -187,8 +190,8 @@ onMounted(() => {
 
 .sub-sidebar-enter-from,
 .sub-sidebar-leave-active {
-  opacity: 0;
   transform: translateY(30px) skewY(10deg);
+  opacity: 0;
 }
 
 .sub-sidebar-leave-active {

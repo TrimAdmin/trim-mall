@@ -331,12 +331,6 @@ function handleCopy() {
   @apply flex items-center justify-center gap-4 pb-4;
 
   .mode {
-    @apply relative w-16 h-12 rounded-2 ring-1 ring-stone-2 dark:ring-stone-7 cursor-pointer transition;
-
-    &.active {
-      @apply ring-ui-primary ring-2;
-    }
-
     &::before,
     &::after,
     .mode-container {
@@ -349,6 +343,10 @@ function handleCopy() {
 
     &::after {
       @apply content-empty bg-ui-primary/60;
+    }
+
+    &.active {
+      @apply ring-ui-primary ring-2;
     }
 
     .mode-container {
@@ -396,6 +394,7 @@ function handleCopy() {
         @apply inset-t-2 inset-r-2 inset-b-2 inset-l-5 0.5 rounded-tr-1 rounded-br-1;
       }
     }
+    @apply relative w-16 h-12 rounded-2 ring-1 ring-stone-2 dark:ring-stone-7 cursor-pointer transition;
   }
 }
 

@@ -7,7 +7,8 @@ const routes: RouteRecordRaw = {
   redirect: { name: 'SystemUser' },
   meta: {
     title: '系统管理',
-    auth: 'system:manage'
+    auth: 'system:manage',
+    icon: 'ant-design:setting-outlined'
   },
   children: [
     {
@@ -16,7 +17,8 @@ const routes: RouteRecordRaw = {
       component: () => import('@/views/system-manage/user/index.vue'),
       meta: {
         title: '用户管理',
-        auth: 'system:manage:user'
+        auth: 'system:manage:user',
+        icon: 'ant-design:user-outlined'
       },
       children: [
         {

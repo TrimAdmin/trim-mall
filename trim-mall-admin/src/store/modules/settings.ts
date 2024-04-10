@@ -9,41 +9,6 @@ const useSettingsStore = defineStore(
   () => {
     const settings = ref(settingsDefault)
 
-    const prefersColorScheme = window.matchMedia('(prefers-color-scheme: dark)')
-    const currentColorScheme = ref<Exclude<Settings.app['colorScheme'], ''>>()
-    watch(
-      () => settings.value.app.colorScheme,
-      (val) => {
-        if (val === '') {
-          prefersColorScheme.addEventListener('change', updateTheme)
-        } else {
-          prefersColorScheme.removeEventListener('change', updateTheme)
-        }
-      },
-      {
-        immediate: true
-      }
-    )
-    watch(() => settings.value.app.colorScheme, updateTheme, {
-      immediate: true
-    })
-
-    function updateTheme() {
-      let colorScheme = settings.value.app.colorScheme
-      if (colorScheme === '') {
-        colorScheme = prefersColorScheme.matches ? 'dark' : 'light'
-      }
-      currentColorScheme.value = colorScheme
-      switch (colorScheme) {
-        case 'light':
-          document.documentElement.classList.remove('dark')
-          break
-        case 'dark':
-          document.documentElement.classList.add('dark')
-          break
-      }
-    }
-
     watch(
       () => settings.value.menu.menuMode,
       (val) => {
@@ -128,11 +93,6 @@ const useSettingsStore = defineStore(
       }
     )
 
-    // 设置主题颜色模式
-    function setColorScheme(color: Required<Settings.app>['colorScheme']) {
-      settings.value.app.colorScheme = color
-    }
-
     // 更新应用配置
     function updateSettings(data: Settings.all, fromBase = false) {
       settings.value = defaultsDeep(data, fromBase ? settingsDefault : settings.value)
@@ -140,7 +100,6 @@ const useSettingsStore = defineStore(
 
     return {
       settings,
-      currentColorScheme,
       os,
       title,
       setTitle,
@@ -148,7 +107,6 @@ const useSettingsStore = defineStore(
       setMode,
       subMenuCollapseLastStatus,
       toggleSidebarCollapse,
-      setColorScheme,
       updateSettings
     }
   }

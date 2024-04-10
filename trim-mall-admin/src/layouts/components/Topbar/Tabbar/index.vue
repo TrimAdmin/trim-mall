@@ -270,14 +270,16 @@ onUnmounted(() => {
   transition: background-color 0.3s;
 
   .tabs {
+    // firefox隐藏滚动条
+    scrollbar-width: none;
+
     position: absolute;
     right: 0;
     left: 0;
-    overflow-y: hidden;
-    white-space: nowrap;
 
-    // firefox隐藏滚动条
-    scrollbar-width: none;
+    overflow-y: hidden;
+
+    white-space: nowrap;
 
     // chrome隐藏滚动条
     &::-webkit-scrollbar {
@@ -288,15 +290,19 @@ onUnmounted(() => {
       display: inline-block;
 
       .tab {
+        pointer-events: none;
+        cursor: pointer;
+
         position: relative;
+
         display: inline-block;
+
         width: 150px;
         height: var(--g-tabbar-height);
+
         font-size: 14px;
         line-height: calc(var(--g-tabbar-height) - 2px);
         vertical-align: bottom;
-        pointer-events: none;
-        cursor: pointer;
 
         &:not(.actived):hover {
           z-index: 3;
@@ -352,23 +358,29 @@ onUnmounted(() => {
 
         .tab-dividers {
           position: absolute;
+          z-index: 0;
           top: 50%;
           right: -1px;
           left: -1px;
-          z-index: 0;
-          height: 14px;
           transform: translateY(-50%);
 
+          height: 14px;
+
           &::before {
+            content: '';
+
             position: absolute;
             top: 0;
             bottom: 0;
             left: 1px;
+
             display: block;
+
             width: 1px;
-            content: '';
-            background-color: var(--g-tabbar-dividers-bg);
+
             opacity: 1;
+            background-color: var(--g-tabbar-dividers-bg);
+
             transition:
               opacity 0.2s ease,
               background-color 0.3s;
@@ -380,37 +392,44 @@ onUnmounted(() => {
         }
 
         .tab-background {
+          pointer-events: none;
+
           position: absolute;
+          z-index: 0;
           top: 0;
           left: 0;
-          z-index: 0;
+
           width: 100%;
           height: 100%;
-          pointer-events: none;
+
           transition:
             opacity 0.3s,
             background-color 0.3s;
         }
 
         .tab-content {
+          pointer-events: all;
           display: flex;
           width: 100%;
           height: 100%;
-          pointer-events: all;
 
           .title {
+            overflow: hidden;
             display: flex;
             flex: 1;
             gap: 5px;
             align-items: center;
+
             height: 100%;
-            padding: 0 10px;
             margin-right: 10px;
-            overflow: hidden;
+            padding: 0 10px;
+
             color: var(--g-tabbar-tab-color);
             white-space: nowrap;
-            mask-image: linear-gradient(to right, #000000 calc(100% - 20px), transparent);
+
             transition: margin-right 0.3s;
+
+            mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
 
             &:has(+ .action-icon) {
               margin-right: 28px;
@@ -423,18 +442,22 @@ onUnmounted(() => {
 
           .action-icon {
             position: absolute;
+            z-index: 10;
             top: 50%;
             right: 0.5em;
-            z-index: 10;
+            transform: translateY(-50%);
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             width: 1.5em;
             height: 1.5em;
+
             font-size: 12px;
             color: var(--g-tabbar-tab-color);
+
             border-radius: 50%;
-            transform: translateY(-50%);
 
             &:hover {
               @apply ring-1 ring-stone-3 dark: ring-stone-7;
@@ -447,19 +470,23 @@ onUnmounted(() => {
             @apply ring-1 ring-stone-3 dark: ring-stone-7;
 
             position: absolute;
+            z-index: 10;
             top: 50%;
             right: 0.5em;
-            z-index: 10;
+            transform: translateY(-50%);
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             width: 1.5em;
             height: 1.5em;
+
             font-size: 12px;
             color: var(--g-tabbar-tab-color);
+
             background-color: var(--g-bg);
             border-radius: 50%;
-            transform: translateY(-50%);
           }
         }
       }
@@ -477,8 +504,8 @@ onUnmounted(() => {
 
   .tabbar-enter-from,
   .tabbar-leave-to {
-    opacity: 0;
     transform: translateY(30px);
+    opacity: 0;
   }
 
   .tabbar-leave-active {

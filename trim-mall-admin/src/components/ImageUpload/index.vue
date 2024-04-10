@@ -166,27 +166,34 @@ const onSuccess: UploadProps['onSuccess'] = (res) => {
   .mask {
     position: absolute;
     top: 0;
+
     width: 100%;
     height: 100%;
-    background-color: var(--el-overlay-color-lighter);
+
     opacity: 0;
+    background-color: var(--el-overlay-color-lighter);
+
     transition: opacity 0.3s;
 
     .actions {
+      @include position-center(xy);
+
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
+
       width: 100px;
       height: 100px;
 
-      @include position-center(xy);
-
       span {
+        cursor: pointer;
+
         width: 50%;
+
         color: var(--el-color-white);
         text-align: center;
-        cursor: pointer;
+
         transition:
           color 0.1s,
           transform 0.1s;
@@ -225,9 +232,12 @@ const onSuccess: UploadProps['onSuccess'] = (res) => {
       display: flex;
       align-items: center;
       justify-content: center;
+
       width: 100%;
       height: 100%;
+
       color: var(--el-text-color-placeholder);
+
       background-color: transparent;
 
       .icon {
@@ -240,19 +250,22 @@ const onSuccess: UploadProps['onSuccess'] = (res) => {
       top: 0;
 
       &::after {
+        content: '';
+
         position: absolute;
         top: 0;
         left: 0;
+
         width: 100%;
         height: 100%;
-        content: '';
+
         background-color: var(--el-overlay-color-lighter);
       }
 
       .el-progress {
-        z-index: 1;
-
         @include position-center(xy);
+
+        z-index: 1;
 
         .el-progress__text {
           color: var(--el-text-color-placeholder);
