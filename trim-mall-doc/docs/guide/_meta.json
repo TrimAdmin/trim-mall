@@ -1,1 +1,8 @@
-["index"]
+[
+  "introduction",
+  {
+    "type": "dir",
+    "name": "start",
+    "label": "快速上手"
+  }
+]

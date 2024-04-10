@@ -7,14 +7,14 @@ hero:
   tagline: 使用最新技术栈，提供多端支持，上手更轻松。
   actions:
     - theme: brand
-      text: 快速上手
-      link: /guide/
-    - theme: alt
-      text: 更新日志
-      link: https://github.com/web-infra-dev/rspress
+      text: 快速开始
+      link: /guide/introduction
     - theme: alt
       text: Github
-      link: https://github.com/web-infra-dev/rspress
+      link: https://github.com/TrimAdmin/trim-mall
+    - theme: alt
+      text: 更新日志
+      link: /update-logs/
   image:
     src: '/logo.png'
     alt: Trim Mall Logo

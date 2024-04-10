@@ -1,7 +1,7 @@
 [
   {
     "text": "指南",
-    "link": "/guide/",
+    "link": "/guide/introduction",
     "activeMatch": "/guide/"
   },
   {
@@ -25,7 +25,18 @@
     ]
   },
   {
-    "text": "API",
-    "link": "https://rspress.dev/api/index.html"
+    "text": "帮助",
+    "link": "/help/",
+    "activeMatch": "/help/"
+  },
+  {
+    "text": "友链",
+    "items": [
+      {
+        "text": "Fantastic-admin",
+        "link": "https://fantastic-admin.gitee.io/",
+        "activeMatch": "https://fantastic-admin.gitee.io/"
+      }
+    ]
   }
 ]
