@@ -32,6 +32,16 @@ const routes: RouteRecordRaw = {
           }
         }
       ]
+    },
+    {
+      path: 'role',
+      name: 'SystemRole',
+      component: () => import('@/views/system-manage/user/index.vue'),
+      meta: {
+        title: '角色管理',
+        auth: 'system:manage:role',
+        icon: 'ant-design:user-outlined'
+      }
     }
   ]
 }

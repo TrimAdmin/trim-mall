@@ -1,0 +1,11 @@
+$--colors: (
+  'primary': (
+    'base': #ff7400
+  )
+);
+
+@forward 'element-plus/theme-chalk/src/common/var' with (
+  $colors: $--colors
+);
+
+@use 'dark';

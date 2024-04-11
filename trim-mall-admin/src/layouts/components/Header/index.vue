@@ -134,8 +134,6 @@ header {
 
     .menu-container {
       // firefox隐藏滚动条
-
-      // firefox隐藏滚动条
       scrollbar-width: none;
 
       overflow-x: auto;
@@ -167,7 +165,6 @@ header {
 
           &.active .menu-item-container {
             color: var(--g-header-menu-active-color);
-            background-color: var(--g-header-menu-active-bg);
           }
         }
       }

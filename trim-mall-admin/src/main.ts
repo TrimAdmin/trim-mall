@@ -11,7 +11,6 @@ import 'overlayscrollbars/overlayscrollbars.css'
 import App from './App.vue'
 import pinia from './store'
 import router from './router'
-import ui from './ui-provider'
 import i18n from './i18n'
 
 // 自定义指令
@@ -28,6 +27,7 @@ import 'virtual:uno.css'
 
 // 全局样式
 import '@/assets/styles/globals.scss'
+import 'element-plus/theme-chalk/src/message.scss'
 
 const app = createApp(App)
 app.use(FloatingVue, {
@@ -36,7 +36,6 @@ app.use(FloatingVue, {
 app.use(Message)
 app.use(pinia)
 app.use(router)
-app.use(ui)
 app.use(i18n)
 directive(app)
 if (icons.isOfflineUse) {

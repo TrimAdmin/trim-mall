@@ -74,32 +74,44 @@ function getObjectDiff(originalObj: Record<string, any>, diffObj: Record<string,
 function handleCopy() {
   copy(JSON.stringify(getObjectDiff(settingsDefault, settingsStore.settings), null, 2))
 }
+
+const { store } = useColorMode()
+
+function handleColorSchemeChange(value: any) {
+  store.value = value
+}
 </script>
 
 <template>
-  <HSlideover v-model="isShow" title="应用配置">
-    <div class="rounded-2 bg-rose/20 px-4 py-2 text-sm/6 c-rose">
+  <el-drawer v-model="isShow" title="应用配置">
+    <el-alert type="error" :closable="false" class="text-sm/6">
       <p class="my-1">
         应用配置可实时预览效果，但只是临时生效，要想真正应用于项目，可以点击下方的「复制配置」按钮，并将配置粘贴到
         src/settings.ts 文件中。
       </p>
       <p class="my-1">注意：在生产环境中应关闭该模块。</p>
+    </el-alert>
+    <el-divider>颜色主题风格</el-divider>
+    <div class="flex items-center justify-center">
+      <el-radio-group :model-value="store" @change="handleColorSchemeChange">
+        <template
+          v-for="item in [
+            { icon: 'i-ri:sun-line', label: '明亮', value: 'light' },
+            { icon: 'i-ri:moon-line', label: '暗黑', value: 'dark' },
+            { icon: 'i-ri:computer-line', label: '系统', value: 'auto' }
+          ]"
+          :key="item.value"
+        >
+          <el-radio-button :value="item.value">
+            <SvgIcon :name="item.icon" />
+            {{ item.label }}
+          </el-radio-button>
+        </template>
+      </el-radio-group>
     </div>
-    <div class="divider">颜色主题风格</div>
-    <div class="flex items-center justify-center pb-4">
-      <HTabList
-        v-model="settingsStore.settings.app.colorScheme"
-        :options="[
-          { icon: 'i-ri:sun-line', label: '明亮', value: 'light' },
-          { icon: 'i-ri:moon-line', label: '暗黑', value: 'dark' },
-          { icon: 'i-ri:computer-line', label: '系统', value: '' }
-        ]"
-        class="w-60"
-      />
-    </div>
-    <div v-if="settingsStore.mode === 'pc'" class="divider">导航栏模式</div>
+    <el-divider v-if="settingsStore.mode === 'pc'">导航栏模式</el-divider>
     <div v-if="settingsStore.mode === 'pc'" class="menu-mode">
-      <HTooltip text="侧边栏模式 (含主导航)" placement="bottom" :delay="500">
+      <el-tooltip content="侧边栏模式 (含主导航)" placement="bottom" :delay="500">
         <div
           class="mode mode-side"
           :class="{ active: settingsStore.settings.menu.menuMode === 'side' }"
@@ -107,8 +119,8 @@ function handleCopy() {
         >
           <div class="mode-container" />
         </div>
-      </HTooltip>
-      <HTooltip text="顶部模式" placement="bottom" :delay="500">
+      </el-tooltip>
+      <el-tooltip content="顶部模式" placement="bottom" :delay="500">
         <div
           class="mode mode-head"
           :class="{ active: settingsStore.settings.menu.menuMode === 'head' }"
@@ -116,8 +128,8 @@ function handleCopy() {
         >
           <div class="mode-container" />
         </div>
-      </HTooltip>
-      <HTooltip text="侧边栏模式 (不含主导航)" placement="bottom" :delay="500">
+      </el-tooltip>
+      <el-tooltip content="侧边栏模式 (不含主导航)" placement="bottom" :delay="500">
         <div
           class="mode mode-single"
           :class="{ active: settingsStore.settings.menu.menuMode === 'single' }"
@@ -125,17 +137,17 @@ function handleCopy() {
         >
           <div class="mode-container" />
         </div>
-      </HTooltip>
+      </el-tooltip>
     </div>
-    <div class="divider">导航栏</div>
+    <el-divider>导航栏</el-divider>
     <div class="setting-item">
       <div class="label">
         主导航切换跳转
-        <HTooltip text="开启该功能后，切换主导航时，页面自动跳转至该主导航下，次导航里第一个导航">
+        <el-tooltip content="开启该功能后，切换主导航时，页面自动跳转至该主导航下，次导航里第一个导航">
           <SvgIcon name="i-ri:question-line" />
-        </HTooltip>
+        </el-tooltip>
       </div>
-      <HToggle
+      <el-switch
         v-model="settingsStore.settings.menu.switchMainMenuAndPageJump"
         :disabled="['single'].includes(settingsStore.settings.menu.menuMode)"
       />
@@ -143,28 +155,28 @@ function handleCopy() {
     <div class="setting-item">
       <div class="label">
         次导航保持展开一个
-        <HTooltip text="开启该功能后，次导航只保持单个菜单的展开">
+        <el-tooltip content="开启该功能后，次导航只保持单个菜单的展开">
           <SvgIcon name="i-ri:question-line" />
-        </HTooltip>
+        </el-tooltip>
       </div>
-      <HToggle v-model="settingsStore.settings.menu.subMenuUniqueOpened" />
+      <el-switch v-model="settingsStore.settings.menu.subMenuUniqueOpened" />
     </div>
     <div class="setting-item">
       <div class="label">次导航是否折叠</div>
-      <HToggle v-model="settingsStore.settings.menu.subMenuCollapse" />
+      <el-switch v-model="settingsStore.settings.menu.subMenuCollapse" />
     </div>
     <div v-if="settingsStore.mode === 'pc'" class="setting-item">
       <div class="label">显示次导航折叠按钮</div>
-      <HToggle v-model="settingsStore.settings.menu.enableSubMenuCollapseButton" />
+      <el-switch v-model="settingsStore.settings.menu.enableSubMenuCollapseButton" />
     </div>
     <div class="setting-item">
       <div class="label">是否启用快捷键</div>
-      <HToggle
+      <el-switch
         v-model="settingsStore.settings.menu.enableHotkeys"
         :disabled="['single'].includes(settingsStore.settings.menu.menuMode)"
       />
     </div>
-    <div class="divider">顶栏</div>
+    <el-divider>顶栏</el-divider>
     <div class="setting-item">
       <div class="label">模式</div>
       <HCheckList
@@ -177,144 +189,153 @@ function handleCopy() {
       />
     </div>
     <div>
-      <div class="divider">标签栏</div>
+      <el-divider>标签栏</el-divider>
       <div class="setting-item">
         <div class="label">是否启用</div>
-        <HToggle v-model="settingsStore.settings.tabbar.enable" />
+        <el-switch v-model="settingsStore.settings.tabbar.enable" />
       </div>
       <div class="setting-item">
         <div class="label">是否显示图标</div>
-        <HToggle v-model="settingsStore.settings.tabbar.enableIcon" :disabled="!settingsStore.settings.tabbar.enable" />
+        <el-switch
+          v-model="settingsStore.settings.tabbar.enableIcon"
+          :disabled="!settingsStore.settings.tabbar.enable"
+        />
       </div>
       <div class="setting-item">
         <div class="label">是否启用快捷键</div>
-        <HToggle
+        <el-switch
           v-model="settingsStore.settings.tabbar.enableHotkeys"
           :disabled="!settingsStore.settings.tabbar.enable"
         />
       </div>
     </div>
-    <div class="divider">工具栏</div>
+    <el-divider>工具栏</el-divider>
     <div v-if="settingsStore.mode === 'pc'" class="setting-item">
       <div class="label">面包屑导航</div>
-      <HToggle v-model="settingsStore.settings.toolbar.breadcrumb" />
+      <el-switch v-model="settingsStore.settings.toolbar.breadcrumb" />
     </div>
     <div class="setting-item">
       <div class="label">
         导航搜索
-        <HTooltip text="对导航进行快捷搜索">
+        <el-tooltip content="对导航进行快捷搜索">
           <SvgIcon name="i-ri:question-line" />
-        </HTooltip>
+        </el-tooltip>
       </div>
-      <HToggle v-model="settingsStore.settings.toolbar.navSearch" />
+      <el-switch v-model="settingsStore.settings.toolbar.navSearch" />
     </div>
     <div v-if="settingsStore.mode === 'pc'" class="setting-item">
       <div class="label">全屏</div>
-      <HToggle v-model="settingsStore.settings.toolbar.fullscreen" />
+      <el-switch v-model="settingsStore.settings.toolbar.fullscreen" />
     </div>
     <div class="setting-item">
       <div class="label">
         页面刷新
-        <HTooltip text="使用框架内提供的刷新功能进行页面刷新">
+        <el-tooltip content="使用框架内提供的刷新功能进行页面刷新">
           <SvgIcon name="i-ri:question-line" />
-        </HTooltip>
+        </el-tooltip>
       </div>
-      <HToggle v-model="settingsStore.settings.toolbar.pageReload" />
+      <el-switch v-model="settingsStore.settings.toolbar.pageReload" />
     </div>
     <div class="setting-item">
       <div class="label">
         颜色主题
-        <HTooltip text="开启后可在明亮/暗黑模式中切换">
+        <el-tooltip content="开启后可在明亮/暗黑模式中切换">
           <SvgIcon name="i-ri:question-line" />
-        </HTooltip>
+        </el-tooltip>
       </div>
-      <HToggle v-model="settingsStore.settings.toolbar.colorScheme" />
+      <el-switch v-model="settingsStore.settings.toolbar.colorScheme" />
     </div>
-    <div class="divider">页面</div>
+    <el-divider>页面</el-divider>
     <div class="setting-item">
       <div class="label">是否启用快捷键</div>
-      <HToggle v-model="settingsStore.settings.mainPage.enableHotkeys" />
+      <el-switch v-model="settingsStore.settings.mainPage.enableHotkeys" />
     </div>
-    <div class="divider">导航搜索</div>
+    <el-divider>导航搜索</el-divider>
     <div class="setting-item">
       <div class="label">是否启用快捷键</div>
-      <HToggle
+      <el-switch
         v-model="settingsStore.settings.navSearch.enableHotkeys"
         :disabled="!settingsStore.settings.toolbar.navSearch"
       />
     </div>
-    <div class="divider">底部版权</div>
+    <el-divider>底部版权</el-divider>
     <div class="setting-item">
       <div class="label">是否启用</div>
-      <HToggle v-model="settingsStore.settings.copyright.enable" />
+      <el-switch v-model="settingsStore.settings.copyright.enable" />
     </div>
     <div class="setting-item">
       <div class="label">日期</div>
-      <HInput v-model="settingsStore.settings.copyright.dates" :disabled="!settingsStore.settings.copyright.enable" />
+      <el-input v-model="settingsStore.settings.copyright.dates" :disabled="!settingsStore.settings.copyright.enable" />
     </div>
     <div class="setting-item">
       <div class="label">公司</div>
-      <HInput v-model="settingsStore.settings.copyright.company" :disabled="!settingsStore.settings.copyright.enable" />
+      <el-input
+        v-model="settingsStore.settings.copyright.company"
+        :disabled="!settingsStore.settings.copyright.enable"
+      />
     </div>
     <div class="setting-item">
       <div class="label">网址</div>
-      <HInput v-model="settingsStore.settings.copyright.website" :disabled="!settingsStore.settings.copyright.enable" />
+      <el-input
+        v-model="settingsStore.settings.copyright.website"
+        :disabled="!settingsStore.settings.copyright.enable"
+      />
     </div>
     <div class="setting-item">
       <div class="label">备案</div>
-      <HInput v-model="settingsStore.settings.copyright.beian" :disabled="!settingsStore.settings.copyright.enable" />
+      <el-input v-model="settingsStore.settings.copyright.beian" :disabled="!settingsStore.settings.copyright.enable" />
     </div>
-    <div class="divider">主页</div>
+    <el-divider>主页</el-divider>
     <div class="setting-item">
       <div class="label">
         是否启用
-        <HTooltip text="该功能开启时，登录成功默认进入主页，反之则默认进入导航栏里第一个导航页面">
+        <el-tooltip content="该功能开启时，登录成功默认进入主页，反之则默认进入导航栏里第一个导航页面">
           <SvgIcon name="i-ri:question-line" />
-        </HTooltip>
+        </el-tooltip>
       </div>
-      <HToggle v-model="settingsStore.settings.home.enable" />
+      <el-switch v-model="settingsStore.settings.home.enable" />
     </div>
     <div class="setting-item">
       <div class="label">
         主页名称
-        <HTooltip text="开启国际化时，该设置无效">
+        <el-tooltip content="开启国际化时，该设置无效">
           <SvgIcon name="i-ri:question-line" />
-        </HTooltip>
+        </el-tooltip>
       </div>
-      <HInput v-model="settingsStore.settings.home.title" />
+      <el-input v-model="settingsStore.settings.home.title" />
     </div>
-    <div class="divider">其它</div>
+    <el-divider>其它</el-divider>
     <div class="setting-item">
       <div class="label">是否启用权限</div>
-      <HToggle v-model="settingsStore.settings.app.enablePermission" />
+      <el-switch v-model="settingsStore.settings.app.enablePermission" />
     </div>
     <div class="setting-item">
       <div class="label">
         载入进度条
-        <HTooltip text="该功能开启时，跳转路由会看到页面顶部有进度条">
+        <el-tooltip content="该功能开启时，跳转路由会看到页面顶部有进度条">
           <SvgIcon name="i-ri:question-line" />
-        </HTooltip>
+        </el-tooltip>
       </div>
-      <HToggle v-model="settingsStore.settings.app.enableProgress" />
+      <el-switch v-model="settingsStore.settings.app.enableProgress" />
     </div>
     <div class="setting-item">
       <div class="label">
         动态标题
-        <HTooltip
-          text="该功能开启时，页面标题会显示当前路由标题，格式为“页面标题 - 网站名称”；关闭时则显示网站名称，网站名称在项目根目录下 .env.* 文件里配置"
+        <el-tooltip
+          content="该功能开启时，页面标题会显示当前路由标题，格式为“页面标题 - 网站名称”；关闭时则显示网站名称，网站名称在项目根目录下 .env.* 文件里配置"
         >
           <SvgIcon name="i-ri:question-line" />
-        </HTooltip>
+        </el-tooltip>
       </div>
-      <HToggle v-model="settingsStore.settings.app.enableDynamicTitle" />
+      <el-switch v-model="settingsStore.settings.app.enableDynamicTitle" />
     </div>
     <template v-if="isSupported" #footer>
-      <HButton block @click="handleCopy">
-        <SvgIcon name="i-ep:document-copy" />
+      <el-button class="w-full" type="primary" @click="handleCopy">
+        <SvgIcon name="i-ep:document-copy" class="mr-1" />
         复制配置
-      </HButton>
+      </el-button>
     </template>
-  </HSlideover>
+  </el-drawer>
 </template>
 
 <style lang="scss" scoped>
@@ -342,7 +363,7 @@ function handleCopy() {
     }
 
     &::after {
-      @apply content-empty bg-ui-primary/60;
+      @apply content-empty bg-ui-primary-light-3;
     }
 
     &.active {
@@ -350,7 +371,7 @@ function handleCopy() {
     }
 
     .mode-container {
-      @apply bg-ui-primary/20 border-dashed border-ui-primary;
+      @apply bg-ui-primary-light-7 border-dashed border-ui-primary;
 
       &::before {
         @apply content-empty absolute w-full h-full;
@@ -394,6 +415,7 @@ function handleCopy() {
         @apply inset-t-2 inset-r-2 inset-b-2 inset-l-5 0.5 rounded-tr-1 rounded-br-1;
       }
     }
+
     @apply relative w-16 h-12 rounded-2 ring-1 ring-stone-2 dark:ring-stone-7 cursor-pointer transition;
   }
 }
@@ -408,5 +430,9 @@ function handleCopy() {
       @apply text-xl text-orange cursor-help;
     }
   }
+}
+
+.el-switch {
+  @apply h-auto;
 }
 </style>

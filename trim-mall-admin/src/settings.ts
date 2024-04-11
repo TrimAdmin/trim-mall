@@ -11,7 +11,7 @@ const globalSettings: Settings.all = {
   },
   menu: {
     enableSubMenuCollapseButton: true,
-    switchMainMenuAndPageJump: true,
+    switchMainMenuAndPageJump: false,
     baseOn: 'frontend',
     menuMode: 'side'
   },

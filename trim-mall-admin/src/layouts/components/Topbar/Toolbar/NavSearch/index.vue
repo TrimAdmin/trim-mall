@@ -14,13 +14,15 @@ const settingsStore = useSettingsStore()
     <SvgIcon v-if="settingsStore.mode === 'mobile'" name="i-ri:search-line" />
     <span
       v-else
-      class="group inline-flex cursor-pointer items-center gap-1 whitespace-nowrap rounded-2 bg-stone-1 px-2 py-1.5 text-dark ring-stone-3 ring-inset transition dark:bg-stone-9 dark:text-white hover:ring-1 dark:ring-stone-7"
+      class="group inline-flex cursor-pointer items-center gap-1 whitespace-nowrap rounded-2 bg-ui-fill-light px-2 py-1.5 text-ui-text-placeholder ring-ui-primary-light-3 ring-inset transition hover:ring-1"
     >
       <SvgIcon name="i-ri:search-line" />
-      <span class="text-sm text-stone-5 transition group-hover:text-dark dark:group-hover:text-white">搜索</span>
-      <HKbd v-if="settingsStore.settings.navSearch.enableHotkeys" class="ml-2"
-        >{{ settingsStore.os === 'mac' ? '⌥' : 'Alt' }} S</HKbd
-      >
+      <span class="text-sm text-ui-text-secondary transition group-hover:text-ui-primary dark:group-hover:text-white">
+        搜索
+      </span>
+      <HKbd v-if="settingsStore.settings.navSearch.enableHotkeys" class="ml-2">
+        {{ settingsStore.os === 'mac' ? '⌥' : 'Alt' }} S
+      </HKbd>
     </span>
   </span>
 </template>

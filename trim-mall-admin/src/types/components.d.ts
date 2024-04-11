@@ -9,6 +9,8 @@ declare module 'vue' {
   export interface GlobalComponents {
     Auth: typeof import('./../components/Auth/index.vue')['default']
     AuthAll: typeof import('./../components/AuthAll/index.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     FileUpload: typeof import('./../components/FileUpload/index.vue')['default']
     FixedActionBar: typeof import('./../components/FixedActionBar/index.vue')['default']
     HButton: typeof import('./../layouts/ui-kit/HButton.vue')['default']

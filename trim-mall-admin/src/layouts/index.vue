@@ -276,7 +276,7 @@ header:not(.header-leave-active) + .wrapper {
 }
 
 .app-setting {
-  @apply text-white dark:text-dark bg-ui-primary;
+  @apply text-white bg-ui-primary;
 
   cursor: pointer;
 

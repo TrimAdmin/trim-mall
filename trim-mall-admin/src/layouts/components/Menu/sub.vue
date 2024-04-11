@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useTimeoutFn } from '@vueuse/core'
 import type { OverlayScrollbarsComponentRef } from 'overlayscrollbars-vue'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-vue'
 import Item from './item.vue'
@@ -192,8 +191,8 @@ function handleMouseleave() {
         defer
         class="sub-menu"
         :class="{
-          'bg-[var(--g-sub-sidebar-bg)]': rootMenu.isMenuPopup,
-          'ring-1 ring-stone-2 dark:ring-stone-8 shadow-xl fixed z-3000 w-[200px]': rootMenu.isMenuPopup,
+          'bg-ui-bg-page': rootMenu.isMenuPopup,
+          'ring-1 ring-ui-border-dark shadow-xl fixed z-3000 w-[200px]': rootMenu.isMenuPopup,
           'mx-2': rootMenu.isMenuPopup && (rootMenu.props.mode === 'vertical' || level !== 0)
         }"
       >

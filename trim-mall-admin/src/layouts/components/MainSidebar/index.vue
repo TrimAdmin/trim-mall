@@ -74,10 +74,10 @@ const { switchTo } = useMenu()
 
   width: var(--g-main-sidebar-width);
 
-  color: var(--g-main-sidebar-menu-color);
+  color: var(--el-text-color-primary);
 
-  background-color: var(--g-main-sidebar-bg);
-  box-shadow: 1px 0 0 0 var(--g-border-color);
+  background-color: var(--el-bg-color-page);
+  box-shadow: 1px 0 0 0 var(--el-border-color-lighter);
 
   transition:
     background-color 0.3s,
@@ -85,7 +85,7 @@ const { switchTo } = useMenu()
     box-shadow 0.3s;
 
   .sidebar-logo {
-    background-color: var(--g-main-sidebar-bg);
+    background-color: var(--el-bg-color-page);
     transition: background-color 0.3s;
   }
 
@@ -107,11 +107,11 @@ const { switchTo } = useMenu()
     :deep(.menu-item) {
       .menu-item-container {
         padding-block: 8px;
-        color: var(--g-main-sidebar-menu-color);
+        color: var(--el-text-color-primary);
 
         &:hover {
-          color: var(--g-main-sidebar-menu-hover-color);
-          background-color: var(--g-main-sidebar-menu-hover-bg);
+          color: var(--el-text-color-primary);
+          background-color: var(--el-color-primary-light-8);
         }
 
         .menu-item-container-icon {
@@ -120,8 +120,8 @@ const { switchTo } = useMenu()
       }
 
       &.active .menu-item-container {
-        color: var(--g-main-sidebar-menu-active-color) !important;
-        background-color: var(--g-main-sidebar-menu-active-bg) !important;
+        color: var(--el-color-primary) !important;
+        background-color: var(--el-color-primary-light-7) !important;
       }
     }
   }

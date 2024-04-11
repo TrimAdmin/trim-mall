@@ -41,9 +41,9 @@ defineExpose({
     }"
   >
     <router-link v-slot="{ href, navigate }" custom :to="uniqueKey.at(-1) ?? ''">
-      <HTooltip
-        :enable="rootMenu.isMenuPopup && level === 0 && !subMenu"
-        :text="typeof item.meta?.title === 'function' ? item.meta?.title() : item.meta?.title"
+      <el-tooltip
+        :disabled="!rootMenu.isMenuPopup || level !== 0 || subMenu"
+        :content="typeof item.meta?.title === 'function' ? item.meta?.title() : item.meta?.title"
         placement="right"
         class="h-full w-full"
       >
@@ -56,9 +56,9 @@ defineExpose({
               class: 'no-underline'
             })
           }"
-          class="group menu-item-container h-full w-full flex cursor-pointer items-center justify-between gap-1 px-5 py-4 text-[var(--g-sub-sidebar-menu-color)] transition-all hover:(bg-[var(--g-sub-sidebar-menu-hover-bg)] text-[var(--g-sub-sidebar-menu-hover-color)])"
+          class="group menu-item-container h-full w-full flex cursor-pointer items-center justify-between gap-1 px-5 py-4 text-ui-text transition-all hover:(bg-ui-primary-light-8)"
           :class="{
-            'text-[var(--g-sub-sidebar-menu-active-color)]! bg-[var(--g-sub-sidebar-menu-active-bg)]!': isItemActive,
+            'bg-ui-primary-light-9 text-ui-primary!': isItemActive,
             'px-3!': rootMenu.isMenuPopup && level === 0
           }"
           :title="typeof item.meta?.title === 'function' ? item.meta?.title() : item.meta?.title"
@@ -111,7 +111,7 @@ defineExpose({
             ]"
           />
         </component>
-      </HTooltip>
+      </el-tooltip>
     </router-link>
   </div>
 </template>

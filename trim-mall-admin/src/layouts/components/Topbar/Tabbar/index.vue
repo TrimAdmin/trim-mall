@@ -2,11 +2,11 @@
 import ContextMenu from '@imengyu/vue3-context-menu'
 import '@imengyu/vue3-context-menu/lib/vue3-context-menu.css'
 import hotkeys from 'hotkeys-js'
-import Message from 'vue-m-message'
 import { useMagicKeys } from '@vueuse/core'
 import useSettingsStore from '@/store/modules/settings'
 import useTabbarStore from '@/store/modules/tabbar'
 import type { Tabbar } from '#/global'
+import { ElMessage } from 'element-plus'
 
 defineOptions({
   name: 'Tabbar'
@@ -57,11 +57,10 @@ function tabbarScrollTip() {
     localStorage.getItem('tabbarScrollTip') === undefined
   ) {
     localStorage.setItem('tabbarScrollTip', '')
-    Message.info('标签栏数量超过展示区域范围，可以将鼠标移到标签栏上，通过鼠标滚轮滑动浏览', {
-      title: '温馨提示',
+    ElMessage.info({
+      message: '标签栏数量超过展示区域范围，可以将鼠标移到标签栏上，通过鼠标滚轮滑动浏览',
       duration: 5000,
-      closable: true,
-      zIndex: 2000
+      showClose: true
     })
   }
 }
@@ -265,8 +264,14 @@ onUnmounted(() => {
 <style lang="scss" scoped>
 .tabbar-container {
   position: relative;
+
+  display: inline-flex;
+  align-items: center;
+
   height: var(--g-tabbar-height);
-  background-color: var(--g-bg);
+
+  background-color: var(--el-fill-color);
+
   transition: background-color 0.3s;
 
   .tabs {
@@ -295,14 +300,18 @@ onUnmounted(() => {
 
         position: relative;
 
+        overflow: hidden;
         display: inline-block;
 
         width: 150px;
-        height: var(--g-tabbar-height);
+        height: calc(var(--g-tabbar-height) - 10px);
+        margin-right: 8px;
 
         font-size: 14px;
         line-height: calc(var(--g-tabbar-height) - 2px);
         vertical-align: bottom;
+
+        border-radius: 8px;
 
         &:not(.actived):hover {
           z-index: 3;

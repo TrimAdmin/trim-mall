@@ -70,6 +70,18 @@ const asyncRoutes: Route.recordMainRaw[] = [
         eager: true
       })
     ).map((value: any) => value.default)
+  },
+  {
+    meta: {
+      title: '系统',
+      icon: 'i-uim:box',
+      auth: 'system'
+    },
+    children: Object.values(
+      import.meta.glob('./modules/system/*.ts', {
+        eager: true
+      })
+    ).map((value: any) => value.default)
   }
 ]
 

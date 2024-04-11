@@ -10,7 +10,8 @@ import createVitePlugins from './vite/plugins'
 export default async ({ mode, command }) => {
   const env = loadEnv(mode, process.cwd())
   // 全局 scss 资源
-  const scssResources = []
+  // 引入element-plus亮色模式 禁止与暗色模式同时加载，需要在亮色模式scss变量覆盖后再引入暗色模式
+  const scssResources = ['@use "src/assets/styles/theme/light.scss" as *;']
   fs.readdirSync('src/assets/styles/resources').forEach((dirname) => {
     if (fs.statSync(`src/assets/styles/resources/${dirname}`).isFile()) {
       scssResources.push(`@use "src/assets/styles/resources/${dirname}" as *;`)

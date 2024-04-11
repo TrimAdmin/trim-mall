@@ -48,7 +48,8 @@
       {
         "ignore": ["after-comment", "first-nested"]
       }
-    ]
+    ],
+    "scss/dollar-variable-pattern": null
   },
   "ignoreFiles": ["**/*.js", "**/*.jsx", "**/*.tsx", "**/*.ts", "**/*.json"],
   "overrides": [
