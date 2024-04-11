@@ -1,16 +1,20 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const title = ref('Hello')
+</script>
+
 <template>
   <view class="content">
     <image class="logo" src="/static/logo.png" />
     <view class="text-area">
       <text class="title">{{ title }}</text>
     </view>
+    <uni-card title="基础卡片" style="width: 400rpx">
+      <button>test</button>
+    </uni-card>
   </view>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-const title = ref('Hello')
-</script>
 
 <style>
 .content {
@@ -23,7 +27,6 @@ const title = ref('Hello')
 .logo {
   width: 200rpx;
   height: 200rpx;
-  margin: 200rpx auto 50rpx;
 }
 
 .text-area {
