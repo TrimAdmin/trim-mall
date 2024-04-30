@@ -2,7 +2,6 @@ import axios from 'axios'
 
 import useUserStore from '@/store/modules/user'
 import { ElMessage } from 'element-plus'
-import { GlobalResponse } from '#/global'
 
 const api = axios.create({
   baseURL:

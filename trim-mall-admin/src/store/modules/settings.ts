@@ -1,9 +1,9 @@
 import { defaultsDeep } from 'lodash'
 import type { RouteMeta } from 'vue-router'
-import type { Settings } from '#/global'
+import { I18n, Settings } from '#/global'
 import settingsDefault from '@/settings'
 
-const useSettingsStore = defineStore(
+export const useSettingsStore = defineStore(
   // 唯一ID
   'settings',
   () => {
@@ -66,7 +66,11 @@ const useSettingsStore = defineStore(
     }
 
     // 次导航是否收起（用于记录 pc 模式下最后的状态）
-    const subMenuCollapseLastStatus = ref(settingsDefault.menu.subMenuCollapse)
+    const subMenuCollapseLastStatus = useLocalStorage<boolean>(
+      'trim__sub-menu-collapse',
+      settingsDefault.menu.subMenuCollapse
+    )
+
     watch(
       () => settings.value.menu.subMenuCollapse,
       (val) => {
@@ -98,6 +102,13 @@ const useSettingsStore = defineStore(
       settings.value = defaultsDeep(data, fromBase ? settingsDefault : settings.value)
     }
 
+    // 国际化语言
+    const i18n = useLocalStorage<I18n>('trim__i18n', 'zh-cn')
+
+    function setI18n(locale: I18n) {
+      i18n.value = locale
+    }
+
     return {
       settings,
       os,
@@ -107,9 +118,9 @@ const useSettingsStore = defineStore(
       setMode,
       subMenuCollapseLastStatus,
       toggleSidebarCollapse,
-      updateSettings
+      updateSettings,
+      i18n,
+      setI18n
     }
   }
 )
-
-export default useSettingsStore

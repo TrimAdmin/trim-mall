@@ -8,7 +8,8 @@ const routes: RouteRecordRaw = {
   meta: {
     title: '系统管理',
     auth: 'system:manage',
-    icon: 'ant-design:setting-outlined'
+    icon: 'ant-design:setting-outlined',
+    i18n: 'menus.system.home'
   },
   children: [
     {

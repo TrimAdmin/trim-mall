@@ -3,6 +3,7 @@ import NavSearch from './NavSearch/index.vue'
 import Fullscreen from './Fullscreen/index.vue'
 import PageReload from './PageReload/index.vue'
 import ColorScheme from './ColorScheme/index.vue'
+import SwitchLocale from './SwitchLocale/index.vue'
 import eventBus from '@/utils/eventBus'
 import useSettingsStore from '@/store/modules/settings'
 import useUserStore from '@/store/modules/user'
@@ -54,6 +55,7 @@ watch(
     <Fullscreen v-if="settingsStore.settings.toolbar.fullscreen" />
     <PageReload v-if="settingsStore.settings.toolbar.pageReload" />
     <ColorScheme v-if="settingsStore.settings.toolbar.colorScheme" />
+    <SwitchLocale />
     <el-dropdown class="flex-center cursor-pointer px-2">
       <div class="flex-center gap-1 text-sm">
         <img

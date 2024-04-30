@@ -196,7 +196,6 @@ onUnmounted(() => {
           @click="router.push(element.fullPath)"
           @contextmenu="onTabbarContextmenu($event, element)"
         >
-          <div class="tab-dividers" />
           <div class="tab-background" />
           <div class="tab-content">
             <div :key="element.tabId" class="title">
@@ -365,39 +364,8 @@ onUnmounted(() => {
           }
         }
 
-        .tab-dividers {
-          position: absolute;
-          z-index: 0;
-          top: 50%;
-          right: -1px;
-          left: -1px;
-          transform: translateY(-50%);
-
-          height: 14px;
-
-          &::before {
-            content: '';
-
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 1px;
-
-            display: block;
-
-            width: 1px;
-
-            opacity: 1;
-            background-color: var(--g-tabbar-dividers-bg);
-
-            transition:
-              opacity 0.2s ease,
-              background-color 0.3s;
-          }
-        }
-
-        &:first-child .tab-dividers::before {
-          opacity: 0;
+        &:first-child {
+          margin-left: 8px;
         }
 
         .tab-background {

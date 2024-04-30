@@ -1,1 +1,7 @@
-{}
+{
+  "menus": {
+    "system": {
+      "home": "System Manage"
+    }
+  }
+}

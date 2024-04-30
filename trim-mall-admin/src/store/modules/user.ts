@@ -13,9 +13,9 @@ const useUserStore = defineStore(
     const routeStore = useRouteStore()
     const menuStore = useMenuStore()
 
-    const token = ref<string>('')
+    const token = useLocalStorage<string>('trim__token', '')
     const permissions = ref<string[]>([])
-    const isLogin = ref(false)
+    const isLogin = useLocalStorage<boolean>('trim__is-login', false)
 
     // 登录
     async function login(data: { username: string; password: string }) {
@@ -76,9 +76,6 @@ const useUserStore = defineStore(
       getUserInfo,
       editPassword
     }
-  },
-  {
-    persist: {}
   }
 )
 

@@ -27,30 +27,34 @@ function toggleColorScheme(event: MouseEvent) {
     )
   })
 }
+
+const themes = [
+  { icon: 'i-ri:sun-line', label: '', value: 'light' },
+  { icon: 'i-ri:moon-line', label: '', value: 'dark' },
+  { icon: 'i-ri:computer-line', label: '', value: 'auto' }
+]
 </script>
 
 <template>
-  <HDropdown class="flex-center cursor-pointer px-2 py-1">
-    <SvgIcon
-      :name="
-        {
-          auto: 'i-ri:computer-line',
-          light: 'i-ri:sun-line',
-          dark: 'i-ri:moon-line'
-        }[store]
-      "
-      @click="toggleColorScheme"
-    />
-    <template #dropdown>
-      <HTabList
-        v-model="store"
-        :options="[
-          { icon: 'i-ri:sun-line', label: '', value: 'light' },
-          { icon: 'i-ri:moon-line', label: '', value: 'dark' },
-          { icon: 'i-ri:computer-line', label: '', value: 'auto' }
-        ]"
-        class="m-3"
-      />
+  <el-popover popper-class="!p-0 flex-center" width="165px">
+    <template #reference>
+      <div class="flex-center cursor-pointer px-2">
+        <SvgIcon
+          :name="
+            {
+              auto: 'i-ri:computer-line',
+              light: 'i-ri:sun-line',
+              dark: 'i-ri:moon-line'
+            }[store]
+          "
+          @click="toggleColorScheme"
+        />
+      </div>
     </template>
-  </HDropdown>
+    <el-radio-group v-model="store" class="m-3">
+      <el-radio-button v-for="theme in themes" :key="theme.value" :label="theme.label" :value="theme.value">
+        <SvgIcon :name="theme.icon" />
+      </el-radio-button>
+    </el-radio-group>
+  </el-popover>
 </template>

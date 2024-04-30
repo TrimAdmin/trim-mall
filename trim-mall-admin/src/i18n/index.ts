@@ -2,9 +2,10 @@ import { createI18n } from 'vue-i18n'
 import { App } from 'vue'
 import zhCN from './lang/zh-cn.json'
 import enUS from './lang/en-us.json'
+import { useSettingsStore } from '@/store/modules/settings'
 
-const i18n = createI18n({
-  locale: 'zh-cn',
+export const i18n = createI18n({
+  locale: useSettingsStore().i18n,
   fallbackLocale: 'zh-cn',
   messages: {
     'zh-cn': zhCN,

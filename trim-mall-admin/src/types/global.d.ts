@@ -277,6 +277,7 @@ declare namespace Menu {
       auth?: string | string[]
       menu?: boolean
       link?: string
+      i18n?: string
     }
     children?: recordRaw[]
   }
@@ -302,3 +303,5 @@ declare namespace Tabbar {
     name: string[]
   }
 }
+
+export type I18n = 'zh-cn' | 'en-us'

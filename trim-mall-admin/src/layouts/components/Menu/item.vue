@@ -61,7 +61,13 @@ defineExpose({
             'bg-ui-primary-light-9 text-ui-primary!': isItemActive,
             'px-3!': rootMenu.isMenuPopup && level === 0
           }"
-          :title="typeof item.meta?.title === 'function' ? item.meta?.title() : item.meta?.title"
+          :title="
+            item.meta?.i18n
+              ? $t(item.meta?.i18n)
+              : typeof item.meta?.title === 'function'
+                ? item.meta?.title()
+                : item.meta?.title
+          "
           v-on="{
             ...(!subMenu && {
               click: navigate
@@ -96,7 +102,13 @@ defineExpose({
                 'w-full text-center': rootMenu.isMenuPopup && level === 0 && rootMenu.props.showCollapseName
               }"
             >
-              {{ typeof item.meta?.title === 'function' ? item.meta?.title() : item.meta?.title }}
+              {{
+                item.meta?.i18n
+                  ? $t(item.meta?.i18n)
+                  : typeof item.meta?.title === 'function'
+                    ? item.meta?.title()
+                    : item.meta?.title
+              }}
             </span>
           </div>
           <i

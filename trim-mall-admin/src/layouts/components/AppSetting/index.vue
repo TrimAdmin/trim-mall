@@ -80,17 +80,12 @@ const { store } = useColorMode()
 function handleColorSchemeChange(value: any) {
   store.value = value
 }
+
+const isProd = import.meta.env.PROD
 </script>
 
 <template>
   <el-drawer v-model="isShow" title="应用配置">
-    <el-alert type="error" :closable="false" class="text-sm/6">
-      <p class="my-1">
-        应用配置可实时预览效果，但只是临时生效，要想真正应用于项目，可以点击下方的「复制配置」按钮，并将配置粘贴到
-        src/settings.ts 文件中。
-      </p>
-      <p class="my-1">注意：在生产环境中应关闭该模块。</p>
-    </el-alert>
     <el-divider>颜色主题风格</el-divider>
     <div class="flex items-center justify-center">
       <el-radio-group :model-value="store" @change="handleColorSchemeChange">
@@ -179,14 +174,18 @@ function handleColorSchemeChange(value: any) {
     <el-divider>顶栏</el-divider>
     <div class="setting-item">
       <div class="label">模式</div>
-      <HCheckList
-        v-model="settingsStore.settings.topbar.mode"
-        :options="[
-          { label: '静止', value: 'static' },
-          { label: '固定', value: 'fixed' },
-          { label: '粘性', value: 'sticky' }
-        ]"
-      />
+      <el-radio-group v-model="settingsStore.settings.topbar.mode">
+        <el-radio-button
+          v-for="item in [
+            { label: '静止', value: 'static' },
+            { label: '固定', value: 'fixed' },
+            { label: '粘性', value: 'sticky' }
+          ]"
+          :key="item.value"
+          :value="item.value"
+          :label="item.label"
+        />
+      </el-radio-group>
     </div>
     <div>
       <el-divider>标签栏</el-divider>
@@ -258,54 +257,64 @@ function handleColorSchemeChange(value: any) {
         :disabled="!settingsStore.settings.toolbar.navSearch"
       />
     </div>
-    <el-divider>底部版权</el-divider>
-    <div class="setting-item">
-      <div class="label">是否启用</div>
-      <el-switch v-model="settingsStore.settings.copyright.enable" />
-    </div>
-    <div class="setting-item">
-      <div class="label">日期</div>
-      <el-input v-model="settingsStore.settings.copyright.dates" :disabled="!settingsStore.settings.copyright.enable" />
-    </div>
-    <div class="setting-item">
-      <div class="label">公司</div>
-      <el-input
-        v-model="settingsStore.settings.copyright.company"
-        :disabled="!settingsStore.settings.copyright.enable"
-      />
-    </div>
-    <div class="setting-item">
-      <div class="label">网址</div>
-      <el-input
-        v-model="settingsStore.settings.copyright.website"
-        :disabled="!settingsStore.settings.copyright.enable"
-      />
-    </div>
-    <div class="setting-item">
-      <div class="label">备案</div>
-      <el-input v-model="settingsStore.settings.copyright.beian" :disabled="!settingsStore.settings.copyright.enable" />
-    </div>
-    <el-divider>主页</el-divider>
-    <div class="setting-item">
-      <div class="label">
-        是否启用
-        <el-tooltip content="该功能开启时，登录成功默认进入主页，反之则默认进入导航栏里第一个导航页面">
-          <SvgIcon name="i-ri:question-line" />
-        </el-tooltip>
+    <template v-if="!isProd">
+      <el-divider>底部版权</el-divider>
+      <div class="setting-item">
+        <div class="label">是否启用</div>
+        <el-switch v-model="settingsStore.settings.copyright.enable" />
       </div>
-      <el-switch v-model="settingsStore.settings.home.enable" />
-    </div>
-    <div class="setting-item">
-      <div class="label">
-        主页名称
-        <el-tooltip content="开启国际化时，该设置无效">
-          <SvgIcon name="i-ri:question-line" />
-        </el-tooltip>
+      <div class="setting-item">
+        <div class="label">日期</div>
+        <el-input
+          v-model="settingsStore.settings.copyright.dates"
+          :disabled="!settingsStore.settings.copyright.enable"
+        />
       </div>
-      <el-input v-model="settingsStore.settings.home.title" />
-    </div>
+      <div class="setting-item">
+        <div class="label">公司</div>
+        <el-input
+          v-model="settingsStore.settings.copyright.company"
+          :disabled="!settingsStore.settings.copyright.enable"
+        />
+      </div>
+      <div class="setting-item">
+        <div class="label">网址</div>
+        <el-input
+          v-model="settingsStore.settings.copyright.website"
+          :disabled="!settingsStore.settings.copyright.enable"
+        />
+      </div>
+      <div class="setting-item">
+        <div class="label">备案</div>
+        <el-input
+          v-model="settingsStore.settings.copyright.beian"
+          :disabled="!settingsStore.settings.copyright.enable"
+        />
+      </div>
+    </template>
+    <template v-if="!isProd">
+      <el-divider>主页</el-divider>
+      <div class="setting-item">
+        <div class="label">
+          是否启用
+          <el-tooltip content="该功能开启时，登录成功默认进入主页，反之则默认进入导航栏里第一个导航页面">
+            <SvgIcon name="i-ri:question-line" />
+          </el-tooltip>
+        </div>
+        <el-switch v-model="settingsStore.settings.home.enable" />
+      </div>
+      <div class="setting-item">
+        <div class="label">
+          主页名称
+          <el-tooltip content="开启国际化时，该设置无效">
+            <SvgIcon name="i-ri:question-line" />
+          </el-tooltip>
+        </div>
+        <el-input v-model="settingsStore.settings.home.title" />
+      </div>
+    </template>
     <el-divider>其它</el-divider>
-    <div class="setting-item">
+    <div v-if="!isProd" class="setting-item">
       <div class="label">是否启用权限</div>
       <el-switch v-model="settingsStore.settings.app.enablePermission" />
     </div>

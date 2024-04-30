@@ -13,7 +13,7 @@
     },
     "resolveJsonModule": true,
     "types": ["vite/client", "vite-plugin-pages/client", "vite-plugin-vue-meta-layouts/client", "element-plus/global"],
-    "allowImportingTsExtensions": true,
+    "allowImportingTsExtensions": false,
     "allowJs": false,
     "strict": true,
     "noEmit": true,
