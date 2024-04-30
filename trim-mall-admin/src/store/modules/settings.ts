@@ -3,7 +3,7 @@ import type { RouteMeta } from 'vue-router'
 import { I18n, Settings } from '#/global'
 import settingsDefault from '@/settings'
 
-export const useSettingsStore = defineStore(
+const useSettingsStore = defineStore(
   // 唯一ID
   'settings',
   () => {
@@ -124,3 +124,5 @@ export const useSettingsStore = defineStore(
     }
   }
 )
+
+export default useSettingsStore

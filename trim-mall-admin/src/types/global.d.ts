@@ -56,6 +56,7 @@ declare namespace Settings {
      * @默认值 `'/'`
      */
     fullPath?: string
+    i18n?: string
   }
 
   interface layout {
@@ -263,6 +264,7 @@ declare namespace Route {
     title?: string | (() => string)
     icon?: string
     hide: boolean
+    i18n?: string
   }
 }
 

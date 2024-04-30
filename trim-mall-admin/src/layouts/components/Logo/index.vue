@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import useSettingsStore from '@/store/modules/settings'
 import imgLogo from '@/assets/images/logo.png'
+import { useI18nGlobal } from '@/utils/i18n'
 
 defineOptions({
   name: 'Logo'
@@ -19,7 +20,7 @@ withDefaults(
 
 const settingsStore = useSettingsStore()
 
-const title = ref(import.meta.env.VITE_APP_TITLE)
+const title = ref(useI18nGlobal.t('title') || import.meta.env.VITE_APP_TITLE)
 const logo = ref(imgLogo)
 
 const to = computed(() => (settingsStore.settings.home.enable ? settingsStore.settings.home.fullPath : ''))

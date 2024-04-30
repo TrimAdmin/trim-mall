@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSettingsStore } from '@/store/modules/settings'
+import useSettingsStore from '@/store/modules/settings'
 import { I18n } from '#/global'
 
 function handleLocale(locale: I18n) {
@@ -22,7 +22,7 @@ const locales = [
         v-for="locale in locales"
         :key="locale.value"
         :command="locale.value"
-        :disabled="usePersistedSettingsStore().i18n === locale.value"
+        :disabled="useSettingsStore().i18n === locale.value"
       >
         <SvgIcon :name="locale.icon" />
         {{ locale.label }}

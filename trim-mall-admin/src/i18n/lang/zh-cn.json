@@ -1,5 +1,7 @@
 {
+  "title": "TrimMall管理后台",
   "menus": {
+    "home": "主页",
     "system": {
       "home": "系统管理"
     }

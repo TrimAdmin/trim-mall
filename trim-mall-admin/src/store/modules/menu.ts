@@ -56,7 +56,8 @@ const useMenuStore = defineStore(
             defaultOpened: item?.meta?.defaultOpened,
             auth: item?.meta?.auth,
             menu: item?.meta?.menu,
-            link: item?.meta?.link
+            link: item?.meta?.link,
+            i18n: item?.meta?.i18n as string
           }
         }
         if (item.children) {

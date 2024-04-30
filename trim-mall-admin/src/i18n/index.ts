@@ -2,7 +2,7 @@ import { createI18n } from 'vue-i18n'
 import { App } from 'vue'
 import zhCN from './lang/zh-cn.json'
 import enUS from './lang/en-us.json'
-import { useSettingsStore } from '@/store/modules/settings'
+import useSettingsStore from '@/store/modules/settings'
 
 export const i18n = createI18n({
   locale: useSettingsStore().i18n,

@@ -31,6 +31,9 @@ const globalSettings: Settings.all = {
     enable: true,
     dates: '2024-present',
     company: 'TrimAdmin'
+  },
+  home: {
+    i18n: 'menus.home'
   }
 }
 

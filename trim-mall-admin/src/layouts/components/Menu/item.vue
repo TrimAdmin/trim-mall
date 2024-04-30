@@ -43,7 +43,13 @@ defineExpose({
     <router-link v-slot="{ href, navigate }" custom :to="uniqueKey.at(-1) ?? ''">
       <el-tooltip
         :disabled="!rootMenu.isMenuPopup || level !== 0 || subMenu"
-        :content="typeof item.meta?.title === 'function' ? item.meta?.title() : item.meta?.title"
+        :content="
+          item.meta?.i18n
+            ? $t(item.meta?.i18n)
+            : typeof item.meta?.title === 'function'
+              ? item.meta?.title()
+              : item.meta?.title
+        "
         placement="right"
         class="h-full w-full"
       >

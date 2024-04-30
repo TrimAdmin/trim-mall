@@ -13,7 +13,8 @@ const breadcrumbList = computed(() => {
   if (settingsStore.settings.home.enable) {
     breadcrumbList.push({
       path: settingsStore.settings.home.fullPath,
-      title: settingsStore.settings.home.title
+      title: settingsStore.settings.home.title,
+      i18n: settingsStore.settings.home.i18n
     })
   }
   if (route.meta.breadcrumbNeste) {
@@ -21,7 +22,8 @@ const breadcrumbList = computed(() => {
       if (item.hide === false) {
         breadcrumbList.push({
           path: item.path,
-          title: item.title
+          title: item.title,
+          i18n: item.i18n
         })
       }
     })
@@ -46,7 +48,7 @@ function pathCompile(path: string) {
         :key="`${index}_${item.path}_${item.title}`"
         :to="index < breadcrumbList.length - 1 && item.path !== '' ? pathCompile(item.path) : ''"
       >
-        {{ item.title }}
+        {{ item.i18n ? $t(item.i18n) : item.title }}
       </BreadcrumbItem>
     </TransitionGroup>
   </Breadcrumb>
