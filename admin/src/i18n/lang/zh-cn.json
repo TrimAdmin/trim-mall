@@ -5,5 +5,16 @@
     "system": {
       "home": "系统管理"
     }
+  },
+  "enum": {
+    "enable": "启用",
+    "disable": "禁用"
+  },
+  "user": {
+    "username": "用户名",
+    "nickname": "昵称",
+    "email": "邮箱",
+    "mobile-phone": "联系方式",
+    "status": "状态"
   }
 }

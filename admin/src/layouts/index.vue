@@ -239,6 +239,7 @@ const enableAppSetting = import.meta.env.VITE_APP_SETTING === 'true'
       flex: auto;
 
       height: 100%;
+      padding: 12px;
 
       transition: 0.3s;
     }

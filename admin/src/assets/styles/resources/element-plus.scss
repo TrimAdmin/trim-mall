@@ -12,3 +12,35 @@
     box-shadow: var(--el-box-shadow-light);
   }
 }
+
+.trim-table {
+  border-radius: 8px 8px 0 0;
+
+  &__header {
+    --el-table-tr-bg-color: #f8f8f8;
+
+    color: #8e95a9;
+
+    .el-table__cell {
+      --el-table-header-bg-color: #f8f8f8;
+    }
+  }
+
+  &__row:last-child {
+    .trim-table__cell {
+      border: none !important;
+    }
+  }
+}
+
+.dark .trim-table {
+  &__header {
+    --el-table-tr-bg-color: #252525;
+
+    color: #d7d7d7;
+
+    .el-table__cell {
+      --el-table-header-bg-color: #252525;
+    }
+  }
+}

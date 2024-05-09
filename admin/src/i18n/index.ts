@@ -7,6 +7,7 @@ import useSettingsStore from '@/store/modules/settings'
 export const i18n = createI18n({
   locale: useSettingsStore().i18n,
   fallbackLocale: 'zh-cn',
+  legacy: false,
   messages: {
     'zh-cn': zhCN,
     'en-us': enUS

@@ -2,8 +2,11 @@
 import useSettingsStore from '@/store/modules/settings'
 import { I18n } from '#/global'
 
+const router = useRouter()
+
 function handleLocale(locale: I18n) {
   useSettingsStore().setI18n(locale)
+  router.go(0)
 }
 
 const locales = [

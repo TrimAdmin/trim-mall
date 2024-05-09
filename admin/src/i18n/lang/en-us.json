@@ -5,5 +5,16 @@
     "system": {
       "home": "System Manage"
     }
+  },
+  "enum": {
+    "enable": "Enable",
+    "disable": "Disable"
+  },
+  "user": {
+    "username": "Username",
+    "nickname": "Nickname",
+    "email": "Email",
+    "mobile-phone": "Mobile Phone",
+    "status": "Status"
   }
 }

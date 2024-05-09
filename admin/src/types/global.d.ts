@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
+import { Column } from 'element-plus'
 
 type RecursiveRequired<T> = {
   [P in keyof T]-?: RecursiveRequired<T[P]>
@@ -307,3 +308,20 @@ declare namespace Tabbar {
 }
 
 export type I18n = 'zh-cn' | 'en-us'
+
+export type TableColumn = Omit<Column, 'width'> & {
+  width?: number
+  slot?: string
+}
+
+export type PaginationData<T = any> = {
+  limit: number
+  list: T[]
+  page: number
+  total: number
+}
+
+export type PaginationParams<T = any> = {
+  page?: number
+  limit?: number
+}
